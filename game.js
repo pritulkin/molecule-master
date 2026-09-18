@@ -93,6 +93,12 @@ const translations = {
     supportLabel: 'Toetamise info',
     supportText: 'Kui soovid mind toetada, siis saab seda teha arveldusarvega:',
     contact: 'Kontakt:',
+    saltModeLabel: 'REŽIIM',
+    saltModeTitle: 'Ehita sool',
+    saltModeStart: 'Alusta',
+    saltModeClose: 'Sulge',
+    saltModeDescription: 'Tasakaalusta ioonid ja ehita neutraalne ühend.',
+    saltModePrompt: 'Vali näidatud laengud ja ühenda vastasmärgid.',
     tutorial: [
       'Tere tulemast Molekulimeistri!',
       'Vali alt aatomid, et neid lisada.',
@@ -153,6 +159,12 @@ const translations = {
     supportLabel: 'Support information',
     supportText: 'If you would like to support me, you can do so by bank transfer:',
     contact: 'Contact:',
+    saltModeLabel: 'MODE',
+    saltModeTitle: 'Build salt',
+    saltModeStart: 'Start',
+    saltModeClose: 'Close',
+    saltModeDescription: 'Balance the ions and build a neutral compound.',
+    saltModePrompt: 'Choose the shown charges and connect opposite signs.',
     tutorial: [
       'Welcome to Molecule Master!',
       'Select atoms below to add them.',
@@ -560,12 +572,16 @@ function updateLanguageUI() {
   document.querySelector('.elements-section h3').textContent = lang.selectBlock;
   document.querySelector('.molecules-section .section-kicker').textContent = lang.collection;
   document.querySelector('.molecules-section h3').textContent = lang.learnMolecules;
+  document.querySelector('.salt-section .section-kicker').textContent = lang.saltModeLabel;
+  document.querySelector('.salt-section h3').textContent = lang.saltModeTitle;
   document.querySelector('.connection-tip').textContent = lang.connectionTip;
   document.querySelector('.support-banner').setAttribute('aria-label', lang.supportLabel);
   document.querySelector('.workspace').setAttribute('aria-label', lang.yourMolecule);
   document.querySelector('.formula-card').setAttribute('aria-label', lang.formulaLabel);
   document.querySelector('.support-lead').textContent = lang.supportText;
   document.querySelector('.support-contact').textContent = lang.contact;
+  $('salt-mode-toggle').textContent = saltMode ? lang.saltModeClose : lang.saltModeStart;
+  $('salt-mode-description').textContent = lang.saltModeDescription;
   document.querySelector('#target-hint').textContent = moleculeDisplay[1];
   document.querySelectorAll('.element-choice small').forEach((el, index) => {
     el.textContent = elementNames[currentLang][elements[index].symbol];
@@ -701,8 +717,8 @@ function showTutorial() {
   showNextStep();
 }
 function selectTarget(id) { saltMode = false; $('salt-challenges').hidden = true; $('salt-mode-toggle').textContent = currentLang === 'et' ? 'Alusta' : 'Start'; target = molecules.find(molecule => molecule.id === id); atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.molecule-item').forEach(button => button.classList.toggle('active', button.dataset.id === id)); const moleculeDisplay = getMoleculeText(target); $('level').textContent = String(molecules.indexOf(target) + 1).padStart(2,'0'); $('target-name').textContent = moleculeDisplay[0]; $('target-formula').textContent = target.formula; $('target-hint').textContent = moleculeDisplay[1]; render(); }
-function selectSaltChallenge(index) { saltMode = true; target = saltChallenges[index]; atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.salt-challenge').forEach((button, buttonIndex) => button.classList.toggle('active', buttonIndex === index)); $('level').textContent = `S${index + 1}`; $('target-name').textContent = target.name; $('target-formula').textContent = target.formula; $('target-hint').textContent = currentLang === 'et' ? 'Vali näidatud laengud ja ühenda vastasmärgid.' : 'Choose the shown charges and connect opposite signs.'; render(); }
-function toggleSaltMode() { saltMode = !saltMode; $('salt-challenges').hidden = !saltMode; $('salt-mode-toggle').textContent = saltMode ? (currentLang === 'et' ? 'Sulge' : 'Close') : (currentLang === 'et' ? 'Alusta' : 'Start'); if (saltMode) { $('salt-challenges').innerHTML = saltChallenges.map((challenge, index) => `<button class="salt-challenge ${index === 0 ? 'active' : ''}" data-index="${index}" type="button">${challenge.formula}</button>`).join(''); document.querySelectorAll('.salt-challenge').forEach(button => button.addEventListener('click', () => selectSaltChallenge(Number(button.dataset.index)))); selectSaltChallenge(0); } }
+function selectSaltChallenge(index) { saltMode = true; target = saltChallenges[index]; atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.salt-challenge').forEach((button, buttonIndex) => button.classList.toggle('active', buttonIndex === index)); $('level').textContent = `S${index + 1}`; $('target-name').textContent = target.name; $('target-formula').textContent = target.formula; $('target-hint').textContent = t('saltModePrompt'); render(); }
+function toggleSaltMode() { saltMode = !saltMode; $('salt-challenges').hidden = !saltMode; $('salt-mode-toggle').textContent = saltMode ? t('saltModeClose') : t('saltModeStart'); if (saltMode) { $('salt-challenges').innerHTML = saltChallenges.map((challenge, index) => `<button class="salt-challenge ${index === 0 ? 'active' : ''}" data-index="${index}" type="button">${challenge.formula}</button>`).join(''); document.querySelectorAll('.salt-challenge').forEach(button => button.addEventListener('click', () => selectSaltChallenge(Number(button.dataset.index)))); selectSaltChallenge(0); } }
 function addAtom(symbol) {
   if (atoms.length >= 6) return toast(t('capacity'));
   const nextIndex = atoms.length;
