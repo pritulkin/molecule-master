@@ -250,7 +250,7 @@ const translations = {
     supportLabel: 'Toetamise info',
     supportText: 'Kui soovid mind toetada, siis saab seda teha arveldusarvega:',
     contact: 'Kontakt:',
-    quantumSectionLabel: 'KVANTTASEM',
+    quantumSectionLabel: 'KVANTTASE',
     quantumSectionTitle: 'Elektronorbitaalid',
     quantumPrompt: 'Vali aatom, et näha selle orbitaale.',
     sOrbitalTitle: 's-Orbitaal',
