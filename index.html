@@ -52,6 +52,7 @@
         <button class="text-button" id="show-structure-button" type="button">🔍 Näita struktuuri</button>
         <button class="text-button" id="undo-button" type="button">↶ Võta tagasi</button>
         <button class="text-button" id="timer-toggle" type="button">⏱️ Ajapiirang</button>
+        <button class="text-button" id="3d-toggle" type="button">🎨 3D</button>
         <button class="primary-button" id="check-button" type="button">Kontrolli molekuli <span>→</span></button>
       </div>
     </section>
@@ -95,7 +96,25 @@
           <option value="manganese-dioxide" id="catalyst-manganese">MnO₂ · mangaan(IV)oksiid</option>
           <option value="platinum" id="catalyst-platinum">Pt · plaatina</option>
         </select>
+        <label for="temperature-slider" id="temperature-label">Temperatuur</label>
+        <input type="range" id="temperature-slider" min="25" max="500" value="25" step="10">
+        <span id="temperature-value">25°C</span>
+        <label for="pressure-slider" id="pressure-label">Rõhk</label>
+        <input type="range" id="pressure-slider" min="1" max="10" value="1" step="0.5">
+        <span id="pressure-value">1 atm</span>
+        <label for="ph-slider" id="ph-label">pH</label>
+        <input type="range" id="ph-slider" min="0" max="14" value="7" step="0.5">
+        <span id="ph-value">7</span>
         <button class="primary-button" id="run-reaction-button" type="button">Käivita reaktsioon <span>→</span></button>
+      </div>
+      <div class="energy-diagram" id="energy-diagram" aria-label="Energia diagramm">
+        <svg width="100%" height="120" viewBox="0 0 400 120">
+          <line x1="40" y1="100" x2="360" y2="100" stroke="#d9e2ec" stroke-width="2"/>
+          <text x="20" y="105" font-size="10" fill="#627d98">Reaktsioonikoordinaat</text>
+          <text x="20" y="20" font-size="10" fill="#627d98">Energia</text>
+          <line x1="40" y1="20" x2="40" y2="100" stroke="#d9e2ec" stroke-width="2"/>
+          <g id="energy-curve"></g>
+        </svg>
       </div>
       <div class="reaction-result" id="reaction-result" aria-live="polite">
         <strong id="reaction-equation">Vali reaktsioon</strong>
@@ -106,6 +125,24 @@
     <section class="molecules-section">
       <div class="section-heading compact"><div><span class="section-kicker">KOGUMIK</span><h3>Õpitavad molekulid</h3></div></div>
       <div class="molecule-list" id="molecule-list"></div>
+    </section>
+
+    <section class="quantum-section">
+      <div class="section-heading compact"><div><span class="section-kicker">KVANTTASE</span><h3>Elektronorbitaalid</h3></div><button class="text-button" id="quantum-toggle" type="button">Näita</button></div>
+      <div class="quantum-view" id="quantum-view" hidden>
+        <svg width="100%" height="200" viewBox="0 0 400 200">
+          <defs>
+            <radialGradient id="orbital-gradient" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#8dc5e8" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#8dc5e8" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <g id="orbitals"></g>
+        </svg>
+        <div class="quantum-info" id="quantum-info">
+          <p>Vali aatom, et näha selle orbitaale.</p>
+        </div>
+      </div>
     </section>
   </main>
   <section class="completion-overlay" id="completion-overlay" hidden aria-labelledby="completion-title">

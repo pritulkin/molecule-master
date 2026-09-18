@@ -1,6 +1,6 @@
 const molecules = [
   { id:'water', name:'Vesi', formula:'H₂O', hint:'Igapäevane aine, mida vajame eluks.', atoms:['O','H','H'], charges:[-2,1,1], bonds:[[0,1,1],[0,2,1]], bondTypes:['covalent','covalent'], fact:'Vesi on elu üks tähtsamaid aineid.', guide:'Hapnikul on mudelis −2 ja mõlemal vesinikul +1; kaks kovalentset sidet annavad kokku neutraalse vee.', difficulty:'easy' },
-  { id:'carbon-dioxide', name:'Süsinikdioksiid', formula:'CO₂', hint:'Taimed kasutavad seda fotosünteesis.', atoms:['C','O','O'], bonds:[[0,1,2],[0,2,2]], fact:'Süsinikdioksiid liigub süsinikuringes.', guide:'Süsinik on keskel ja iga hapnik on sellega seotud kahekordse sidemega.', difficulty:'easy' },
+  { id:'carbon-dioxide', name:'Süsinikdioksiid', formula:'CO₂', hint:'Taimed kasutavad seda fotosünteesis.', atoms:['C','O','O'], charges:[4,-2,-2], bonds:[[0,1,2],[0,2,2]], fact:'Süsinikdioksiid liigub süsinikuringes.', guide:'Süsinik on keskel ja iga hapnik on sellega seotud kahekordse sidemega.', difficulty:'easy' },
   { id:'methane', name:'Metaan', formula:'CH₄', hint:'Maagaasi peamine koostisosa.', atoms:['C','H','H','H','H'], charges:[-4,1,1,1,1], bonds:[[0,1,1],[0,2,1],[0,3,1],[0,4,1]], fact:'Metaan on kõige lihtsam alkaan.', guide:'Süsinikul on mudelis −4 ja neljal vesinikul +1; kogulaeng on null.', difficulty:'easy' },
   { id:'ammonia', name:'Ammoniaak', formula:'NH₃', hint:'Seda kasutatakse väetiste tootmisel.', atoms:['N','H','H','H'], bonds:[[0,1,1],[0,2,1],[0,3,1]], fact:'Ammoniaagil on terav iseloomulik lõhn.', guide:'Lämmastik on keskel ja kolm vesinikku on temaga üksikute sidemetega seotud.', difficulty:'easy' },
   { id:'hydrogen', name:'Vesinik', formula:'H₂', hint:'Lihtsaim ja kõige kergem element.', atoms:['H','H'], bonds:[[0,1,1]], fact:'Vesinik on tähtede peamine ehitusplokk.', guide:'Kaks vesiniku aatomit on seotud ühe ühise sidemega.', difficulty:'easy' },
@@ -28,17 +28,101 @@ const baseChallenges = [
   { id:'base-naoh', name:'Naatriumhüdroksiid', formula:'NaOH', atoms:['Na','O','H'], charges:[1,-1,0], bonds:[[0,1,1],[1,2,1]], bondTypes:['ionic','covalent'] },
   { id:'base-caoh2', name:'Kaltsiumhüdroksiid', formula:'Ca(OH)₂', atoms:['Ca','O','H','O','H'], charges:[2,-1,0,-1,0], bonds:[[0,1,1],[1,2,1],[0,3,1],[3,4,1]], bondTypes:['ionic','covalent','ionic','covalent'] }
 ];
+
+const reactions = [
+  {
+    id:'water-formation',
+    name:'Vee moodustamine',
+    equation:'2H₂ + O₂ → 2H₂O',
+    reactants:['hydrogen','oxygen'],
+    products:['water'],
+    stoichiometry:{ hydrogen:2, oxygen:1, water:2 },
+    energyChange:-286,
+    activationEnergy:242,
+    conditions:{ minTemp:500, catalyst:'platinum' },
+    hint:'Vesinik ja hapnik reageerivad, moodustades vett.',
+    fact:'See on eksotermiline reaktsioon, eraldab soojust.',
+    difficulty:'easy'
+  },
+  {
+    id:'combustion-methane',
+    name:'Metaani põlemine',
+    equation:'CH₄ + 2O₂ → CO₂ + 2H₂O',
+    reactants:['methane','oxygen'],
+    products:['carbon-dioxide','water'],
+    stoichiometry:{ methane:1, oxygen:2, 'carbon-dioxide':1, water:2 },
+    energyChange:-890,
+    activationEnergy:630,
+    conditions:{ minTemp:600 },
+    hint:'Metaan põleb hapnikus, moodustades süsinikdioksiidi ja vett.',
+    fact:'See on loodusliku gaasi põlemisreaktsioon.',
+    difficulty:'easy'
+  },
+  {
+    id:'ammonia-synthesis',
+    name:'Ammoniaagi süntees',
+    equation:'N₂ + 3H₂ → 2NH₃',
+    reactants:['nitrogen','hydrogen'],
+    products:['ammonia'],
+    stoichiometry:{ nitrogen:1, hydrogen:3, ammonia:2 },
+    energyChange:-92,
+    activationEnergy:335,
+    conditions:{ minTemp:400, pressure:200, catalyst:'iron' },
+    hint:'Lämmastik ja vesinik moodustavad ammoniaaki.',
+    fact:'Haberi protsess on oluline väetiste tootmisel.',
+    difficulty:'medium'
+  },
+  {
+    id:'neutralization',
+    name:'Neutralisatsioon',
+    equation:'HCl + NaOH → NaCl + H₂O',
+    reactants:['hydrogen-chloride','sodium-hydroxide'],
+    products:['sodium-chloride','water'],
+    stoichiometry:{ 'hydrogen-chloride':1, 'sodium-hydroxide':1, 'sodium-chloride':1, water:1 },
+    energyChange:-57,
+    activationEnergy:20,
+    conditions:{ minTemp:25 },
+    hint:'Hape ja alus reageerivad, moodustades soola ja vett.',
+    fact:'See on klassikaline happe-aluse reaktsioon.',
+    difficulty:'medium'
+  },
+  {
+    id:'atp-synthesis',
+    name:'ATP süntees',
+    equation:'ADP + Pi → ATP',
+    reactants:['adp','phosphate'],
+    products:['atp'],
+    stoichiometry:{ adp:1, phosphate:1, atp:1 },
+    energyChange:+30,
+    activationEnergy:50,
+    conditions:{ ph:7.5, catalyst:'atp-synthase' },
+    hint:'ADP ja fosfaat moodustavad ATP energiamolekuli.',
+    fact:'ATP on rakkude peamine energiatransportija.',
+    difficulty:'hard',
+    isBiochemical:true
+  },
+  {
+    id:'glucose-breakdown',
+    name:'Glükoosi lagunemine',
+    equation:'C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O',
+    reactants:['glucose','oxygen'],
+    products:['carbon-dioxide','water'],
+    stoichiometry:{ glucose:1, oxygen:6, 'carbon-dioxide':6, water:6 },
+    energyChange:-2800,
+    activationEnergy:1200,
+    conditions:{ ph:7.2, catalyst:'enzymes' },
+    hint:'Glükoos laguneb rakulise hingamise käigus.',
+    fact:'See on peamine energiaallikas rakkudele.',
+    difficulty:'hard',
+    isBiochemical:true
+  }
+];
 const acidChallenges = [
   { id:'acid-hcl', name:'Vesinikkloriidhape', formula:'HCl', atoms:['H','Cl'], charges:[1,-1], bonds:[[0,1,1]], bondTypes:['covalent'] },
   { id:'acid-h2s', name:'Vesiniksulfiidhape', formula:'H₂S', atoms:['H','S','H'], charges:[1,-2,1], bonds:[[0,1,1],[1,2,1]], bondTypes:['covalent','covalent'] },
   { id:'acid-hno3', name:'Lämmastikhape', formula:'HNO₃', atoms:['H','N','O','O','O'], charges:[1,5,-2,-2,-2], bonds:[[0,2,1],[1,2,1],[1,3,2],[1,4,1]], bondTypes:['covalent','covalent','covalent','covalent'] }
 ];
 const buildChallenges = { salt: saltChallenges, base: baseChallenges, acid: acidChallenges };
-const reactions = [
-  { id:'neutralization', name:'Neutralisatsioon', equation:'HCl + NaOH → NaCl + H₂O', detail:'Hape ja alus neutraliseerivad teineteise; tekivad sool ja vesi.', energy:'exo' },
-  { id:'peroxide', name:'Vesinikperoksiidi lagunemine', equation:'2 H₂O₂ → 2 H₂O + O₂', detail:'Katalüsaator aitab peroksiidil kiiremini laguneda.', energy:'exo', catalyst:'manganese-dioxide' },
-  { id:'photosynthesis', name:'Fotosüntees', equation:'6 CO₂ + 6 H₂O → C₆H₁₂O₆ + 6 O₂', detail:'Taim salvestab valgusenergia glükoosi keemilisse energiasse.', energy:'endo', catalyst:'none' }
-];
 const reactionCopy = {
   et: {
     labLabel:'REAKTSIOONILABOR', labTitle:'Happed, alused ja energia', ready:'Valmis', catalyst:'Katalüsaator', noCatalyst:'Ilma katalüsaatorita', manganese:'MnO₂ · mangaan(IV)oksiid', platinum:'Pt · plaatina', run:'Käivita reaktsioon', exoTag:'EKSOTERMILINE', endoTag:'ENDOTERMILINE', heatReleased:'Soojust eraldub', energyAbsorbed:'Energiat neeldub', running:'Reaktsioon käib', speedsUp:'Kiireneb', lowersBarrier:'Katalüsaator vähendab aktiveerumisbarjääri; valmib', withoutCatalyst:'Ilma katalüsaatorita valmib see', seconds:'sekundiga.', readyHeat:'Valmis · soojus eraldus', readyEnergy:'Valmis · energia neeldus', catalystNotConsumed:'ei kulu reaktsioonis ära, kuid muutis selle kiiremaks.', compareSpeed:'Katse valmis. Lisa katalüsaator ja võrdle reaktsiooni kiirust.', exoToast:'Eksotermiline efekt: tööala soojeneb.', endoToast:'Endotermiline efekt: tööala jahtub.'
@@ -85,6 +169,7 @@ const translations = {
     undo: 'Võta tagasi',
     timer: 'Ajapiirang',
     stopTimer: 'Peata taimer',
+    toggle3D: '🎨 3D',
     checkMolecule: 'Kontrolli molekuli',
     atoms: 'AATOMID',
     selectBlock: 'Vali ehitusklots',
@@ -116,9 +201,21 @@ const translations = {
     shownStructure: 'Näidatud õige struktuur. Vajuta "Võta tagasi", et taastada.',
     statusSelect: 'Vali aatom',
     statusNext: 'Vali teine aatom',
+    reactants: 'Reaktandid',
+    activationEnergy: 'Aktiveerimisenergia',
+    products: 'Tooted',
+    speed: 'Kiirus',
+    selectReactionFirst: 'Vali esmalt reaktsioon!',
+    show: 'Näita',
+    hide: 'Peida',
+    addAtomsForOrbitals: 'Lisa aatomid, et näha nende orbitaale.',
+    orbitalsInfo: '{count} aatomit. Kliki aatomil tööruumis, et näha detailseid orbitaale.',
     supportLabel: 'Toetamise info',
     supportText: 'Kui soovid mind toetada, siis saab seda teha arveldusarvega:',
     contact: 'Kontakt:',
+    quantumSectionLabel: 'KVANTTASEM',
+    quantumSectionTitle: 'Elektronorbitaalid',
+    quantumPrompt: 'Vali aatom, et näha selle orbitaale.',
     saltModeLabel: 'REŽIIM',
     saltModeTitle: 'Ehita sool',
     saltModeButton: 'Ehita sool',
@@ -160,6 +257,7 @@ const translations = {
     undo: 'Undo',
     timer: 'Timer',
     stopTimer: 'Stop timer',
+    toggle3D: '🎨 3D',
     checkMolecule: 'Check molecule',
     atoms: 'ATOMS',
     selectBlock: 'Select building block',
@@ -191,9 +289,21 @@ const translations = {
     shownStructure: 'Correct structure shown. Press "Undo" to restore.',
     statusSelect: 'Select an atom',
     statusNext: 'Select the second atom',
+    reactants: 'Reactants',
+    activationEnergy: 'Activation energy',
+    products: 'Products',
+    speed: 'Speed',
+    selectReactionFirst: 'Select a reaction first!',
+    show: 'Show',
+    hide: 'Hide',
+    addAtomsForOrbitals: 'Add atoms to view their orbitals.',
+    orbitalsInfo: '{count} atoms. Click an atom in the workspace to see its detailed orbitals.',
     supportLabel: 'Support information',
     supportText: 'If you would like to support me, you can do so by bank transfer:',
     contact: 'Contact:',
+    quantumSectionLabel: 'QUANTUM LEVEL',
+    quantumSectionTitle: 'Electron orbitals',
+    quantumPrompt: 'Select an atom to view its orbitals.',
     saltModeLabel: 'MODE',
     saltModeTitle: 'Build salt',
     saltModeButton: 'Build salt',
@@ -443,7 +553,11 @@ function snapAtomToLayout(index) {
   atoms[index].y = clamp(50 + (targetPosition.y - 50) * spreadY, 10, 90);
 }
 
-function getTargetSignature(targetMolecule) {
+function getTargetSignature(targetMolecule = target) {
+  if (!targetMolecule || !targetMolecule.bonds || !targetMolecule.atoms) {
+    return '';
+  }
+
   return targetMolecule.bonds
     .map(([leftIndex, rightIndex, order, type], bondIndex) => {
       const leftSymbol = targetMolecule.atoms[leftIndex];
@@ -481,9 +595,14 @@ function shouldUseIonicBond(firstAtom, secondAtom) {
   return metals.includes(firstAtom.symbol) && secondAtom.charge < 0 || metals.includes(secondAtom.symbol) && firstAtom.charge < 0;
 }
 
-function getTargetChargeSignature() {
-  return (target.charges || target.atoms.map(() => 0))
-    .map((charge, index) => `${target.atoms[index]}:${charge}`)
+function getTargetChargeSignature(targetMolecule = target) {
+  if (!targetMolecule || !targetMolecule.atoms) {
+    return '';
+  }
+
+  const charges = targetMolecule.charges || targetMolecule.atoms.map(() => 0);
+  return charges
+    .map((charge, index) => `${targetMolecule.atoms[index]}:${charge}`)
     .sort()
     .join('|');
 }
@@ -593,12 +712,19 @@ function t(key) {
 function getReactionCopy(reaction) {
   const localized = reactionCopy[currentLang];
   const englishNames = {
+    'water-formation': ['Water formation', 'Hydrogen and oxygen react to form water.'],
+    'combustion-methane': ['Methane combustion', 'Methane burns in oxygen, producing carbon dioxide and water.'],
+    'ammonia-synthesis': ['Ammonia synthesis', 'Nitrogen and hydrogen combine to produce ammonia.'],
     neutralization: ['Neutralization', 'An acid and a base neutralize each other, forming salt and water.'],
+    'atp-synthesis': ['ATP synthesis', 'ADP and phosphate combine to form ATP, storing chemical energy.'],
+    'glucose-breakdown': ['Glucose breakdown', 'Cellular respiration converts glucose into carbon dioxide and water.'],
     peroxide: ['Hydrogen peroxide decomposition', 'A catalyst helps peroxide decompose faster.'],
     photosynthesis: ['Photosynthesis', 'The plant stores light energy as chemical energy in glucose.']
   };
-  const english = englishNames[reaction.id];
-  return currentLang === 'en' ? { ...reaction, name: english[0], detail: english[1], tag: reaction.energy === 'exo' ? localized.exoTag : localized.endoTag } : { ...reaction, tag: reaction.energy === 'exo' ? localized.exoTag : localized.endoTag };
+  const english = englishNames[reaction.id] || [reaction.name || reaction.id, reaction.fact || reaction.hint || ''];
+  return currentLang === 'en'
+    ? { ...reaction, name: english[0], detail: english[1], tag: reaction.energy === 'exo' ? localized.exoTag : localized.endoTag }
+    : { ...reaction, tag: reaction.energy === 'exo' ? localized.exoTag : localized.endoTag };
 }
 
 function renderReactionLab() {
@@ -619,24 +745,85 @@ function updateReactionUI() {
   $('reaction-state').textContent = selectedReaction.energy === 'exo' ? reactionCopy[currentLang].heatReleased : reactionCopy[currentLang].energyAbsorbed;
   $('reaction-equation').textContent = selectedReaction.equation;
   $('reaction-detail').textContent = localized.detail;
+  drawEnergyDiagram();
+}
+
+function drawEnergyDiagram() {
+  const curve = $('energy-curve');
+  if (!selectedReaction) {
+    curve.innerHTML = '';
+    return;
+  }
+  
+  const energyChange = selectedReaction.energyChange || 0;
+  const activationEnergy = selectedReaction.activationEnergy || 100;
+  const isExothermic = energyChange < 0;
+  
+  const startX = 60;
+  const endX = 340;
+  const baseY = 80;
+  const peakY = baseY - (activationEnergy / 10);
+  const finalY = isExothermic ? baseY + (Math.abs(energyChange) / 10) : baseY - (energyChange / 10);
+  
+  const path = `M ${startX} ${baseY} Q ${startX + 50} ${peakY} ${startX + 100} ${peakY} L ${endX - 50} ${finalY} L ${endX} ${finalY}`;
+  const reactantsLabel = translations[currentLang].reactants;
+  const activationEnergyLabel = translations[currentLang].activationEnergy;
+  const productsLabel = translations[currentLang].products;
+  const energyUnits = currentLang === 'en' ? ' kJ' : ' kJ';
+  
+  curve.innerHTML = `
+    <path d="${path}" fill="none" stroke="${isExothermic ? '#ef8354' : '#8dc5e8'}" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="${startX}" cy="${baseY}" r="4" fill="#102a43"/>
+    <circle cx="${startX + 100}" cy="${peakY}" r="4" fill="#ef8354"/>
+    <circle cx="${endX}" cy="${finalY}" r="4" fill="#102a43"/>
+    <text x="${startX}" y="${baseY + 15}" font-size="9" fill="#627d98" text-anchor="middle">${reactantsLabel}</text>
+    <text x="${startX + 100}" y="${peakY - 10}" font-size="9" fill="#ef8354" text-anchor="middle">${activationEnergyLabel}</text>
+    <text x="${endX}" y="${finalY + 15}" font-size="9" fill="#627d98" text-anchor="middle">${productsLabel}</text>
+    <text x="${endX + 10}" y="${(baseY + finalY) / 2}" font-size="9" fill="${isExothermic ? '#ef8354' : '#8dc5e8'}">${isExothermic ? '−' : '+'}${Math.abs(energyChange)}${energyUnits}</text>
+  `;
 }
 
 function runReaction() {
   clearTimeout(reactionTimer);
   const catalyst = $('catalyst-select').value;
+  const temperature = Number($('temperature-slider').value);
+  const pressure = Number($('pressure-slider').value);
+  const ph = Number($('ph-slider').value);
   const catalystNames = { 'manganese-dioxide':'MnO₂', platinum:'Pt' };
   const copy = reactionCopy[currentLang];
   const hasCatalyst = catalyst !== 'none';
-  const duration = hasCatalyst ? 900 : 2400;
+  
+  // Calculate reaction rate based on environmental factors
+  const baseDuration = 2400;
+  const tempFactor = Math.exp((temperature - 25) / 100); // Temperature effect (Arrhenius)
+  const pressureFactor = 1 / Math.sqrt(pressure); // Pressure effect (higher pressure = faster for gas reactions)
+  const phFactor = ph >= 6 && ph <= 8 ? 1 : 0.7; // pH effect (neutral pH is optimal)
+  const catalystFactor = hasCatalyst ? 0.3 : 1; // Catalyst effect
+  const duration = baseDuration * tempFactor * pressureFactor * phFactor * catalystFactor;
+  
   const section = document.querySelector('.reaction-section');
   section.classList.add('reacting');
-  $('reaction-state').textContent = hasCatalyst ? `${copy.speedsUp} · ${catalystNames[catalyst]}` : copy.running;
-  $('reaction-detail').textContent = hasCatalyst ? `${copy.lowersBarrier} ${duration / 1000} ${copy.seconds}` : `${copy.withoutCatalyst} ${duration / 1000} ${copy.seconds}`;
+  
+  let statusText = copy.running;
+  if (hasCatalyst) {
+    statusText += ` · ${catalystNames[catalyst]}`;
+  }
+  if (temperature > 100) {
+    statusText += ` · ${temperature}°C`;
+  }
+  
+  $('reaction-state').textContent = statusText;
+  const speedText = translations[currentLang].speed;
+  $('reaction-detail').textContent = `${speedText}: ${(1000/duration).toFixed(1)}x · T:${temperature}°C · P:${pressure}atm · pH:${ph}`;
+  
   reactionTimer = setTimeout(() => {
     section.classList.remove('reacting');
     $('reaction-state').textContent = selectedReaction.energy === 'exo' ? copy.readyHeat : copy.readyEnergy;
     $('reaction-detail').textContent = hasCatalyst ? `${catalystNames[catalyst]} ${copy.catalystNotConsumed}` : copy.compareSpeed;
     toast(selectedReaction.energy === 'exo' ? copy.exoToast : copy.endoToast);
+    
+    score += Math.floor(50 * tempFactor * phFactor);
+    updateScoreUI();
   }, duration);
 }
 
@@ -662,10 +849,14 @@ function updateLanguageUI() {
   $('show-structure-button').textContent = `🔍 ${lang.showStructure}`;
   $('undo-button').textContent = `↶ ${lang.undo}`;
   $('timer-toggle').textContent = timerEnabled ? `⏱️ ${lang.stopTimer}` : `⏱️ ${lang.timer}`;
+  $('3d-toggle').textContent = `${lang.toggle3D} ${is3DView ? '2D' : '3D'}`;
   $('check-button').innerHTML = `${lang.checkMolecule} <span>→</span>`;
   document.querySelector('.elements-section h3').textContent = lang.selectBlock;
   document.querySelector('.molecules-section .section-kicker').textContent = lang.collection;
   document.querySelector('.molecules-section h3').textContent = lang.learnMolecules;
+  document.querySelector('.quantum-section .section-kicker').textContent = lang.quantumSectionLabel;
+  document.querySelector('.quantum-section h3').textContent = lang.quantumSectionTitle;
+  $('quantum-toggle').textContent = $('quantum-view').hidden ? lang.show : lang.hide;
   document.querySelector('.salt-section .section-kicker').textContent = lang.saltModeLabel;
   document.querySelector('.salt-section h3').textContent = lang[`${buildMode}ModeTitle`];
   document.querySelectorAll('.build-mode-choice').forEach(button => {
@@ -682,6 +873,10 @@ function updateLanguageUI() {
   $('salt-mode-description').textContent = lang[`${buildMode}ModeDescription`] || lang.saltModeDescription;
   document.querySelectorAll('.build-mode-choice').forEach(button => button.classList.toggle('active', button.dataset.buildMode === buildMode));
   document.querySelector('#target-hint').textContent = moleculeDisplay[1];
+  const quantumInfo = document.querySelector('#quantum-info p');
+  if (quantumInfo) {
+    quantumInfo.textContent = atoms.length ? translations[currentLang].orbitalsInfo.replace('{count}', atoms.length) : translations[currentLang].quantumPrompt;
+  }
   document.querySelectorAll('.element-choice small').forEach((el, index) => {
     el.textContent = elementNames[currentLang][elements[index].symbol];
   });
@@ -799,10 +994,23 @@ function init() {
   $('hint-button').addEventListener('click', showHint);
   $('show-structure-button').addEventListener('click', showStructure);
   $('timer-toggle').addEventListener('click', toggleTimer);
+  $('3d-toggle').addEventListener('click', toggle3DView);
   $('lang-toggle').addEventListener('click', toggleLanguage);
   $('check-button').addEventListener('click', checkMolecule);
   $('restart-button').addEventListener('click', restartGame);
   $('run-reaction-button').addEventListener('click', runReaction);
+  $('temperature-slider').addEventListener('input', () => {
+    $('temperature-value').textContent = `${$('temperature-slider').value}°C`;
+  });
+  $('pressure-slider').addEventListener('input', () => {
+    $('pressure-value').textContent = `${$('pressure-slider').value} atm`;
+  });
+  $('ph-slider').addEventListener('input', () => {
+    const ph = $('ph-slider').value;
+    $('ph-value').textContent = ph;
+    $('ph-value').style.color = ph < 7 ? '#ef8354' : ph > 7 ? '#8dc5e8' : '#102a43';
+  });
+  $('quantum-toggle').addEventListener('click', toggleQuantumView);
   renderReactionLab();
   updateScoreUI();
   updateLanguageUI();
@@ -840,7 +1048,11 @@ function addAtom(symbol) {
   actionHistory.push({ type: 'addAtom', symbol, index: nextIndex });
   initAudio();
   playSound('addAtom');
-  render();
+  if (is3DView) {
+    render3DMolecule();
+  } else {
+    render();
+  }
 }
 function showHint() {
   const hintText = getMoleculeText(target)[1];
@@ -850,26 +1062,43 @@ function showHint() {
 function showStructure() {
   const originalAtoms = [...atoms];
   const originalBonds = [...bonds];
+  const was3DView = is3DView;
+  
   atoms = target.atoms.map((symbol, index) => ({ symbol, charge: target.charges?.[index] || 0, x: 50, y: 50 }));
   bonds = target.bonds.map((bond, index) => [...bond, target.bondTypes?.[index] || 'covalent']);
   atoms.forEach((_, index) => snapAtomToLayout(index));
-  render();
+  
+  if (was3DView) {
+    render3DMolecule();
+  } else {
+    render();
+  }
+  
   toast(t('shownStructure'));
   setTimeout(() => {
     atoms = originalAtoms;
     bonds = originalBonds;
-    render();
+    if (was3DView) {
+      render3DMolecule();
+    } else {
+      render();
+    }
   }, 3000);
 }
 function advanceLevel() {
   const currentIndex = molecules.findIndex(molecule => molecule.id === target.id);
-  completed.add(target.id);
+  if (target && target.id) {
+    completed.add(target.id);
+  }
   saveCompletedLevels();
-  if (completed.size === molecules.length) {
+
+  const nextUnfinished = molecules.find(molecule => !completed.has(molecule.id));
+  if (!nextUnfinished || completed.size >= molecules.length) {
     showCompletion();
     return;
   }
-  let nextIndex = (currentIndex + 1) % molecules.length;
+
+  let nextIndex = currentIndex >= 0 ? (currentIndex + 1) % molecules.length : 0;
   while (completed.has(molecules[nextIndex].id)) {
     nextIndex = (nextIndex + 1) % molecules.length;
   }
@@ -885,8 +1114,20 @@ function showCompletion() {
   $('best-score').textContent = bestScore;
   $('completion-overlay').hidden = false;
 }
-function restartGame() { score = 0; completed = new Set(); updateScoreUI(); $('completion-overlay').hidden = true; selectTarget(molecules[0].id); }
+function restartGame() {
+  score = 0;
+  completed = new Set();
+  saveCompletedLevels();
+  updateScoreUI();
+  $('completion-overlay').hidden = true;
+  selectTarget(molecules[0].id);
+}
 function render() {
+  if (is3DView) {
+    render3DMolecule();
+    return;
+  }
+  
   $('atom-count').textContent = atoms.length;
   $('empty-state').style.display = atoms.length ? 'none' : 'flex';
   $('status').textContent = selected === null ? (atoms.length ? t('statusNext') : t('statusSelect')) : t('statusNext');
@@ -950,12 +1191,20 @@ function stopDragAtom(event) {
 function selectAtom(index) {
   if (selected === null) {
     selected = index;
-    render();
+    if (is3DView) {
+      render3DMolecule();
+    } else {
+      render();
+    }
     return;
   }
   if (selected === index) {
     selected = null;
-    render();
+    if (is3DView) {
+      render3DMolecule();
+    } else {
+      render();
+    }
     return;
   }
 
@@ -986,7 +1235,11 @@ function selectAtom(index) {
   }
 
   selected = null;
-  render();
+  if (is3DView) {
+    render3DMolecule();
+  } else {
+    render();
+  }
 }
 function drawBonds() { const layer = $('bond-layer'); const workspace = $('workspace'); const width = workspace.clientWidth; const height = workspace.clientHeight; layer.setAttribute('viewBox',`0 0 ${width} ${height}`); layer.innerHTML = bonds.map(bond => {
   const first = atoms[bond[0]], second = atoms[bond[1]];
@@ -1037,7 +1290,11 @@ function undo() {
     }
   }
   selected = null;
-  render();
+  if (is3DView) {
+    render3DMolecule();
+  } else {
+    render();
+  }
 }
 function checkMolecule() {
   const validationMessage = getValidationMessage();
@@ -1077,4 +1334,591 @@ function checkMolecule() {
   setTimeout(() => workspace.classList.remove('success', 'shake'), 480);
 }
 function toast(message) { const element=$('toast'); element.textContent=message; element.classList.add('show'); clearTimeout(window.toastTimer); window.toastTimer=setTimeout(() => element.classList.remove('show'),3200); }
+
+function toggleQuantumView() {
+  const view = $('quantum-view');
+  view.hidden = !view.hidden;
+  $('quantum-toggle').textContent = view.hidden ? translations[currentLang].show : translations[currentLang].hide;
+  
+  if (!view.hidden) {
+    drawOrbitals();
+  }
+}
+
+const electronConfigurations = {
+  'H': { shells: [1], electrons: 1 },
+  'O': { shells: [2, 6], electrons: 8 },
+  'C': { shells: [2, 4], electrons: 6 },
+  'N': { shells: [2, 5], electrons: 7 },
+  'Cl': { shells: [2, 8, 7], electrons: 17 },
+  'Na': { shells: [2, 8, 1], electrons: 11 },
+  'S': { shells: [2, 8, 6], electrons: 16 }
+};
+
+function drawOrbitals() {
+  const orbitalsGroup = $('orbitals');
+  const info = $('quantum-info');
+  
+  if (atoms.length === 0) {
+    info.innerHTML = `<p>${translations[currentLang].addAtomsForOrbitals}</p>`;
+    orbitalsGroup.innerHTML = '';
+    return;
+  }
+  
+  const centerX = 200;
+  const centerY = 100;
+  let html = '';
+  
+  atoms.forEach((atom, index) => {
+    const config = electronConfigurations[atom.symbol];
+    if (!config) return;
+    
+    const offsetX = (index * 80) - ((atoms.length - 1) * 40);
+    const atomX = centerX + offsetX;
+    
+    config.shells.forEach((electronCount, shellIndex) => {
+      const radius = 20 + shellIndex * 15;
+      html += `<circle cx="${atomX}" cy="${centerY}" r="${radius}" fill="none" stroke="#8dc5e8" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>`;
+      
+      for (let i = 0; i < electronCount; i++) {
+        const angle = (i / electronCount) * Math.PI * 2;
+        const electronX = atomX + Math.cos(angle) * radius;
+        const electronY = centerY + Math.sin(angle) * radius;
+        html += `<circle cx="${electronX}" cy="${electronY}" r="3" fill="#ef8354"/>`;
+      }
+    });
+    
+    html += `<text x="${atomX}" y="${centerY + 40}" font-size="12" fill="#102a43" text-anchor="middle">${atom.symbol}</text>`;
+  });
+  
+  orbitalsGroup.innerHTML = html;
+  const orbitalsText = translations[currentLang].orbitalsInfo.replace('{count}', atoms.length);
+  info.innerHTML = `<p>${orbitalsText}</p>`;
+}
+
+// 3D Molecule Renderer
+class Molecule3DRenderer {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.rotationX = 0.3;
+    this.rotationY = 0.5;
+    this.zoom = 1.0;
+    this.isDragging = false;
+    this.lastMouseX = 0;
+    this.lastMouseY = 0;
+    
+    // VSEPR angles and bond lengths (in Angstroms, scaled for display)
+    this.bondLengths = {
+      'H-H': 0.74, 'H-O': 0.96, 'H-C': 1.09, 'H-N': 1.01, 'H-Cl': 1.27,
+      'O-O': 1.21, 'C-C': 1.54, 'C-O': 1.43, 'C-N': 1.47, 'C-Cl': 1.77,
+      'N-N': 1.45, 'N-O': 1.40, 'O-Cl': 1.69, 'Cl-Cl': 1.99,
+      'Na-Cl': 2.82, 'Na-O': 2.31, 'O-S': 1.43, 'S-O': 1.43,
+      'C-S': 1.82, 'H-S': 1.34, 'S-Cl': 2.00
+    };
+    
+    // Atom radii (in Angstroms, scaled for display)
+    this.atomRadii = {
+      'H': 0.31, 'C': 0.77, 'N': 0.75, 'O': 0.73, 'F': 0.71,
+      'Cl': 0.99, 'Na': 1.54, 'Mg': 1.36, 'Al': 1.18, 'S': 1.02,
+      'Ca': 1.76
+    };
+    
+    this.setupEventListeners();
+  }
+  
+  setupEventListeners() {
+    this.canvas.addEventListener('mousedown', (e) => this.startDrag(e));
+    this.canvas.addEventListener('mousemove', (e) => this.handleDrag(e));
+    this.canvas.addEventListener('mouseup', () => this.stopDrag());
+    this.canvas.addEventListener('mouseleave', () => this.stopDrag());
+    
+    // Touch support
+    this.canvas.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      this.startDrag(e.touches[0]);
+    });
+    this.canvas.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      this.handleDrag(e.touches[0]);
+    });
+    this.canvas.addEventListener('touchend', () => this.stopDrag());
+  }
+  
+  startDrag(e) {
+    this.isDragging = true;
+    this.lastMouseX = e.clientX;
+    this.lastMouseY = e.clientY;
+  }
+  
+  handleDrag(e) {
+    if (!this.isDragging) return;
+    
+    const deltaX = e.clientX - this.lastMouseX;
+    const deltaY = e.clientY - this.lastMouseY;
+    
+    this.rotationY += deltaX * 0.01;
+    this.rotationX += deltaY * 0.01;
+    
+    // Clamp rotation X to prevent flipping
+    this.rotationX = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, this.rotationX));
+    
+    this.lastMouseX = e.clientX;
+    this.lastMouseY = e.clientY;
+    
+    this.render();
+  }
+  
+  stopDrag() {
+    this.isDragging = false;
+  }
+  
+  project3D(point, width, height) {
+    const { x, y, z } = point;
+    
+    // Apply rotation
+    const cosX = Math.cos(this.rotationX);
+    const sinX = Math.sin(this.rotationX);
+    const cosY = Math.cos(this.rotationY);
+    const sinY = Math.sin(this.rotationY);
+    
+    // Rotate around Y axis
+    let x1 = x * cosY - z * sinY;
+    let z1 = x * sinY + z * cosY;
+    
+    // Rotate around X axis
+    let y1 = y * cosX - z1 * sinX;
+    let z2 = y * sinX + z1 * cosX;
+    
+    // Perspective projection
+    const fov = 400;
+    const scale = fov / (fov + z2) * this.zoom;
+    
+    return {
+      x: width / 2 + x1 * scale,
+      y: height / 2 + y1 * scale,
+      z: z2,
+      scale: scale
+    };
+  }
+  
+  calculateVSEPRGeometry(atoms, bonds) {
+    if (atoms.length === 0) return [];
+    
+    if (atoms.length === 1) return [{ x: 0, y: 0, z: 0 }];
+    
+    // Build adjacency list
+    const adjacency = atoms.map(() => []);
+    bonds.forEach(([from, to]) => {
+      adjacency[from].push(to);
+      adjacency[to].push(from);
+    });
+    
+    // Find central atom (most connected)
+    let centralIndex = 0;
+    let maxConnections = 0;
+    adjacency.forEach((connections, index) => {
+      if (connections.length > maxConnections) {
+        maxConnections = connections.length;
+        centralIndex = index;
+      }
+    });
+    
+    // Initialize positions
+    const positions = atoms.map(() => ({ x: 0, y: 0, z: 0 }));
+    positions[centralIndex] = { x: 0, y: 0, z: 0 };
+    
+    // Get neighbors of central atom
+    const neighbors = adjacency[centralIndex];
+    const coordination = neighbors.length;
+    
+    // Special handling for common molecules with lone pairs
+    const getSpecificGeometry = (centralSymbol, neighborSymbols) => {
+      // Water (H2O): bent with 104.5°
+      if (centralSymbol === 'O' && neighborSymbols.filter(s => s === 'H').length === 2) {
+        return 'bent-water';
+      }
+      // Ammonia (NH3): trigonal pyramidal with 107°
+      if (centralSymbol === 'N' && neighborSymbols.filter(s => s === 'H').length === 3) {
+        return 'trigonal-pyramidal';
+      }
+      // Sulfur dioxide (SO2): bent with 119°
+      if (centralSymbol === 'S' && neighborSymbols.filter(s => s === 'O').length === 2) {
+        return 'bent-so2';
+      }
+      return null;
+    };
+    
+    const neighborSymbols = neighbors.map(n => atoms[n].symbol);
+    const specificGeometry = getSpecificGeometry(atoms[centralIndex].symbol, neighborSymbols);
+    
+    // Define VSEPR geometries with ideal bond angles
+    const getGeometryPositions = (coordination, bondLength, geometryType) => {
+      switch (geometryType) {
+        case 'bent-water': // Water: 104.5°
+          const waterAngle = (104.5 * Math.PI) / 180;
+          return [
+            { x: bondLength * Math.sin(waterAngle / 2), y: bondLength * Math.cos(waterAngle / 2), z: 0 },
+            { x: -bondLength * Math.sin(waterAngle / 2), y: bondLength * Math.cos(waterAngle / 2), z: 0 }
+          ];
+        case 'trigonal-pyramidal': // Ammonia: 107°
+          const ammoniaAngle = (107 * Math.PI) / 180;
+          return [
+            { x: bondLength, y: 0, z: 0 },
+            { x: -bondLength * Math.cos(ammoniaAngle), y: bondLength * Math.sin(ammoniaAngle), z: 0 },
+            { x: -bondLength * Math.cos(ammoniaAngle), y: -bondLength * Math.sin(ammoniaAngle) * Math.cos(Math.PI / 3), z: bondLength * Math.sin(ammoniaAngle) * Math.sin(Math.PI / 3) }
+          ];
+        case 'bent-so2': // SO2: 119°
+          const so2Angle = (119 * Math.PI) / 180;
+          return [
+            { x: bondLength * Math.sin(so2Angle / 2), y: bondLength * Math.cos(so2Angle / 2), z: 0 },
+            { x: -bondLength * Math.sin(so2Angle / 2), y: bondLength * Math.cos(so2Angle / 2), z: 0 }
+          ];
+        default:
+          // Standard VSEPR geometries
+          switch (coordination) {
+            case 1:
+              return [{ x: bondLength, y: 0, z: 0 }];
+            case 2: // Linear (180°)
+              return [
+                { x: bondLength, y: 0, z: 0 },
+                { x: -bondLength, y: 0, z: 0 }
+              ];
+            case 3: // Trigonal planar (120°)
+              return [
+                { x: bondLength, y: 0, z: 0 },
+                { x: -bondLength * Math.cos(Math.PI / 3), y: bondLength * Math.sin(Math.PI / 3), z: 0 },
+                { x: -bondLength * Math.cos(Math.PI / 3), y: -bondLength * Math.sin(Math.PI / 3), z: 0 }
+              ];
+            case 4: // Tetrahedral (109.5°)
+              const tetraAngle = Math.acos(-1 / 3);
+              return [
+                { x: bondLength, y: 0, z: 0 },
+                { x: -bondLength * Math.cos(tetraAngle), y: bondLength * Math.sin(tetraAngle), z: 0 },
+                { x: -bondLength * Math.cos(tetraAngle), y: -bondLength * Math.sin(tetraAngle) * Math.cos(Math.PI / 3), z: bondLength * Math.sin(tetraAngle) * Math.sin(Math.PI / 3) },
+                { x: -bondLength * Math.cos(tetraAngle), y: -bondLength * Math.sin(tetraAngle) * Math.cos(Math.PI / 3), z: -bondLength * Math.sin(tetraAngle) * Math.sin(Math.PI / 3) }
+              ];
+            case 5: // Trigonal bipyramidal (90°, 120°)
+              return [
+                { x: bondLength, y: 0, z: 0 }, // Axial
+                { x: -bondLength, y: 0, z: 0 }, // Axial
+                { x: 0, y: bondLength, z: 0 }, // Equatorial
+                { x: 0, y: -bondLength * Math.cos(Math.PI / 3), z: bondLength * Math.sin(Math.PI / 3) }, // Equatorial
+                { x: 0, y: -bondLength * Math.cos(Math.PI / 3), z: -bondLength * Math.sin(Math.PI / 3) } // Equatorial
+              ];
+            case 6: // Octahedral (90°)
+              return [
+                { x: bondLength, y: 0, z: 0 },
+                { x: -bondLength, y: 0, z: 0 },
+                { x: 0, y: bondLength, z: 0 },
+                { x: 0, y: -bondLength, z: 0 },
+                { x: 0, y: 0, z: bondLength },
+                { x: 0, y: 0, z: -bondLength }
+              ];
+            default:
+              // Fallback to circular arrangement
+              return Array.from({ length: coordination }, (_, i) => {
+                const angle = (i * 2 * Math.PI) / coordination;
+                return {
+                  x: bondLength * Math.cos(angle),
+                  y: bondLength * Math.sin(angle),
+                  z: 0
+                };
+              });
+          }
+      }
+    };
+    
+    // Calculate average bond length for this molecule
+    const avgBondLength = neighbors.reduce((sum, neighborIndex) => {
+      const bondKey = [atoms[centralIndex].symbol, atoms[neighborIndex].symbol].sort().join('-');
+      return sum + (this.bondLengths[bondKey] || 1.5);
+    }, 0) / (neighbors.length || 1) * 50; // Scale for display
+    
+    // Position neighbors around central atom
+    const geometryPositions = getGeometryPositions(coordination, avgBondLength, specificGeometry);
+    neighbors.forEach((neighborIndex, i) => {
+      positions[neighborIndex] = geometryPositions[i] || { x: avgBondLength, y: 0, z: 0 };
+    });
+    
+    // Position remaining atoms using simple extension
+    const visited = new Set([centralIndex, ...neighbors]);
+    const queue = [...neighbors];
+    
+    while (queue.length > 0) {
+      const current = queue.shift();
+      const currentNeighbors = adjacency[current].filter(n => !visited.has(n));
+      
+      currentNeighbors.forEach(neighborIndex => {
+        visited.add(neighborIndex);
+        queue.push(neighborIndex);
+        
+        const bondKey = [atoms[current].symbol, atoms[neighborIndex].symbol].sort().join('-');
+        const bondLength = (this.bondLengths[bondKey] || 1.5) * 50;
+        
+        // Simple extension: continue in same direction from central atom
+        const currentPos = positions[current];
+        const centralPos = positions[centralIndex];
+        
+        const dirX = currentPos.x - centralPos.x;
+        const dirY = currentPos.y - centralPos.y;
+        const dirZ = currentPos.z - centralPos.z;
+        const length = Math.hypot(dirX, dirY, dirZ) || 1;
+        
+        positions[neighborIndex] = {
+          x: currentPos.x + (dirX / length) * bondLength,
+          y: currentPos.y + (dirY / length) * bondLength,
+          z: currentPos.z + (dirZ / length) * bondLength
+        };
+      });
+    }
+    
+    return positions;
+  }
+  
+  renderMolecule(moleculeData) {
+    const { atoms, bonds } = moleculeData;
+    const width = this.canvas.width;
+    const height = this.canvas.height;
+    
+    // Clear canvas
+    this.ctx.clearRect(0, 0, width, height);
+    
+    if (atoms.length === 0) return;
+    
+    // Calculate 3D positions using VSEPR
+    const positions3D = this.calculateVSEPRGeometry(atoms, bonds);
+    
+    // Project to 2D
+    const projected = positions3D.map(pos => this.project3D(pos, width, height));
+    
+    // Create renderable objects (atoms and bonds)
+    const renderables = [];
+    
+    // Add bonds
+    bonds.forEach(([from, to, order]) => {
+      const start = projected[from];
+      const end = projected[to];
+      const avgZ = (start.z + end.z) / 2;
+      
+      renderables.push({
+        type: 'bond',
+        start,
+        end,
+        z: avgZ,
+        order
+      });
+    });
+    
+    // Add atoms
+    atoms.forEach((atom, index) => {
+      const projectedPos = projected[index];
+      const radius = (this.atomRadii[atom.symbol] || 0.5) * 20 * projectedPos.scale;
+      
+      renderables.push({
+        type: 'atom',
+        position: projectedPos,
+        z: projectedPos.z,
+        radius,
+        symbol: atom.symbol,
+        color: this.getAtomColor(atom.symbol)
+      });
+    });
+    
+    // Sort by Z (depth) for proper rendering
+    renderables.sort((a, b) => b.z - a.z);
+    
+    // Render sorted objects
+    renderables.forEach(obj => {
+      if (obj.type === 'bond') {
+        this.renderBond(obj);
+      } else {
+        this.renderAtom(obj);
+      }
+    });
+  }
+  
+  renderBond(bond) {
+    const { start, end, order } = bond;
+    const ctx = this.ctx;
+    
+    ctx.strokeStyle = '#82968e';
+    ctx.lineWidth = 3 * start.scale;
+    ctx.lineCap = 'round';
+    
+    // Draw multiple lines for bond order
+    for (let i = 0; i < order; i++) {
+      const offset = (i - (order - 1) / 2) * 4;
+      
+      // Calculate perpendicular offset
+      const dx = end.x - start.x;
+      const dy = end.y - start.y;
+      const length = Math.hypot(dx, dy) || 1;
+      const perpX = -dy / length * offset;
+      const perpY = dx / length * offset;
+      
+      ctx.beginPath();
+      ctx.moveTo(start.x + perpX, start.y + perpY);
+      ctx.lineTo(end.x + perpX, end.y + perpY);
+      ctx.stroke();
+    }
+  }
+  
+  renderAtom(atom) {
+    const { position, radius, symbol, color } = atom;
+    const ctx = this.ctx;
+    
+    // Draw sphere with gradient for 3D effect
+    const gradient = ctx.createRadialGradient(
+      position.x - radius * 0.3,
+      position.y - radius * 0.3,
+      radius * 0.1,
+      position.x,
+      position.y,
+      radius
+    );
+    
+    gradient.addColorStop(0, this.lightenColor(color, 40));
+    gradient.addColorStop(0.5, color);
+    gradient.addColorStop(1, this.darkenColor(color, 30));
+    
+    ctx.beginPath();
+    ctx.arc(position.x, position.y, radius, 0, Math.PI * 2);
+    ctx.fillStyle = gradient;
+    ctx.fill();
+    
+    // Draw symbol
+    ctx.fillStyle = this.getContrastColor(color);
+    ctx.font = `bold ${radius * 0.8}px 'Space Grotesk', sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(symbol, position.x, position.y);
+  }
+  
+  getAtomColor(symbol) {
+    const colors = {
+      'H': '#b9e5d4', 'O': '#ef8354', 'C': '#8dc5e8', 'N': '#eeb6c9',
+      'Cl': '#e6f3ff', 'Na': '#f5d6a5', 'S': '#d9d4ff', 'Mg': '#c7d8e5',
+      'Ca': '#c7d8e5', 'Al': '#c7d8e5', 'F': '#c9e8d3'
+    };
+    return colors[symbol] || '#8dc5e8';
+  }
+  
+  lightenColor(color, percent) {
+    const num = parseInt(color.replace('#', ''), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = Math.min(255, (num >> 16) + amt);
+    const G = Math.min(255, ((num >> 8) & 0x00FF) + amt);
+    const B = Math.min(255, (num & 0x0000FF) + amt);
+    return `#${(1 << 24 | R << 16 | G << 8 | B).toString(16).slice(1)}`;
+  }
+  
+  darkenColor(color, percent) {
+    const num = parseInt(color.replace('#', ''), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = Math.max(0, (num >> 16) - amt);
+    const G = Math.max(0, ((num >> 8) & 0x00FF) - amt);
+    const B = Math.max(0, (num & 0x0000FF) - amt);
+    return `#${(1 << 24 | R << 16 | G << 8 | B).toString(16).slice(1)}`;
+  }
+  
+  getContrastColor(hexcolor) {
+    const r = parseInt(hexcolor.substr(1, 2), 16);
+    const g = parseInt(hexcolor.substr(3, 2), 16);
+    const b = parseInt(hexcolor.substr(5, 2), 16);
+    const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return (yiq >= 128) ? '#0a1f2e' : '#ffffff';
+  }
+  
+  render() {
+    // This will be called when we need to re-render
+    // The actual rendering happens in renderMolecule
+  }
+}
+
+// Initialize 3D renderer
+let molecule3DRenderer = null;
+
+function init3DRenderer() {
+  const canvas = document.createElement('canvas');
+  canvas.id = 'molecule-3d-canvas';
+  canvas.style.cssText = 'width: 100%; height: 100%; border-radius: 25px; background: #fbfcf8;';
+  
+  const workspace = $('workspace');
+  workspace.insertBefore(canvas, workspace.firstChild);
+  
+  molecule3DRenderer = new Molecule3DRenderer(canvas);
+  
+  // Resize canvas to match workspace
+  function resizeCanvas() {
+    canvas.width = workspace.clientWidth;
+    canvas.height = workspace.clientHeight;
+    if (molecule3DRenderer) {
+      molecule3DRenderer.render();
+    }
+  }
+  
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  
+  return molecule3DRenderer;
+}
+
+function render3DMolecule() {
+  if (!molecule3DRenderer) {
+    molecule3DRenderer = init3DRenderer();
+  }
+  
+  // Make sure canvas is visible
+  const canvas = document.getElementById('molecule-3d-canvas');
+  if (canvas) {
+    canvas.style.display = '';
+  }
+  
+  // Hide 2D layers when showing 3D
+  $('bond-layer').style.display = 'none';
+  $('atom-layer').style.display = 'none';
+  $('empty-state').style.display = 'none';
+  
+  // Convert current molecule data to 3D format
+  const moleculeData = {
+    atoms: atoms.map(atom => ({ symbol: atom.symbol })),
+    bonds: bonds.map(([from, to, order]) => [from, to, order])
+  };
+  
+  molecule3DRenderer.renderMolecule(moleculeData);
+}
+
+function render2DMolecule() {
+  // Hide 3D canvas
+  const canvas3D = document.getElementById('molecule-3d-canvas');
+  if (canvas3D) {
+    canvas3D.style.display = 'none';
+  }
+  
+  // Show 2D layers
+  $('bond-layer').style.display = '';
+  $('atom-layer').style.display = '';
+  $('empty-state').style.display = atoms.length ? 'none' : 'flex';
+  
+  // Render 2D
+  render();
+}
+
+// Toggle between 2D and 3D views
+let is3DView = false;
+
+function toggle3DView() {
+  is3DView = !is3DView;
+  
+  // Update button text
+  $('3d-toggle').textContent = `${t('toggle3D')} ${is3DView ? '2D' : '3D'}`;
+  
+  if (is3DView) {
+    render3DMolecule();
+  } else {
+    render2DMolecule();
+  }
+}
+
 window.addEventListener('resize', drawBonds); init();

@@ -104,6 +104,35 @@ h1,h2,h3,p { margin:0; } h1,h2,h3 { font-family:'Space Grotesk',sans-serif; } h1
 .molecule-item small { color:var(--muted); font-size:11px; }
 .toast { position:fixed; left:50%; bottom:22px; transform:translate(-50%,120px); padding:13px 18px; border-radius:14px; background:var(--ink); color:white; font-size:13px; box-shadow:0 8px 24px #102a4340; transition:transform .25s; z-index:3; }
 .toast.show { transform:translate(-50%,0); }
+.reaction-section { margin-top:32px; }
+.reaction-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-bottom:16px; }
+.reaction-card { display:flex; flex-direction:column; gap:6px; padding:14px; border:1px solid var(--line); background:#ffffffb8; border-radius:14px; text-align:left; transition:border-color .16s, background .16s; }
+.reaction-card:hover { border-color:var(--coral); background:#fff; }
+.reaction-card.active { border:2px solid var(--coral); padding:13px; }
+.reaction-equation { font:600 14px 'Space Grotesk',sans-serif; color:var(--ink); }
+.reaction-name { font-size:13px; color:var(--muted); }
+.reaction-difficulty { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; }
+.reaction-difficulty.easy { color:#5a9c6e; }
+.reaction-difficulty.medium { color:#d4a537; }
+.reaction-difficulty.hard { color:#ef8354; }
+.reaction-controls { display:flex; align-items:center; gap:12px; padding:12px; border:1px solid var(--line); border-radius:12px; background:#ffffffb8; flex-wrap:wrap; }
+.reaction-controls label { font-size:12px; color:var(--muted); }
+.reaction-controls select { padding:8px 12px; border:1px solid var(--line); border-radius:8px; background:#fff; font-size:13px; }
+.reaction-controls input[type="range"] { width:120px; accent-color:var(--coral); }
+.reaction-controls span { font-size:12px; font-weight:700; color:var(--ink); min-width:50px; }
+.reaction-result { margin-top:12px; padding:12px; border:1px solid var(--line); border-radius:12px; background:#ffffffb8; }
+.reaction-state { font-size:12px; font-weight:700; color:var(--coral); }
+.reaction-state.running { animation:pulse 1s infinite; }
+.energy-diagram { margin:16px 0; padding:12px; border:1px solid var(--line); border-radius:12px; background:#ffffffb8; }
+.energy-diagram svg { display:block; }
+.reaction-section.exothermic .energy-diagram { border-color:#ef835440; background:#fff5f0b8; }
+.reaction-section.endothermic .energy-diagram { border-color:#8dc5e840; background:#f0f8ffb8; }
+.quantum-section { margin-top:32px; }
+.quantum-view { margin-top:12px; padding:16px; border:1px solid var(--line); border-radius:12px; background:#ffffffb8; }
+.quantum-view svg { display:block; margin-bottom:12px; }
+.quantum-info { font-size:13px; color:var(--muted); }
+.quantum-info p { margin:0; }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
 @keyframes atomPop { 0% { opacity:0; transform:translate(-50%,-50%) scale(.45); } 60% { opacity:1; transform:translate(-50%,-50%) scale(1.08); } 100% { opacity:1; transform:translate(-50%,-50%) scale(1); } }
 @keyframes bondDraw { to { stroke-dashoffset:0; opacity:1; } }
 @keyframes bondOrderFade { 0% { opacity:0; transform:scale(0.8); } 100% { opacity:1; transform:scale(1); } }
