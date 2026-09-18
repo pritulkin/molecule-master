@@ -273,6 +273,9 @@ const translations = {
     weak: 'Nõrk',
     moleculeForcesTitle: 'Intermolekulaarsed jõud',
     primaryForce: 'Peamine jõud',
+    moleculeInfoTitle: 'Molekuli info',
+    factLabel: 'Fakt',
+    hintLabel: 'Vihje',
     saltModeLabel: 'REŽIIM',
     saltModeTitle: 'Ehita sool',
     saltModeButton: 'Ehita sool',
@@ -381,6 +384,9 @@ const translations = {
     weak: 'Weak',
     moleculeForcesTitle: 'Intermolecular forces',
     primaryForce: 'Primary force',
+    moleculeInfoTitle: 'Molecule info',
+    factLabel: 'Fact',
+    hintLabel: 'Hint',
     saltModeLabel: 'MODE',
     saltModeTitle: 'Build salt',
     saltModeButton: 'Build salt',
@@ -858,14 +864,16 @@ function updateForcesUI() {
 
 function updateMoleculeForcesInfo() {
   const forcesDetail = $('molecule-forces-detail');
+
   if (!target || !target.intermolecularForces) {
     forcesDetail.hidden = true;
     return;
   }
-  
+
   forcesDetail.hidden = false;
-  $('molecule-forces-title').textContent = `${target.name} - ${t('moleculeForcesTitle')}`;
-  
+  const moleculeDisplay = getMoleculeText(target);
+  $('molecule-forces-title').textContent = `${target.name} — ${t('moleculeInfoTitle')}`;
+
   const forceTags = target.intermolecularForces.map(forceId => {
     const force = intermolecularForces.find(f => f.id === forceId);
     if (!force) return '';
@@ -874,13 +882,17 @@ function updateMoleculeForcesInfo() {
     const forceName = currentLang === 'et' ? forceNameEt[forceId] : forceNameEn[forceId];
     return `<span class="force-tag ${forceId}">${forceName}</span>`;
   }).join('');
-  
+
   const primaryForce = intermolecularForces.find(f => f.id === target.primaryForce);
   const primaryForceNameEt = { 'hydrogen-bonding': 'Vesiniksidemed', 'dipole-dipole': 'Dipool-dipool', 'london-dispersion': 'Londoni jõud', 'ionic': 'Ioonilised jõud' };
   const primaryForceNameEn = { 'hydrogen-bonding': 'Hydrogen bonding', 'dipole-dipole': 'Dipole-dipole', 'london-dispersion': 'London dispersion', 'ionic': 'Ionic forces' };
   const primaryForceName = currentLang === 'et' ? primaryForceNameEt[target.primaryForce] : primaryForceNameEn[target.primaryForce];
-  
+  const moleculeFact = getMoleculeFact(target);
+
   $('molecule-forces-content').innerHTML = `
+    <p><strong>${target.formula}</strong></p>
+    <p><strong>${t('hintLabel')}:</strong> ${moleculeDisplay[1]}</p>
+    <p><strong>${t('factLabel')}:</strong> ${moleculeFact}</p>
     <p>${target.forceAnalysis}</p>
     <div class="force-tags">${forceTags}</div>
     <div class="primary-force">
@@ -1295,6 +1307,8 @@ function restartGame() {
   selectTarget(molecules[0].id);
 }
 function render() {
+  updateMoleculeForcesInfo();
+
   if (is3DView) {
     render3DMolecule();
     return;
