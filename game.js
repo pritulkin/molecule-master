@@ -35,6 +35,7 @@ const LANG_KEY = 'chemistry-game-language';
 const translations = {
   et: {
     title: 'Molekulimeister',
+    formulaLabel: 'Sihtmolekuli valem',
     eyebrow: 'KEEMIA PUZZLE',
     points: 'punkti',
     best: 'parim',
@@ -94,6 +95,7 @@ const translations = {
   },
   en: {
     title: 'Molecule Master',
+    formulaLabel: 'Target molecule formula',
     eyebrow: 'CHEMISTRY PUZZLE',
     points: 'points',
     best: 'best',
@@ -177,10 +179,35 @@ const moleculeText = {
     chlorine: ['Chlorine', 'A reactive element used for disinfection.']
   }
 };
+const moleculeFacts = {
+  en: {
+    water: 'Water is one of the most important substances for life.',
+    'carbon-dioxide': 'Carbon dioxide moves through the carbon cycle.',
+    methane: 'Methane is the simplest alkane.',
+    ammonia: 'Ammonia has a sharp, characteristic smell.',
+    hydrogen: 'Hydrogen is the main building block of stars.',
+    oxygen: 'Oxygen is essential for breathing.',
+    'hydrogen-chloride': 'Hydrochloric acid forms when HCl dissolves in water.',
+    'sodium-chloride': 'Common table salt is an ionic compound.',
+    'hydrogen-peroxide': 'Hydrogen peroxide is a strong oxidizer and decomposes quickly.',
+    'carbon-monoxide': 'Carbon monoxide is highly poisonous because it binds to hemoglobin.',
+    'sulfur-dioxide': 'Sulfur dioxide is a major pollutant.',
+    'carbon-tetrachloride': 'Carbon tetrachloride is a heavy chlorine-containing compound.',
+    ozone: 'Ozone is essential in the stratosphere.',
+    'sodium-hydroxide': 'Sodium hydroxide is a strong base.',
+    'hydrogen-sulfide': 'Hydrogen sulfide is poisonous and has an unpleasant smell.',
+    nitrogen: 'Nitrogen molecules are very stable because of their triple bond.',
+    chlorine: 'Chlorine is used in water treatment and can form from bleach.'
+  }
+};
 const $ = id => document.getElementById(id);
 
 function getMoleculeText(molecule) {
   return moleculeText[currentLang]?.[molecule.id] || [molecule.name, molecule.hint];
+}
+
+function getMoleculeFact(molecule) {
+  return moleculeFacts[currentLang]?.[molecule.id] || molecule.fact;
 }
 
 function initAudio() {
@@ -345,8 +372,11 @@ function getTextbookLayoutForMolecule() {
 function snapAtomToLayout(index) {
   const positions = getTextbookLayoutForMolecule();
   const targetPosition = positions[index] || { x: 50, y: 50 };
-  atoms[index].x = targetPosition.x;
-  atoms[index].y = targetPosition.y;
+  const compactWorkspace = $('workspace').clientWidth <= 400;
+  const spreadX = compactWorkspace ? 1.35 : 1;
+  const spreadY = compactWorkspace ? 1.15 : 1;
+  atoms[index].x = clamp(50 + (targetPosition.x - 50) * spreadX, 8, 92);
+  atoms[index].y = clamp(50 + (targetPosition.y - 50) * spreadY, 10, 90);
 }
 
 function getTargetSignature(targetMolecule) {
@@ -469,7 +499,7 @@ function updateLanguageUI() {
   document.querySelector('.score-chip.secondary small').textContent = lang.best;
   document.querySelector('.level-badge').innerHTML = `${lang.level} <span id="level">01</span>`;
   document.querySelector('.mission-copy h2').innerHTML = `${lang.build} <strong id="target-name">${moleculeDisplay[0]}</strong>`;
-  document.querySelector('.section-kicker').textContent = lang.atoms;
+  document.querySelector('.elements-section .section-kicker').textContent = lang.atoms;
   document.querySelector('.workspace-section .section-kicker').textContent = lang.lab;
   document.querySelector('.workspace-section h3').textContent = lang.yourMolecule;
   document.querySelector('.status').textContent = atoms.length ? lang.statusNext : lang.statusSelect;
@@ -486,6 +516,7 @@ function updateLanguageUI() {
   document.querySelector('.connection-tip').textContent = lang.connectionTip;
   document.querySelector('.support-banner').setAttribute('aria-label', lang.supportLabel);
   document.querySelector('.workspace').setAttribute('aria-label', lang.yourMolecule);
+  document.querySelector('.formula-card').setAttribute('aria-label', lang.formulaLabel);
   document.querySelector('.support-lead').textContent = lang.supportText;
   document.querySelector('.support-contact').textContent = lang.contact;
   document.querySelector('#target-hint').textContent = moleculeDisplay[1];
@@ -836,7 +867,7 @@ function checkMolecule() {
     workspace.classList.add('success');
     initAudio();
     playSound('success');
-    toast(validationMessage + ` ${target.fact}`);
+    toast(validationMessage + ` ${getMoleculeFact(target)}`);
     setTimeout(() => {
       advanceLevel();
       workspace.classList.remove('success');

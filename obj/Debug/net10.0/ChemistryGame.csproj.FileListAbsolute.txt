@@ -12,3 +12,4 @@ C:\ChemistryGame\obj\Debug\net10.0\refint\ChemistryGame.dll
 C:\ChemistryGame\obj\Debug\net10.0\ChemistryGame.pdb
 C:\ChemistryGame\obj\Debug\net10.0\ChemistryGame.genruntimeconfig.cache
 C:\ChemistryGame\obj\Debug\net10.0\ref\ChemistryGame.dll
+C:\ChemistryGame\obj\Debug\net10.0\ChemistryGame.sourcelink.json
