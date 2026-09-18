@@ -685,7 +685,7 @@ function render() {
 function startDragAtom(event, index) {
   if (event.button !== undefined && event.button !== 0) return;
 
-  dragState = { index, moved: false };
+  dragState = { index, moved: false, startX: event.clientX, startY: event.clientY };
   pointerMoved = false;
   event.preventDefault();
 
@@ -696,6 +696,11 @@ function startDragAtom(event, index) {
 
 function handlePointerMove(event) {
   if (!dragState) return;
+
+  if (!dragState.moved) {
+    const distance = Math.hypot(event.clientX - dragState.startX, event.clientY - dragState.startY);
+    if (distance < 8) return;
+  }
 
   const workspace = $('workspace');
   const rect = workspace.getBoundingClientRect();
