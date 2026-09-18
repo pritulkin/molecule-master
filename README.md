@@ -39,6 +39,13 @@ python -m http.server 8000
 4. Vajuta "Kontrolli molekuli".
 5. Kui kõik aatomid ja sidemed on õigesti paika pandud, võidad taseme.
 
+### Ioonid ja soolade režiim
+
+- Enne aatomi lisamist vali selle laeng: neutraalne, positiivne või negatiivne.
+- Vastasmärgiga ioonide ühendamisel tekib automaatselt sinine ioonne side.
+- Kontroll arvestab aatomite laenguid, kogulaeng peab olema null ja sihtühendi laengud peavad sobima.
+- Jaotises "Ehita sool" saab harjutada NaCl, MgCl₂, AlF₃ ja CaO tasakaalustamist.
+
 ## Praegused molekulid
 
 Mängus on välja pakutud järgmised näited:

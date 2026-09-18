@@ -1,24 +1,32 @@
 const molecules = [
-  { id:'water', name:'Vesi', formula:'H₂O', hint:'Igapäevane aine, mida vajame eluks.', atoms:['O','H','H'], bonds:[[0,1,1],[0,2,1]], fact:'Vesi on elu üks tähtsamaid aineid.', guide:'Hapnik on keskne aatom ja kaks vesiniku aatomit on seotud ühekordsete sidemetega.', difficulty:'easy' },
+  { id:'water', name:'Vesi', formula:'H₂O', hint:'Igapäevane aine, mida vajame eluks.', atoms:['O','H','H'], charges:[-2,1,1], bonds:[[0,1,1],[0,2,1]], bondTypes:['covalent','covalent'], fact:'Vesi on elu üks tähtsamaid aineid.', guide:'Hapnikul on mudelis −2 ja mõlemal vesinikul +1; kaks kovalentset sidet annavad kokku neutraalse vee.', difficulty:'easy' },
   { id:'carbon-dioxide', name:'Süsinikdioksiid', formula:'CO₂', hint:'Taimed kasutavad seda fotosünteesis.', atoms:['C','O','O'], bonds:[[0,1,2],[0,2,2]], fact:'Süsinikdioksiid liigub süsinikuringes.', guide:'Süsinik on keskel ja iga hapnik on sellega seotud kahekordse sidemega.', difficulty:'easy' },
-  { id:'methane', name:'Metaan', formula:'CH₄', hint:'Maagaasi peamine koostisosa.', atoms:['C','H','H','H','H'], bonds:[[0,1,1],[0,2,1],[0,3,1],[0,4,1]], fact:'Metaan on kõige lihtsam alkaan.', guide:'Süsinik on keskel ja neli vesinikku on temaga üksikute sidemetega seotud.', difficulty:'easy' },
+  { id:'methane', name:'Metaan', formula:'CH₄', hint:'Maagaasi peamine koostisosa.', atoms:['C','H','H','H','H'], charges:[-4,1,1,1,1], bonds:[[0,1,1],[0,2,1],[0,3,1],[0,4,1]], fact:'Metaan on kõige lihtsam alkaan.', guide:'Süsinikul on mudelis −4 ja neljal vesinikul +1; kogulaeng on null.', difficulty:'easy' },
   { id:'ammonia', name:'Ammoniaak', formula:'NH₃', hint:'Seda kasutatakse väetiste tootmisel.', atoms:['N','H','H','H'], bonds:[[0,1,1],[0,2,1],[0,3,1]], fact:'Ammoniaagil on terav iseloomulik lõhn.', guide:'Lämmastik on keskel ja kolm vesinikku on temaga üksikute sidemetega seotud.', difficulty:'easy' },
   { id:'hydrogen', name:'Vesinik', formula:'H₂', hint:'Lihtsaim ja kõige kergem element.', atoms:['H','H'], bonds:[[0,1,1]], fact:'Vesinik on tähtede peamine ehitusplokk.', guide:'Kaks vesiniku aatomit on seotud ühe ühise sidemega.', difficulty:'easy' },
   { id:'oxygen', name:'Hapnik', formula:'O₂', hint:'Hingamiseks vajalik gaas.', atoms:['O','O'], bonds:[[0,1,2]], fact:'Hapnik on meie hingamise puhul oluline.', guide:'Hapniku kaks aatomit on seotud kahekordse sidemega.', difficulty:'easy' },
   { id:'hydrogen-chloride', name:'Vesinikkloriidhape', formula:'HCl', hint:'Krõbe hape, millel on tugev lõhn.', atoms:['H','Cl'], bonds:[[0,1,1]], fact:'Soolhape tekib HCl lahustamisel vees.', guide:'Vesinik ja kloor on ühinenud ühe singliga.', difficulty:'medium' },
-  { id:'sodium-chloride', name:'Naatriumkloriid', formula:'NaCl', hint:'Tuntud ka lauasoolana.', atoms:['Na','Cl'], bonds:[[0,1,1]], fact:'Tavaline lauasool on ioniline ühend.', guide:'Naatrium ja kloor on ühendatud ühe sidemega.', difficulty:'medium' },
+  { id:'sodium-chloride', name:'Naatriumkloriid', formula:'NaCl', hint:'Tuntud ka lauasoolana.', atoms:['Na','Cl'], charges:[1,-1], bonds:[[0,1,1]], bondTypes:['ionic'], fact:'Tavaline lauasool on ioniline ühend.', guide:'Naatrium ja kloor on ühendatud ühe sidemega.', difficulty:'medium' },
   { id:'hydrogen-peroxide', name:'Vesinikperoksiid', formula:'H₂O₂', hint:'Kasutatakse desinfitseerimiseks ja pleegitamiseks.', atoms:['H','O','O','H'], bonds:[[0,1,1],[1,2,1],[2,3,1]], fact:'See on tugev oksüdeerija ja laguneb kiiresti.', guide:'Molekulis on O-O keskne ühend ja mõlemad otsad on H-ga seotud.', difficulty:'medium' },
   { id:'carbon-monoxide', name:'Süsinikmonooksiid', formula:'CO', hint:'Mürgine gaas, mis tekib mittetäielikul põlemisel.', atoms:['C','O'], bonds:[[0,1,3]], fact:'CO on väga mürgine, sest see seob hemoglobiini.', guide:'Süsinik ja hapnik on seotud kolmekordse sidemega.', difficulty:'medium' },
   { id:'sulfur-dioxide', name:'Sulfardioksiid', formula:'SO₂', hint:'Aine, mida moodustub koldes ja tööstuses.', atoms:['S','O','O'], bonds:[[0,1,2],[0,2,2]], fact:'Dioksiid on tugev reostaja ja tekitab kuivest lõhna.', guide:'Väävel on keskel ja mõlemad hapnikud on temaga kahekordsete sidemetega ühendatud.', difficulty:'medium' },
   { id:'carbon-tetrachloride', name:'Süsiniktetrakloriid', formula:'CCl₄', hint:'Märkimisväärselt raske ja kloriga seotud ühend.', atoms:['C','Cl','Cl','Cl','Cl'], bonds:[[0,1,1],[0,2,1],[0,3,1],[0,4,1]], fact:'CCl₄ on üldiselt ebapüsiv ja läheb kasutuselt välja.', guide:'Süsinik on keskel ja kõik neli klori aatomit on temaga üksikute sidemetega ühendatud.', difficulty:'hard' },
   { id:'ozone', name:'Osoon', formula:'O₃', hint:'Kaitseb Maad UV-kiirguse eest.', atoms:['O','O','O'], bonds:[[0,1,1],[1,2,2]], fact:'Osoon on stratosfääris ülioluline.', guide:'Osoonis on üks O aatom keskel ja üks side on lihtne, teine kahekordne.', difficulty:'hard' },
-  { id:'sodium-hydroxide', name:'Naatriumhüdroksiid', formula:'NaOH', hint:'Levinud base, tugev leelis.', atoms:['Na','O','H'], bonds:[[0,1,1],[1,2,1]], fact:'NaOH lahuses moodustab leelise ja on tugev alus.', guide:'Naatrium ja hapnik on ühendatud ühe sidemega, hapnik ja vesinik on samasti ühendatud ühe sidemega.', difficulty:'hard' },
+  { id:'sodium-hydroxide', name:'Naatriumhüdroksiid', formula:'NaOH', hint:'Levinud base, tugev leelis.', atoms:['Na','O','H'], charges:[1,-1,0], bonds:[[0,1,1],[1,2,1]], bondTypes:['ionic','covalent'], fact:'NaOH lahuses moodustab leelise ja on tugev alus.', guide:'Naatrium ja hapnik on ühendatud ühe ioonse sidemega, hapnik ja vesinik ühe kovalentse sidemega.', difficulty:'hard' },
   { id:'hydrogen-sulfide', name:'Vesiniksulfiid', formula:'H₂S', hint:'Mürgine gaas, millel on ebameeldiv lõhn.', atoms:['H','S','H'], bonds:[[0,1,1],[1,2,1]], fact:'H₂S on mürgine ja seda leidub mõnedes geotermilistes allikates.', guide:'Väävel on keskel ja kaks vesinikku on temaga ühekordsete sidemetega seotud.', difficulty:'hard' },
   { id:'nitrogen', name:'Lämmastik', formula:'N₂', hint:'Maa atmosfääris on see kõige levinum gaas.', atoms:['N','N'], bonds:[[0,1,3]], fact:'Lämmastikmolekul on väga stabiilne ja sisaldab kolmekordset sidet.', guide:'Lämmastiku kaks aatomit on ühendatud kolmekordse sidemega.', difficulty:'hard' },
   { id:'chlorine', name:'Kloor', formula:'Cl₂', hint:'Kloor on üsna reaktiivne ja kasutusel desinfitseerimisel.', atoms:['Cl','Cl'], bonds:[[0,1,1]], fact:'Kloor on vajalik veepuhastuses ja tekib ka valgenditest.', guide:'Kaks klooriaatomit on ühendatud ühekordse sidemega.', difficulty:'hard' }
 ];
-const elements = [{symbol:'H',name:'vesinik',className:'h'},{symbol:'O',name:'hapnik',className:'o'},{symbol:'C',name:'süsinik',className:'c'},{symbol:'N',name:'lämmastik',className:'n'},{symbol:'Cl',name:'kloor',className:'cl'},{symbol:'Na',name:'naatrium',className:'na'},{symbol:'S',name:'väävel',className:'s'}];
+const elements = [{symbol:'H',name:'vesinik',className:'h'},{symbol:'O',name:'hapnik',className:'o'},{symbol:'C',name:'süsinik',className:'c'},{symbol:'N',name:'lämmastik',className:'n'},{symbol:'Cl',name:'kloor',className:'cl'},{symbol:'Na',name:'naatrium',className:'na'},{symbol:'S',name:'väävel',className:'s'},{symbol:'Mg',name:'magneesium',className:'mg'},{symbol:'Ca',name:'kaltsium',className:'ca'},{symbol:'Al',name:'alumiinium',className:'al'},{symbol:'F',name:'fluor',className:'f'}];
+const saltChallenges = [
+  { id:'salt-nacl', name:'Naatriumkloriid', formula:'NaCl', atoms:['Na','Cl'], charges:[1,-1], bonds:[[0,1,1]], bondTypes:['ionic'] },
+  { id:'salt-mgcl2', name:'Magneesiumkloriid', formula:'MgCl₂', atoms:['Mg','Cl','Cl'], charges:[2,-1,-1], bonds:[[0,1,1],[0,2,1]], bondTypes:['ionic','ionic'] },
+  { id:'salt-alf3', name:'Alumiiniumfluoriid', formula:'AlF₃', atoms:['Al','F','F','F'], charges:[3,-1,-1,-1], bonds:[[0,1,1],[0,2,1],[0,3,1]], bondTypes:['ionic','ionic','ionic'] },
+  { id:'salt-cao', name:'Kaltsiumoksiid', formula:'CaO', atoms:['Ca','O'], charges:[2,-2], bonds:[[0,1,1]], bondTypes:['ionic'] }
+];
 let target = molecules[0], atoms = [], bonds = [], selected = null, score = 0, completed = new Set(), bestScore = 0;
+let selectedCharge = 0;
+let saltMode = false;
 let dragState = null;
 let pointerMoved = false;
 let timerEnabled = false;
@@ -59,7 +67,7 @@ const translations = {
     easy: 'Lihtne',
     medium: 'Keskmine',
     hard: 'Raske',
-    connectionTip: 'Ühendamiseks puuduta järjest kahte aatomit. Sama paari uuesti vajutades muutub side 1 → 2 → 3.',
+    connectionTip: 'Ühendamiseks puuduta järjest kahte aatomit. Vastasmärgiga ioonid ühenduvad automaatselt.',
     correct: 'Õige!',
     completed: 'valmis',
     needAtoms: 'Vaja on',
@@ -119,7 +127,7 @@ const translations = {
     easy: 'Easy',
     medium: 'Medium',
     hard: 'Hard',
-    connectionTip: 'Touch two atoms in sequence to connect them. Pressing the same pair again changes bond order 1 → 2 → 3.',
+    connectionTip: 'Touch two atoms in sequence. Oppositely charged ions connect automatically.',
     correct: 'Correct!',
     completed: 'completed',
     needAtoms: 'Need',
@@ -155,8 +163,8 @@ const translations = {
   }
 };
 const elementNames = {
-  et: { H:'vesinik', O:'hapnik', C:'süsinik', N:'lämmastik', Cl:'kloor', Na:'naatrium', S:'väävel' },
-  en: { H:'hydrogen', O:'oxygen', C:'carbon', N:'nitrogen', Cl:'chlorine', Na:'sodium', S:'sulfur' }
+  et: { H:'vesinik', O:'hapnik', C:'süsinik', N:'lämmastik', Cl:'kloor', Na:'naatrium', S:'väävel', Mg:'magneesium', Ca:'kaltsium', Al:'alumiinium', F:'fluor' },
+  en: { H:'hydrogen', O:'oxygen', C:'carbon', N:'nitrogen', Cl:'chlorine', Na:'sodium', S:'sulfur', Mg:'magnesium', Ca:'calcium', Al:'aluminium', F:'fluorine' }
 };
 const moleculeText = {
   en: {
@@ -207,7 +215,7 @@ function getMoleculeText(molecule) {
 }
 
 function getMoleculeFact(molecule) {
-  return moleculeFacts[currentLang]?.[molecule.id] || molecule.fact;
+  return moleculeFacts[currentLang]?.[molecule.id] || molecule.fact || molecule.hint || '';
 }
 
 function initAudio() {
@@ -381,10 +389,10 @@ function snapAtomToLayout(index) {
 
 function getTargetSignature(targetMolecule) {
   return targetMolecule.bonds
-    .map(([leftIndex, rightIndex, order]) => {
+    .map(([leftIndex, rightIndex, order, type], bondIndex) => {
       const leftSymbol = targetMolecule.atoms[leftIndex];
       const rightSymbol = targetMolecule.atoms[rightIndex];
-      return [leftSymbol, rightSymbol].sort().join('-') + ':' + order;
+      return [leftSymbol, rightSymbol].sort().join('-') + ':' + order + ':' + (type || targetMolecule.bondTypes?.[bondIndex] || 'covalent');
     })
     .sort()
     .join('|');
@@ -392,13 +400,44 @@ function getTargetSignature(targetMolecule) {
 
 function getCurrentSignature() {
   return bonds
-    .map(([leftIndex, rightIndex, order]) => {
+    .map(([leftIndex, rightIndex, order, type]) => {
       const leftSymbol = atoms[leftIndex].symbol;
       const rightSymbol = atoms[rightIndex].symbol;
-      return [leftSymbol, rightSymbol].sort().join('-') + ':' + order;
+      return [leftSymbol, rightSymbol].sort().join('-') + ':' + order + ':' + (type || 'covalent');
     })
     .sort()
     .join('|');
+}
+
+function getBondType(bond) {
+  return bond[3] || 'covalent';
+}
+
+function shouldUseIonicBond(firstAtom, secondAtom) {
+  const targetBondIndex = target.bonds.findIndex(bond =>
+    (bond[0] === atoms.indexOf(firstAtom) && bond[1] === atoms.indexOf(secondAtom)) ||
+    (bond[0] === atoms.indexOf(secondAtom) && bond[1] === atoms.indexOf(firstAtom))
+  );
+  if (targetBondIndex >= 0 && target.bondTypes?.[targetBondIndex]) {
+    return target.bondTypes[targetBondIndex] === 'ionic';
+  }
+  const metals = ['Na', 'Mg', 'Ca', 'Al', 'Fe', 'Cu', 'Zn'];
+  return metals.includes(firstAtom.symbol) && secondAtom.charge < 0 || metals.includes(secondAtom.symbol) && firstAtom.charge < 0;
+}
+
+function getTargetChargeSignature() {
+  return (target.charges || target.atoms.map(() => 0))
+    .map((charge, index) => `${target.atoms[index]}:${charge}`)
+    .sort()
+    .join('|');
+}
+
+function getCurrentChargeSignature() {
+  return atoms.map(atom => `${atom.symbol}:${atom.charge || 0}`).sort().join('|');
+}
+
+function getTotalCharge() {
+  return atoms.reduce((total, atom) => total + (atom.charge || 0), 0);
 }
 
 function getBondCountsByElement(symbolList) {
@@ -422,6 +461,14 @@ function getValidationMessage() {
   if (missingAtoms.length) {
     const details = missingAtoms.map(([symbol, count]) => `${symbol}: ${count}`).join(', ');
     return `${t('atomCountMismatch')} ${details}.`;
+  }
+
+  if (getTotalCharge() !== 0) {
+    return `${currentLang === 'et' ? 'Kogulaeng peab olema 0, praegu on' : 'Total charge must be 0, currently'} ${getTotalCharge()}.`;
+  }
+
+  if (getCurrentChargeSignature() !== getTargetChargeSignature()) {
+    return currentLang === 'et' ? 'Aatomid on õiged, kuid laengud ei sobi sihtühendiga.' : 'Atoms are correct, but the charges do not match the target compound.';
   }
 
   if (currentSignature !== targetSignature) {
@@ -540,6 +587,8 @@ function updateLanguageUI() {
   document.querySelector('.completion-score').innerHTML = `<span id="final-score">${score}</span> ${lang.pointsScore}`;
   document.querySelector('.completion-count').innerHTML = `<span id="completed-count">${completed.size}</span> ${lang.moleculesSolved}`;
   $('restart-button').innerHTML = `${lang.restart} <span>↻</span>`;
+  $('charge-label').textContent = currentLang === 'et' ? 'Laeng' : 'Charge';
+  $('salt-mode-description').textContent = currentLang === 'et' ? 'Tasakaalusta ioonid ja ehita neutraalne ühend.' : 'Balance the ions and build a neutral compound.';
 }
 
 function toggleLanguage() {
@@ -614,7 +663,12 @@ function init() {
   $('element-grid').innerHTML = elements.map(element => `<button class="element-choice" data-symbol="${element.symbol}" type="button"><strong>${element.symbol}</strong><small>${element.name}</small></button>`).join('');
   $('molecule-list').innerHTML = molecules.map((molecule, index) => `<button class="molecule-item ${index === 0 ? 'active' : ''} ${completed.has(molecule.id) ? 'completed' : ''}" data-id="${molecule.id}" data-difficulty="${molecule.difficulty}" type="button"><span class="molecule-symbol">${molecule.formula}</span><span><strong>${molecule.name}</strong><small>${molecule.difficulty === 'easy' ? 'Lihtne' : molecule.difficulty === 'medium' ? 'Keskmine' : 'Raske'}</small></span></button>`).join('');
   document.querySelectorAll('.element-choice').forEach(button => button.addEventListener('click', () => addAtom(button.dataset.symbol)));
+  document.querySelectorAll('.charge-choice').forEach(button => button.addEventListener('click', () => {
+    selectedCharge = Number(button.dataset.charge);
+    document.querySelectorAll('.charge-choice').forEach(choice => choice.classList.toggle('active', choice === button));
+  }));
   document.querySelectorAll('.molecule-item').forEach(button => button.addEventListener('click', () => selectTarget(button.dataset.id)));
+  $('salt-mode-toggle').addEventListener('click', toggleSaltMode);
   $('undo-button').addEventListener('click', undo);
   $('hint-button').addEventListener('click', showHint);
   $('show-structure-button').addEventListener('click', showStructure);
@@ -646,11 +700,13 @@ function showTutorial() {
   
   showNextStep();
 }
-function selectTarget(id) { target = molecules.find(molecule => molecule.id === id); atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.molecule-item').forEach(button => button.classList.toggle('active', button.dataset.id === id)); const moleculeDisplay = getMoleculeText(target); $('level').textContent = String(molecules.indexOf(target) + 1).padStart(2,'0'); $('target-name').textContent = moleculeDisplay[0]; $('target-formula').textContent = target.formula; $('target-hint').textContent = moleculeDisplay[1]; render(); }
+function selectTarget(id) { saltMode = false; $('salt-challenges').hidden = true; $('salt-mode-toggle').textContent = currentLang === 'et' ? 'Alusta' : 'Start'; target = molecules.find(molecule => molecule.id === id); atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.molecule-item').forEach(button => button.classList.toggle('active', button.dataset.id === id)); const moleculeDisplay = getMoleculeText(target); $('level').textContent = String(molecules.indexOf(target) + 1).padStart(2,'0'); $('target-name').textContent = moleculeDisplay[0]; $('target-formula').textContent = target.formula; $('target-hint').textContent = moleculeDisplay[1]; render(); }
+function selectSaltChallenge(index) { saltMode = true; target = saltChallenges[index]; atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.salt-challenge').forEach((button, buttonIndex) => button.classList.toggle('active', buttonIndex === index)); $('level').textContent = `S${index + 1}`; $('target-name').textContent = target.name; $('target-formula').textContent = target.formula; $('target-hint').textContent = currentLang === 'et' ? 'Vali näidatud laengud ja ühenda vastasmärgid.' : 'Choose the shown charges and connect opposite signs.'; render(); }
+function toggleSaltMode() { saltMode = !saltMode; $('salt-challenges').hidden = !saltMode; $('salt-mode-toggle').textContent = saltMode ? (currentLang === 'et' ? 'Sulge' : 'Close') : (currentLang === 'et' ? 'Alusta' : 'Start'); if (saltMode) { $('salt-challenges').innerHTML = saltChallenges.map((challenge, index) => `<button class="salt-challenge ${index === 0 ? 'active' : ''}" data-index="${index}" type="button">${challenge.formula}</button>`).join(''); document.querySelectorAll('.salt-challenge').forEach(button => button.addEventListener('click', () => selectSaltChallenge(Number(button.dataset.index)))); selectSaltChallenge(0); } }
 function addAtom(symbol) {
   if (atoms.length >= 6) return toast(t('capacity'));
   const nextIndex = atoms.length;
-  atoms.push({ symbol, x: 50, y: 50 });
+  atoms.push({ symbol, charge: selectedCharge, x: 50, y: 50 });
   snapAtomToLayout(nextIndex);
   actionHistory.push({ type: 'addAtom', symbol, index: nextIndex });
   initAudio();
@@ -665,8 +721,8 @@ function showHint() {
 function showStructure() {
   const originalAtoms = [...atoms];
   const originalBonds = [...bonds];
-  atoms = target.atoms.map((symbol, index) => ({ symbol, x: 50, y: 50 }));
-  bonds = target.bonds.map(bond => [...bond]);
+  atoms = target.atoms.map((symbol, index) => ({ symbol, charge: target.charges?.[index] || 0, x: 50, y: 50 }));
+  bonds = target.bonds.map((bond, index) => [...bond, target.bondTypes?.[index] || 'covalent']);
   atoms.forEach((_, index) => snapAtomToLayout(index));
   render();
   toast(t('shownStructure'));
@@ -705,7 +761,7 @@ function render() {
   $('atom-count').textContent = atoms.length;
   $('empty-state').style.display = atoms.length ? 'none' : 'flex';
   $('status').textContent = selected === null ? (atoms.length ? t('statusNext') : t('statusSelect')) : t('statusNext');
-  $('atom-layer').innerHTML = atoms.map((atom, index) => `<button class="atom atom-${atom.symbol.toLowerCase()} ${selected === index ? 'selected' : ''} ${dragState && dragState.index === index ? 'dragging' : ''}" data-index="${index}" style="left:${atom.x}%;top:${atom.y}%" type="button">${atom.symbol}</button>`).join('');
+  $('atom-layer').innerHTML = atoms.map((atom, index) => `<button class="atom atom-${atom.symbol.toLowerCase()} ${selected === index ? 'selected' : ''} ${dragState && dragState.index === index ? 'dragging' : ''}" data-index="${index}" style="left:${atom.x}%;top:${atom.y}%" type="button">${atom.symbol}<span class="atom-charge">${atom.charge > 0 ? '+' + atom.charge : atom.charge < 0 ? '−' + Math.abs(atom.charge) : '0'}</span></button>`).join('');
   document.querySelectorAll('.atom').forEach(atom => {
     const index = Number(atom.dataset.index);
     atom.addEventListener('pointerdown', event => startDragAtom(event, index));
@@ -790,8 +846,12 @@ function selectAtom(index) {
       playSound('addBond');
     }
   } else {
-    actionHistory.push({ type: 'addBond', bond: [selected, index, 1] });
-    bonds.push([selected, index, 1]);
+    const firstAtom = atoms[selected];
+    const secondAtom = atoms[index];
+    const ionic = firstAtom.charge !== 0 && secondAtom.charge !== 0 && Math.sign(firstAtom.charge) !== Math.sign(secondAtom.charge) && shouldUseIonicBond(firstAtom, secondAtom);
+    const bond = [selected, index, 1, ionic ? 'ionic' : 'covalent'];
+    actionHistory.push({ type: 'addBond', bond });
+    bonds.push(bond);
     initAudio();
     playSound('addBond');
   }
@@ -818,11 +878,11 @@ function drawBonds() { const layer = $('bond-layer'); const workspace = $('works
     const y1Offset = y1 + normalY * offset;
     const x2Offset = x2 + normalX * offset;
     const y2Offset = y2 + normalY * offset;
-    lines.push(`<line class="bond-line" x1="${x1Offset}" y1="${y1Offset}" x2="${x2Offset}" y2="${y2Offset}" />`);
+    lines.push(`<line class="bond-line ${getBondType(bond)}" x1="${x1Offset}" y1="${y1Offset}" x2="${x2Offset}" y2="${y2Offset}" />`);
   }
   const midX = (x1 + x2) / 2;
   const midY = (y1 + y2) / 2;
-  lines.push(`<text x="${midX}" y="${midY}" class="bond-order" text-anchor="middle" dominant-baseline="middle">${bond[2]}</text>`);
+  lines.push(`<text x="${midX}" y="${midY}" class="bond-order" text-anchor="middle" dominant-baseline="middle">${bond[3] === 'ionic' ? '⋯' : bond[2]}</text>`);
   return lines.join('');
 }).join(''); }
 function undo() {
@@ -869,7 +929,12 @@ function checkMolecule() {
     playSound('success');
     toast(validationMessage + ` ${getMoleculeFact(target)}`);
     setTimeout(() => {
-      advanceLevel();
+      if (saltMode) {
+        const nextSalt = (saltChallenges.findIndex(challenge => challenge.id === target.id) + 1) % saltChallenges.length;
+        selectSaltChallenge(nextSalt);
+      } else {
+        advanceLevel();
+      }
       workspace.classList.remove('success');
     }, 900);
   } else {

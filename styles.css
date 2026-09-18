@@ -30,9 +30,11 @@ h1,h2,h3,p { margin:0; } h1,h2,h3 { font-family:'Space Grotesk',sans-serif; } h1
 .workspace.success { box-shadow:0 0 0 3px rgba(91,187,124,.35), inset 0 0 40px rgba(144,214,160,.32); animation:workspaceGlow .45s ease; }
 .workspace.shake { animation:workspaceShake .38s ease-in-out; }
 .empty-state { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--muted); gap:5px; pointer-events:none; }.empty-state strong { font:600 16px 'Space Grotesk',sans-serif; color:var(--ink); }.empty-state small { font-size:12px; }.plus-mark { display:grid; place-items:center; width:46px; height:46px; border:1px dashed #9eb4ad; border-radius:50%; font-size:28px; font-weight:300; color:#78988c; }.bond-layer { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }.bond-line { stroke:#82968e; stroke-width:5; stroke-linecap:round; stroke-dasharray:500; stroke-dashoffset:500; animation:bondDraw .34s ease forwards; transition:stroke-width .2s ease, stroke .2s ease; }
+.bond-line.ionic { stroke:#3d91c4; stroke-dasharray:7 5; }
 .bond-line:hover { stroke-width:7; stroke:#0a1f2e; }
 .bond-order { fill:#0a1f2e; font-size:12px; font-weight:700; font-family:'Space Grotesk',sans-serif; pointer-events:none; animation:bondOrderFade .2s ease; }
 .atom-layer { position:absolute; inset:0; }
+.atom-charge { position:absolute; right:-9px; top:-9px; min-width:23px; height:23px; padding:2px 4px; border:2px solid #fff; border-radius:50%; background:var(--ink); color:#fff; font:700 11px 'Space Grotesk',sans-serif; }
 .atom { position:absolute; width:62px; height:62px; transform:translate(-50%,-50%); border:4px solid white; border-radius:50%; display:grid; place-items:center; box-shadow:0 5px 12px #0a1f2e24; font:700 18px 'Space Grotesk',sans-serif; user-select:none; touch-action:none; transition:transform .16s, box-shadow .16s; animation:atomPop .22s ease; cursor:grab; }
 .atom:active { transform:translate(-50%,-50%) scale(.93); }
 .atom.dragging { box-shadow:0 0 0 5px rgba(239,131,84,.65), 0 12px 18px #0a1f2e30; transform:translate(-50%,-50%) scale(1.05); }
@@ -44,11 +46,24 @@ h1,h2,h3,p { margin:0; } h1,h2,h3 { font-family:'Space Grotesk',sans-serif; } h1
 .atom-cl { background:#e6f3ff; }
 .atom-na { background:#f5d6a5; }
 .atom-s { background:#d9d4ff; }
+.atom-mg,.atom-ca,.atom-al { background:#c7d8e5; }
+.atom-f { background:#c9e8d3; }
 .workspace-actions { margin-top:13px; }
 .text-button { border:0; background:transparent; color:var(--muted); font-size:13px; padding:10px 0; }
 .primary-button { border:0; border-radius:12px; background:var(--coral); color:white; font-weight:700; padding:13px 16px; box-shadow:0 5px 0 #c96540; }
 .primary-button:active { transform:translateY(2px); box-shadow:0 3px 0 #c96540; }
 .primary-button span { margin-left:10px; font-size:18px; }
+.charge-picker { display:flex; align-items:center; gap:6px; margin:-2px 0 10px; flex-wrap:wrap; }
+.charge-label { color:var(--muted); font-size:12px; margin-right:3px; }
+.charge-choice { min-width:34px; border:1px solid var(--line); border-radius:9px; background:#fff; color:var(--ink); padding:6px 8px; font-weight:700; font-size:12px; }
+.charge-choice.active { border-color:var(--coral); background:#fff0e9; color:#c96540; }
+.charge-choice.negative { color:#367da9; }
+.salt-section { margin-top:32px; padding-top:20px; border-top:1px solid #d8e4df; }
+.mode-description { color:var(--muted); font-size:12px; margin-bottom:10px; }
+.salt-challenges { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+.salt-challenges[hidden] { display:none; }
+.salt-challenge { border:1px solid var(--line); border-radius:12px; background:#fff; color:var(--ink); padding:10px 6px; font:700 15px 'Space Grotesk',sans-serif; }
+.salt-challenge.active { border-color:var(--coral); background:#fff0e9; }
 .element-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:8px; }
 .element-choice { border:1px solid var(--line); background:#fff; border-radius:14px; padding:10px 4px 8px; color:var(--ink); }
 .element-choice strong { display:block; font:700 19px 'Space Grotesk',sans-serif; }
