@@ -121,14 +121,17 @@ const translations = {
     contact: 'Kontakt:',
     saltModeLabel: 'REŽIIM',
     saltModeTitle: 'Ehita sool',
+    saltModeButton: 'Ehita sool',
     saltModeStart: 'Alusta',
     saltModeClose: 'Sulge',
     saltModeDescription: 'Tasakaalusta ioonid ja ehita neutraalne ühend.',
     saltModePrompt: 'Vali näidatud laengud ja ühenda vastasmärgid.',
     baseModeTitle: 'Ehita alus',
+    baseModeButton: 'Ehita alus',
     baseModeDescription: 'Koosta alus õigetest ioonidest ja kovalentsetest sidemetest.',
     baseModePrompt: 'Vali näidatud laengud ja ühenda aatomid õigete sidemetega.',
     acidModeTitle: 'Ehita hape',
+    acidModeButton: 'Ehita hape',
     acidModeDescription: 'Koosta hape õigetest aatomitest, laengutest ja sidemetest.',
     acidModePrompt: 'Vali näidatud laengud ja ühenda aatomid õigete sidemetega.',
     tutorial: [
@@ -193,14 +196,17 @@ const translations = {
     contact: 'Contact:',
     saltModeLabel: 'MODE',
     saltModeTitle: 'Build salt',
+    saltModeButton: 'Build salt',
     saltModeStart: 'Start',
     saltModeClose: 'Close',
     saltModeDescription: 'Balance the ions and build a neutral compound.',
     saltModePrompt: 'Choose the shown charges and connect opposite signs.',
     baseModeTitle: 'Build base',
+    baseModeButton: 'Build base',
     baseModeDescription: 'Assemble a base from the correct ions and covalent bonds.',
     baseModePrompt: 'Choose the shown charges and connect the atoms with the correct bonds.',
     acidModeTitle: 'Build acid',
+    acidModeButton: 'Build acid',
     acidModeDescription: 'Assemble an acid from the correct atoms, charges, and bonds.',
     acidModePrompt: 'Choose the shown charges and connect the atoms with the correct bonds.',
     tutorial: [
@@ -662,6 +668,10 @@ function updateLanguageUI() {
   document.querySelector('.molecules-section h3').textContent = lang.learnMolecules;
   document.querySelector('.salt-section .section-kicker').textContent = lang.saltModeLabel;
   document.querySelector('.salt-section h3').textContent = lang[`${buildMode}ModeTitle`];
+  document.querySelectorAll('.build-mode-choice').forEach(button => {
+    const mode = button.dataset.buildMode;
+    button.textContent = lang[`${mode}ModeButton`];
+  });
   document.querySelector('.connection-tip').textContent = lang.connectionTip;
   document.querySelector('.support-banner').setAttribute('aria-label', lang.supportLabel);
   document.querySelector('.workspace').setAttribute('aria-label', lang.yourMolecule);
