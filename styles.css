@@ -64,6 +64,27 @@ h1,h2,h3,p { margin:0; } h1,h2,h3 { font-family:'Space Grotesk',sans-serif; } h1
 .salt-challenges[hidden] { display:none; }
 .salt-challenge { border:1px solid var(--line); border-radius:12px; background:#fff; color:var(--ink); padding:10px 6px; font:700 15px 'Space Grotesk',sans-serif; }
 .salt-challenge.active { border-color:var(--coral); background:#fff0e9; }
+.reaction-section { margin-top:32px; padding-top:20px; border-top:1px solid #d8e4df; }
+.reaction-state { color:var(--muted); font-size:12px; }
+.reaction-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+.reaction-card { border:1px solid var(--line); border-radius:14px; background:#fff; color:var(--ink); padding:14px; text-align:left; }
+.reaction-card.active { border:2px solid var(--coral); padding:13px; background:#fff8f3; }
+.reaction-card strong { display:block; font:700 15px 'Space Grotesk',sans-serif; }
+.reaction-card small { display:block; margin-top:5px; color:var(--muted); font-size:11px; line-height:1.35; }
+.reaction-tag { display:inline-block; margin-top:9px; padding:4px 7px; border-radius:6px; background:#e7f3ed; color:#36765a; font-size:10px; font-weight:700; }
+.reaction-card.endothermic .reaction-tag { background:#e6f3ff; color:#367da9; }
+.reaction-controls { display:flex; align-items:center; gap:9px; margin-top:12px; flex-wrap:wrap; color:var(--muted); font-size:12px; }
+.reaction-controls select { min-height:40px; border:1px solid var(--line); border-radius:9px; background:#fff; color:var(--ink); padding:7px 9px; }
+.reaction-controls .primary-button { margin-left:auto; }
+.reaction-result { display:flex; flex-direction:column; gap:4px; min-height:52px; margin-top:12px; padding:11px 13px; border-left:4px solid var(--yellow); background:#ffffffb8; border-radius:0 10px 10px 0; }
+.reaction-result strong { font:700 14px 'Space Grotesk',sans-serif; }
+.reaction-result span { color:var(--muted); font-size:12px; }
+.reaction-section.exothermic .reaction-result { border-left-color:var(--coral); background:#fff0e9; }
+.reaction-section.endothermic .reaction-result { border-left-color:var(--blue); background:#eaf5fc; }
+.reaction-section.reacting .reaction-result { animation:reactionPulse .7s ease-in-out infinite alternate; }
+.reaction-section.exothermic .reaction-state { color:#c96540; }
+.reaction-section.endothermic .reaction-state { color:#367da9; }
+@keyframes reactionPulse { from { transform:scale(1); } to { transform:scale(1.015); } }
 .element-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:8px; }
 .element-choice { border:1px solid var(--line); background:#fff; border-radius:14px; padding:10px 4px 8px; color:var(--ink); }
 .element-choice strong { display:block; font:700 19px 'Space Grotesk',sans-serif; }
@@ -86,5 +107,5 @@ h1,h2,h3,p { margin:0; } h1,h2,h3 { font-family:'Space Grotesk',sans-serif; } h1
 @keyframes workspaceGlow { 0% { box-shadow:0 0 0 0 rgba(82,185,120,.38), inset 0 0 40px rgba(144,214,160,.18); } 50% { box-shadow:0 0 0 8px rgba(82,185,120,.18), inset 0 0 40px rgba(144,214,160,.38); } 100% { box-shadow:0 0 0 3px rgba(82,185,120,.35), inset 0 0 40px rgba(144,214,160,.32); } }
 @keyframes workspaceShake { 0%,100% { transform:translateX(0); } 20% { transform:translateX(-6px); } 40% { transform:translateX(6px); } 60% { transform:translateX(-5px); } 80% { transform:translateX(5px); } }
 @keyframes completionIn { from { opacity:0; transform:translateY(14px) scale(.97); } to { opacity:1; transform:translateY(0) scale(1); } }
-@media (max-width:520px) { .app-shell { padding:22px 16px 35px; } h1 { font-size:25px; } h2 { font-size:23px; }.workspace { height:300px; }.formula-card { width:76px; font-size:20px; }.mission-panel { padding-left:19px; }.element-grid { gap:5px; }.element-choice { padding:9px 2px 7px; }.element-choice strong { font-size:17px; }.molecule-list { grid-template-columns:1fr; }.atom { width:62px; height:62px; } }
+@media (max-width:520px) { .app-shell { padding:22px 16px 35px; } h1 { font-size:25px; } h2 { font-size:23px; }.workspace { height:300px; }.formula-card { width:76px; font-size:20px; }.mission-panel { padding-left:19px; }.element-grid { gap:5px; }.element-choice { padding:9px 2px 7px; }.element-choice strong { font-size:17px; }.molecule-list { grid-template-columns:1fr; }.reaction-grid { grid-template-columns:1fr; }.reaction-controls .primary-button { width:100%; margin-left:0; }.atom { width:62px; height:62px; } }
 @media (min-width:700px) { .workspace { height:390px; }.app-shell { padding-top:42px; } }

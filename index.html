@@ -80,6 +80,24 @@
       <div class="salt-challenges" id="salt-challenges" hidden></div>
     </section>
 
+    <section class="reaction-section">
+      <div class="section-heading compact"><div><span class="section-kicker" id="reaction-lab-label">REAKTSIOONILABOR</span><h3 id="reaction-lab-title">Happed, alused ja energia</h3></div><span class="reaction-state" id="reaction-state">Valmis</span></div>
+      <div class="reaction-grid" id="reaction-grid"></div>
+      <div class="reaction-controls">
+        <label for="catalyst-select" id="catalyst-label">Katalüsaator</label>
+        <select id="catalyst-select">
+          <option value="none" id="catalyst-none">Ilma katalüsaatorita</option>
+          <option value="manganese-dioxide" id="catalyst-manganese">MnO₂ · mangaan(IV)oksiid</option>
+          <option value="platinum" id="catalyst-platinum">Pt · plaatina</option>
+        </select>
+        <button class="primary-button" id="run-reaction-button" type="button">Käivita reaktsioon <span>→</span></button>
+      </div>
+      <div class="reaction-result" id="reaction-result" aria-live="polite">
+        <strong id="reaction-equation">Vali reaktsioon</strong>
+        <span id="reaction-detail">Energia ja katalüsaatori mõju ilmuvad siia.</span>
+      </div>
+    </section>
+
     <section class="molecules-section">
       <div class="section-heading compact"><div><span class="section-kicker">KOGUMIK</span><h3>Õpitavad molekulid</h3></div></div>
       <div class="molecule-list" id="molecule-list"></div>

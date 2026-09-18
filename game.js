@@ -24,6 +24,19 @@ const saltChallenges = [
   { id:'salt-alf3', name:'Alumiiniumfluoriid', formula:'AlF₃', atoms:['Al','F','F','F'], charges:[3,-1,-1,-1], bonds:[[0,1,1],[0,2,1],[0,3,1]], bondTypes:['ionic','ionic','ionic'] },
   { id:'salt-cao', name:'Kaltsiumoksiid', formula:'CaO', atoms:['Ca','O'], charges:[2,-2], bonds:[[0,1,1]], bondTypes:['ionic'] }
 ];
+const reactions = [
+  { id:'neutralization', name:'Neutralisatsioon', equation:'HCl + NaOH → NaCl + H₂O', detail:'Hape ja alus neutraliseerivad teineteise; tekivad sool ja vesi.', energy:'exo' },
+  { id:'peroxide', name:'Vesinikperoksiidi lagunemine', equation:'2 H₂O₂ → 2 H₂O + O₂', detail:'Katalüsaator aitab peroksiidil kiiremini laguneda.', energy:'exo', catalyst:'manganese-dioxide' },
+  { id:'photosynthesis', name:'Fotosüntees', equation:'6 CO₂ + 6 H₂O → C₆H₁₂O₆ + 6 O₂', detail:'Taim salvestab valgusenergia glükoosi keemilisse energiasse.', energy:'endo', catalyst:'none' }
+];
+const reactionCopy = {
+  et: {
+    labLabel:'REAKTSIOONILABOR', labTitle:'Happed, alused ja energia', ready:'Valmis', catalyst:'Katalüsaator', noCatalyst:'Ilma katalüsaatorita', manganese:'MnO₂ · mangaan(IV)oksiid', platinum:'Pt · plaatina', run:'Käivita reaktsioon', exoTag:'EKSOTERMILINE', endoTag:'ENDOTERMILINE', heatReleased:'Soojust eraldub', energyAbsorbed:'Energiat neeldub', running:'Reaktsioon käib', speedsUp:'Kiireneb', lowersBarrier:'Katalüsaator vähendab aktiveerumisbarjääri; valmib', withoutCatalyst:'Ilma katalüsaatorita valmib see', seconds:'sekundiga.', readyHeat:'Valmis · soojus eraldus', readyEnergy:'Valmis · energia neeldus', catalystNotConsumed:'ei kulu reaktsioonis ära, kuid muutis selle kiiremaks.', compareSpeed:'Katse valmis. Lisa katalüsaator ja võrdle reaktsiooni kiirust.', exoToast:'Eksotermiline efekt: tööala soojeneb.', endoToast:'Endotermiline efekt: tööala jahtub.'
+  },
+  en: {
+    labLabel:'REACTION LAB', labTitle:'Acids, bases and energy', ready:'Ready', catalyst:'Catalyst', noCatalyst:'Without a catalyst', manganese:'MnO₂ · manganese(IV) oxide', platinum:'Pt · platinum', run:'Run reaction', exoTag:'EXOTHERMIC', endoTag:'ENDOTHERMIC', heatReleased:'Heat is released', energyAbsorbed:'Energy is absorbed', running:'Reaction running', speedsUp:'Faster', lowersBarrier:'The catalyst lowers the activation barrier; complete in', withoutCatalyst:'Without a catalyst, this completes in', seconds:'seconds.', readyHeat:'Complete · heat released', readyEnergy:'Complete · energy absorbed', catalystNotConsumed:'is not used up, but made the reaction faster.', compareSpeed:'Experiment complete. Add a catalyst to compare the reaction speed.', exoToast:'Exothermic effect: the lab warms up.', endoToast:'Endothermic effect: the lab cools down.'
+  }
+};
 let target = molecules[0], atoms = [], bonds = [], selected = null, score = 0, completed = new Set(), bestScore = 0;
 let selectedCharge = 0;
 let saltMode = false;
@@ -36,6 +49,8 @@ let tutorialShown = false;
 let actionHistory = [];
 let currentLang = 'et';
 let audioContext = null;
+let selectedReaction = reactions[0];
+let reactionTimer = null;
 const STORAGE_KEY = 'chemistry-game-best-score';
 const COMPLETED_KEY = 'chemistry-game-completed';
 const LANG_KEY = 'chemistry-game-language';
@@ -546,6 +561,56 @@ function t(key) {
   return translations[currentLang][key] || key;
 }
 
+function getReactionCopy(reaction) {
+  const localized = reactionCopy[currentLang];
+  const englishNames = {
+    neutralization: ['Neutralization', 'An acid and a base neutralize each other, forming salt and water.'],
+    peroxide: ['Hydrogen peroxide decomposition', 'A catalyst helps peroxide decompose faster.'],
+    photosynthesis: ['Photosynthesis', 'The plant stores light energy as chemical energy in glucose.']
+  };
+  const english = englishNames[reaction.id];
+  return currentLang === 'en' ? { ...reaction, name: english[0], detail: english[1], tag: reaction.energy === 'exo' ? localized.exoTag : localized.endoTag } : { ...reaction, tag: reaction.energy === 'exo' ? localized.exoTag : localized.endoTag };
+}
+
+function renderReactionLab() {
+  $('reaction-grid').innerHTML = reactions.map((reaction, index) => { const localized = getReactionCopy(reaction); return `<button class="reaction-card ${reaction.energy === 'endo' ? 'endothermic' : ''} ${reaction.id === selectedReaction.id ? 'active' : ''}" data-reaction-index="${index}" type="button"><strong>${localized.name}</strong><small>${localized.equation}</small><span class="reaction-tag">${localized.tag}</span></button>`; }).join('');
+  document.querySelectorAll('.reaction-card').forEach(button => button.addEventListener('click', () => {
+    selectedReaction = reactions[Number(button.dataset.reactionIndex)];
+    updateReactionUI();
+  }));
+  updateReactionUI();
+}
+
+function updateReactionUI() {
+  const section = document.querySelector('.reaction-section');
+  section.classList.remove('exothermic', 'endothermic');
+  section.classList.add(selectedReaction.energy === 'exo' ? 'exothermic' : 'endothermic');
+  document.querySelectorAll('.reaction-card').forEach(button => button.classList.toggle('active', Number(button.dataset.reactionIndex) === reactions.indexOf(selectedReaction)));
+  const localized = getReactionCopy(selectedReaction);
+  $('reaction-state').textContent = selectedReaction.energy === 'exo' ? reactionCopy[currentLang].heatReleased : reactionCopy[currentLang].energyAbsorbed;
+  $('reaction-equation').textContent = selectedReaction.equation;
+  $('reaction-detail').textContent = localized.detail;
+}
+
+function runReaction() {
+  clearTimeout(reactionTimer);
+  const catalyst = $('catalyst-select').value;
+  const catalystNames = { 'manganese-dioxide':'MnO₂', platinum:'Pt' };
+  const copy = reactionCopy[currentLang];
+  const hasCatalyst = catalyst !== 'none';
+  const duration = hasCatalyst ? 900 : 2400;
+  const section = document.querySelector('.reaction-section');
+  section.classList.add('reacting');
+  $('reaction-state').textContent = hasCatalyst ? `${copy.speedsUp} · ${catalystNames[catalyst]}` : copy.running;
+  $('reaction-detail').textContent = hasCatalyst ? `${copy.lowersBarrier} ${duration / 1000} ${copy.seconds}` : `${copy.withoutCatalyst} ${duration / 1000} ${copy.seconds}`;
+  reactionTimer = setTimeout(() => {
+    section.classList.remove('reacting');
+    $('reaction-state').textContent = selectedReaction.energy === 'exo' ? copy.readyHeat : copy.readyEnergy;
+    $('reaction-detail').textContent = hasCatalyst ? `${catalystNames[catalyst]} ${copy.catalystNotConsumed}` : copy.compareSpeed;
+    toast(selectedReaction.energy === 'exo' ? copy.exoToast : copy.endoToast);
+  }, duration);
+}
+
 function updateLanguageUI() {
   const lang = translations[currentLang];
   const moleculeDisplay = getMoleculeText(target);
@@ -605,6 +670,16 @@ function updateLanguageUI() {
   $('restart-button').innerHTML = `${lang.restart} <span>↻</span>`;
   $('charge-label').textContent = currentLang === 'et' ? 'Laeng' : 'Charge';
   $('salt-mode-description').textContent = currentLang === 'et' ? 'Tasakaalusta ioonid ja ehita neutraalne ühend.' : 'Balance the ions and build a neutral compound.';
+  const reactionLabels = reactionCopy[currentLang];
+  $('reaction-lab-label').textContent = reactionLabels.labLabel;
+  $('reaction-lab-title').textContent = reactionLabels.labTitle;
+  $('reaction-state').textContent = reactionLabels.ready;
+  $('catalyst-label').textContent = reactionLabels.catalyst;
+  $('catalyst-none').textContent = reactionLabels.noCatalyst;
+  $('catalyst-manganese').textContent = reactionLabels.manganese;
+  $('catalyst-platinum').textContent = reactionLabels.platinum;
+  $('run-reaction-button').innerHTML = `${reactionLabels.run} <span>→</span>`;
+  renderReactionLab();
 }
 
 function toggleLanguage() {
@@ -692,6 +767,8 @@ function init() {
   $('lang-toggle').addEventListener('click', toggleLanguage);
   $('check-button').addEventListener('click', checkMolecule);
   $('restart-button').addEventListener('click', restartGame);
+  $('run-reaction-button').addEventListener('click', runReaction);
+  renderReactionLab();
   updateScoreUI();
   updateLanguageUI();
   render();
