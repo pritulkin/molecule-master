@@ -24,6 +24,16 @@ const saltChallenges = [
   { id:'salt-alf3', name:'Alumiiniumfluoriid', formula:'AlF₃', atoms:['Al','F','F','F'], charges:[3,-1,-1,-1], bonds:[[0,1,1],[0,2,1],[0,3,1]], bondTypes:['ionic','ionic','ionic'] },
   { id:'salt-cao', name:'Kaltsiumoksiid', formula:'CaO', atoms:['Ca','O'], charges:[2,-2], bonds:[[0,1,1]], bondTypes:['ionic'] }
 ];
+const baseChallenges = [
+  { id:'base-naoh', name:'Naatriumhüdroksiid', formula:'NaOH', atoms:['Na','O','H'], charges:[1,-1,0], bonds:[[0,1,1],[1,2,1]], bondTypes:['ionic','covalent'] },
+  { id:'base-caoh2', name:'Kaltsiumhüdroksiid', formula:'Ca(OH)₂', atoms:['Ca','O','H','O','H'], charges:[2,-1,0,-1,0], bonds:[[0,1,1],[1,2,1],[0,3,1],[3,4,1]], bondTypes:['ionic','covalent','ionic','covalent'] }
+];
+const acidChallenges = [
+  { id:'acid-hcl', name:'Vesinikkloriidhape', formula:'HCl', atoms:['H','Cl'], charges:[1,-1], bonds:[[0,1,1]], bondTypes:['covalent'] },
+  { id:'acid-h2s', name:'Vesiniksulfiidhape', formula:'H₂S', atoms:['H','S','H'], charges:[1,-2,1], bonds:[[0,1,1],[1,2,1]], bondTypes:['covalent','covalent'] },
+  { id:'acid-hno3', name:'Lämmastikhape', formula:'HNO₃', atoms:['H','N','O','O','O'], charges:[1,5,-2,-2,-2], bonds:[[0,2,1],[1,2,1],[1,3,2],[1,4,1]], bondTypes:['covalent','covalent','covalent','covalent'] }
+];
+const buildChallenges = { salt: saltChallenges, base: baseChallenges, acid: acidChallenges };
 const reactions = [
   { id:'neutralization', name:'Neutralisatsioon', equation:'HCl + NaOH → NaCl + H₂O', detail:'Hape ja alus neutraliseerivad teineteise; tekivad sool ja vesi.', energy:'exo' },
   { id:'peroxide', name:'Vesinikperoksiidi lagunemine', equation:'2 H₂O₂ → 2 H₂O + O₂', detail:'Katalüsaator aitab peroksiidil kiiremini laguneda.', energy:'exo', catalyst:'manganese-dioxide' },
@@ -40,6 +50,7 @@ const reactionCopy = {
 let target = molecules[0], atoms = [], bonds = [], selected = null, score = 0, completed = new Set(), bestScore = 0;
 let selectedCharge = 0;
 let saltMode = false;
+let buildMode = 'salt';
 let dragState = null;
 let pointerMoved = false;
 let timerEnabled = false;
@@ -114,6 +125,12 @@ const translations = {
     saltModeClose: 'Sulge',
     saltModeDescription: 'Tasakaalusta ioonid ja ehita neutraalne ühend.',
     saltModePrompt: 'Vali näidatud laengud ja ühenda vastasmärgid.',
+    baseModeTitle: 'Ehita alus',
+    baseModeDescription: 'Koosta alus õigetest ioonidest ja kovalentsetest sidemetest.',
+    baseModePrompt: 'Vali näidatud laengud ja ühenda aatomid õigete sidemetega.',
+    acidModeTitle: 'Ehita hape',
+    acidModeDescription: 'Koosta hape õigetest aatomitest, laengutest ja sidemetest.',
+    acidModePrompt: 'Vali näidatud laengud ja ühenda aatomid õigete sidemetega.',
     tutorial: [
       'Tere tulemast Molekulimeistri!',
       'Vali alt aatomid, et neid lisada.',
@@ -180,6 +197,12 @@ const translations = {
     saltModeClose: 'Close',
     saltModeDescription: 'Balance the ions and build a neutral compound.',
     saltModePrompt: 'Choose the shown charges and connect opposite signs.',
+    baseModeTitle: 'Build base',
+    baseModeDescription: 'Assemble a base from the correct ions and covalent bonds.',
+    baseModePrompt: 'Choose the shown charges and connect the atoms with the correct bonds.',
+    acidModeTitle: 'Build acid',
+    acidModeDescription: 'Assemble an acid from the correct atoms, charges, and bonds.',
+    acidModePrompt: 'Choose the shown charges and connect the atoms with the correct bonds.',
     tutorial: [
       'Welcome to Molecule Master!',
       'Select atoms below to add them.',
@@ -638,7 +661,7 @@ function updateLanguageUI() {
   document.querySelector('.molecules-section .section-kicker').textContent = lang.collection;
   document.querySelector('.molecules-section h3').textContent = lang.learnMolecules;
   document.querySelector('.salt-section .section-kicker').textContent = lang.saltModeLabel;
-  document.querySelector('.salt-section h3').textContent = lang.saltModeTitle;
+  document.querySelector('.salt-section h3').textContent = lang[`${buildMode}ModeTitle`];
   document.querySelector('.connection-tip').textContent = lang.connectionTip;
   document.querySelector('.support-banner').setAttribute('aria-label', lang.supportLabel);
   document.querySelector('.workspace').setAttribute('aria-label', lang.yourMolecule);
@@ -646,7 +669,8 @@ function updateLanguageUI() {
   document.querySelector('.support-lead').textContent = lang.supportText;
   document.querySelector('.support-contact').textContent = lang.contact;
   $('salt-mode-toggle').textContent = saltMode ? lang.saltModeClose : lang.saltModeStart;
-  $('salt-mode-description').textContent = lang.saltModeDescription;
+  $('salt-mode-description').textContent = lang[`${buildMode}ModeDescription`] || lang.saltModeDescription;
+  document.querySelectorAll('.build-mode-choice').forEach(button => button.classList.toggle('active', button.dataset.buildMode === buildMode));
   document.querySelector('#target-hint').textContent = moleculeDisplay[1];
   document.querySelectorAll('.element-choice small').forEach((el, index) => {
     el.textContent = elementNames[currentLang][elements[index].symbol];
@@ -669,7 +693,7 @@ function updateLanguageUI() {
   document.querySelector('.completion-count').innerHTML = `<span id="completed-count">${completed.size}</span> ${lang.moleculesSolved}`;
   $('restart-button').innerHTML = `${lang.restart} <span>↻</span>`;
   $('charge-label').textContent = currentLang === 'et' ? 'Laeng' : 'Charge';
-  $('salt-mode-description').textContent = currentLang === 'et' ? 'Tasakaalusta ioonid ja ehita neutraalne ühend.' : 'Balance the ions and build a neutral compound.';
+  $('salt-mode-description').textContent = translations[currentLang][`${buildMode}ModeDescription`] || translations[currentLang].saltModeDescription;
   const reactionLabels = reactionCopy[currentLang];
   $('reaction-lab-label').textContent = reactionLabels.labLabel;
   $('reaction-lab-title').textContent = reactionLabels.labTitle;
@@ -760,6 +784,7 @@ function init() {
   }));
   document.querySelectorAll('.molecule-item').forEach(button => button.addEventListener('click', () => selectTarget(button.dataset.id)));
   $('salt-mode-toggle').addEventListener('click', toggleSaltMode);
+  document.querySelectorAll('.build-mode-choice').forEach(button => button.addEventListener('click', () => selectBuildMode(button.dataset.buildMode)));
   $('undo-button').addEventListener('click', undo);
   $('hint-button').addEventListener('click', showHint);
   $('show-structure-button').addEventListener('click', showStructure);
@@ -794,8 +819,9 @@ function showTutorial() {
   showNextStep();
 }
 function selectTarget(id) { saltMode = false; $('salt-challenges').hidden = true; $('salt-mode-toggle').textContent = currentLang === 'et' ? 'Alusta' : 'Start'; target = molecules.find(molecule => molecule.id === id); atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.molecule-item').forEach(button => button.classList.toggle('active', button.dataset.id === id)); const moleculeDisplay = getMoleculeText(target); $('level').textContent = String(molecules.indexOf(target) + 1).padStart(2,'0'); $('target-name').textContent = moleculeDisplay[0]; $('target-formula').textContent = target.formula; $('target-hint').textContent = moleculeDisplay[1]; render(); }
-function selectSaltChallenge(index) { saltMode = true; target = saltChallenges[index]; atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.salt-challenge').forEach((button, buttonIndex) => button.classList.toggle('active', buttonIndex === index)); $('level').textContent = `S${index + 1}`; $('target-name').textContent = target.name; $('target-formula').textContent = target.formula; $('target-hint').textContent = t('saltModePrompt'); render(); }
-function toggleSaltMode() { saltMode = !saltMode; $('salt-challenges').hidden = !saltMode; $('salt-mode-toggle').textContent = saltMode ? t('saltModeClose') : t('saltModeStart'); if (saltMode) { $('salt-challenges').innerHTML = saltChallenges.map((challenge, index) => `<button class="salt-challenge ${index === 0 ? 'active' : ''}" data-index="${index}" type="button">${challenge.formula}</button>`).join(''); document.querySelectorAll('.salt-challenge').forEach(button => button.addEventListener('click', () => selectSaltChallenge(Number(button.dataset.index)))); selectSaltChallenge(0); } }
+function selectBuildMode(mode) { buildMode = mode; saltMode = true; $('salt-challenges').hidden = false; $('salt-mode-toggle').textContent = t('saltModeClose'); const challenges = buildChallenges[buildMode]; $('salt-challenges').innerHTML = challenges.map((challenge, index) => `<button class="salt-challenge ${index === 0 ? 'active' : ''}" data-index="${index}" type="button">${challenge.formula}</button>`).join(''); document.querySelectorAll('.salt-challenge').forEach(button => button.addEventListener('click', () => selectBuildChallenge(Number(button.dataset.index)))); updateLanguageUI(); selectBuildChallenge(0); }
+function selectBuildChallenge(index) { saltMode = true; target = buildChallenges[buildMode][index]; atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.salt-challenge').forEach((button, buttonIndex) => button.classList.toggle('active', buttonIndex === index)); $('level').textContent = `${buildMode === 'salt' ? 'S' : buildMode === 'base' ? 'B' : 'H'}${index + 1}`; $('target-name').textContent = target.name; $('target-formula').textContent = target.formula; $('target-hint').textContent = t(`${buildMode}ModePrompt`); render(); }
+function toggleSaltMode() { saltMode = !saltMode; $('salt-challenges').hidden = !saltMode; $('salt-mode-toggle').textContent = saltMode ? t('saltModeClose') : t('saltModeStart'); if (saltMode) selectBuildMode(buildMode); }
 function addAtom(symbol) {
   if (atoms.length >= 6) return toast(t('capacity'));
   const nextIndex = atoms.length;
@@ -1023,8 +1049,9 @@ function checkMolecule() {
     toast(validationMessage + ` ${getMoleculeFact(target)}`);
     setTimeout(() => {
       if (saltMode) {
-        const nextSalt = (saltChallenges.findIndex(challenge => challenge.id === target.id) + 1) % saltChallenges.length;
-        selectSaltChallenge(nextSalt);
+        const challenges = buildChallenges[buildMode];
+        const nextChallenge = (challenges.findIndex(challenge => challenge.id === target.id) + 1) % challenges.length;
+        selectBuildChallenge(nextChallenge);
       } else {
         advanceLevel();
       }

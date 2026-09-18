@@ -39,12 +39,14 @@ python -m http.server 8000
 4. Vajuta "Kontrolli molekuli".
 5. Kui kõik aatomid ja sidemed on õigesti paika pandud, võidad taseme.
 
-### Ioonid ja soolade režiim
+### Ioonide, aluste ja hapete režiimid
 
 - Enne aatomi lisamist vali selle laeng: neutraalne, positiivne või negatiivne.
 - Vastasmärgiga ioonide ühendamisel tekib automaatselt sinine ioonne side.
 - Kontroll arvestab aatomite laenguid, kogulaeng peab olema null ja sihtühendi laengud peavad sobima.
 - Jaotises "Ehita sool" saab harjutada NaCl, MgCl₂, AlF₃ ja CaO tasakaalustamist.
+- Jaotises "Ehita alus" saab harjutada NaOH ja Ca(OH)₂ ehitamist.
+- Jaotises "Ehita hape" saab harjutada HCl, H₂S ja HNO₃ ehitamist.
 
 ## Praegused molekulid
 

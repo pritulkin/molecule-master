@@ -59,6 +59,9 @@ h1,h2,h3,p { margin:0; } h1,h2,h3 { font-family:'Space Grotesk',sans-serif; } h1
 .charge-choice.active { border-color:var(--coral); background:#fff0e9; color:#c96540; }
 .charge-choice.negative { color:#367da9; }
 .salt-section { margin-top:32px; padding-top:20px; border-top:1px solid #d8e4df; }
+.build-mode-selector { display:flex; gap:7px; margin-bottom:10px; flex-wrap:wrap; }
+.build-mode-choice { border:1px solid var(--line); border-radius:10px; background:#fff; color:var(--muted); padding:8px 10px; font-size:12px; font-weight:700; }
+.build-mode-choice.active { border-color:var(--coral); background:#fff0e9; color:#c96540; }
 .mode-description { color:var(--muted); font-size:12px; margin-bottom:10px; }
 .salt-challenges { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
 .salt-challenges[hidden] { display:none; }
