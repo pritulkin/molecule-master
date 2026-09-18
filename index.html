@@ -122,20 +122,53 @@
       </div>
     </section>
 
+    <section class="forces-section">
+      <div class="section-heading compact"><div><span class="section-kicker" id="forces-label">INTERMOLEKULAARSED JÕUD</span><h3 id="forces-title">Molekulidevahelised jõud</h3></div></div>
+      <div class="forces-grid" id="forces-grid"></div>
+      <div class="forces-detail" id="forces-detail" aria-live="polite">
+        <strong id="forces-name">Vali jõud</strong>
+        <p id="forces-description">Vali intermolekulaarne jõud, et näha üksikasju.</p>
+      </div>
+    </section>
+
     <section class="molecules-section">
       <div class="section-heading compact"><div><span class="section-kicker">KOGUMIK</span><h3>Õpitavad molekulid</h3></div></div>
       <div class="molecule-list" id="molecule-list"></div>
+      <div class="molecule-forces-detail" id="molecule-forces-detail" hidden>
+        <strong id="molecule-forces-title">Molekuli jõud</strong>
+        <div id="molecule-forces-content"></div>
+      </div>
     </section>
 
     <section class="quantum-section">
       <div class="section-heading compact"><div><span class="section-kicker">KVANTTASE</span><h3>Elektronorbitaalid</h3></div><button class="text-button" id="quantum-toggle" type="button">Näita</button></div>
       <div class="quantum-view" id="quantum-view" hidden>
-        <svg width="100%" height="200" viewBox="0 0 400 200">
+        <div class="quantum-educational" id="quantum-educational">
+          <div class="orbital-explanation">
+            <h4 id="s-orbital-title">s-Orbitaal</h4>
+            <p id="s-orbital-desc">Kera, elektronid on võrdselt tõenäoliselt kõikides suundades. Igal energiatasemel on üks s-orbitaal (maks 2 elektroni).</p>
+            <div class="orbital-visual s-orbital"></div>
+          </div>
+          <div class="orbital-explanation">
+            <h4 id="p-orbital-title">p-Orbitaal</h4>
+            <p id="p-orbital-desc">Kellukujuline, 3 orientatsiooni (px, py, pz). Igal p-orbitaalil on 2 elektroni, kokku 6 elektroni p-alamkihis.</p>
+            <div class="orbital-visual p-orbital"></div>
+          </div>
+          <div class="orbital-explanation">
+            <h4 id="electron-filling-title">Elektronide täitmine</h4>
+            <p id="electron-filling-desc">Elektronid täidavad orbitaale vastavalt <strong>Aufbau printsiibile</strong>: alates madalaimast energiatasemest, kuni jõuab kõrgematele. Iga orbitaal saab maksimaalselt 2 elektroni vastassuunaliste spinidega.</p>
+          </div>
+        </div>
+        <svg width="100%" height="250" viewBox="0 0 400 250">
           <defs>
             <radialGradient id="orbital-gradient" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#8dc5e8" stop-opacity="0.3"/>
+              <stop offset="0%" stop-color="#8dc5e8" stop-opacity="0.4"/>
               <stop offset="100%" stop-color="#8dc5e8" stop-opacity="0"/>
             </radialGradient>
+            <linearGradient id="orbital-fill" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#b9e5d4" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#8dc5e8" stop-opacity="0.3"/>
+            </linearGradient>
           </defs>
           <g id="orbitals"></g>
         </svg>

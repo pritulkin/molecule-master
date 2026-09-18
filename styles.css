@@ -88,6 +88,22 @@ h1,h2,h3,p { margin:0; } h1,h2,h3 { font-family:'Space Grotesk',sans-serif; } h1
 .reaction-section.exothermic .reaction-state { color:#c96540; }
 .reaction-section.endothermic .reaction-state { color:#367da9; }
 @keyframes reactionPulse { from { transform:scale(1); } to { transform:scale(1.015); } }
+.forces-section { margin-top:32px; padding-top:20px; border-top:1px solid #d8e4df; }
+.forces-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:12px; }
+.force-card { border:1px solid var(--line); border-radius:14px; background:#fff; color:var(--ink); padding:14px; text-align:left; transition:border-color .16s,background .16s; cursor:pointer; }
+.force-card:hover { border-color:var(--coral); background:#fff8f3; }
+.force-card.active { border:2px solid var(--coral); padding:13px; background:#fff0e9; }
+.force-card strong { display:block; font:700 15px 'Space Grotesk',sans-serif; margin-bottom:4px; }
+.force-card .force-strength { display:inline-block; margin-top:6px; padding:3px 6px; border-radius:6px; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; }
+.force-card .force-strength.strong { background:#ef8354; color:#fff; }
+.force-card .force-strength.medium { background:#f7d774; color:#0a1f2e; }
+.force-card .force-strength.weak { background:#b9e5d4; color:#0a1f2e; }
+.forces-detail { padding:12px; border:1px solid var(--line); border-radius:12px; background:#ffffffb8; }
+.forces-detail strong { display:block; font:700 14px 'Space Grotesk',sans-serif; margin-bottom:6px; }
+.forces-detail p { margin:0 0 8px; font-size:13px; color:var(--muted); line-height:1.4; }
+.forces-detail .force-meta { display:flex; gap:12px; margin-top:8px; padding-top:8px; border-top:1px solid var(--line); font-size:11px; color:var(--muted); }
+.forces-detail .force-meta span { display:flex; align-items:center; gap:4px; }
+.forces-detail .force-meta strong { color:var(--ink); font-size:11px; margin:0; }
 .element-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:8px; }
 .element-choice { border:1px solid var(--line); background:#fff; border-radius:14px; padding:10px 4px 8px; color:var(--ink); }
 .element-choice strong { display:block; font:700 19px 'Space Grotesk',sans-serif; }
@@ -102,6 +118,16 @@ h1,h2,h3,p { margin:0; } h1,h2,h3 { font-family:'Space Grotesk',sans-serif; } h1
 .molecule-symbol { display:grid; place-items:center; width:40px; height:40px; flex:none; border-radius:12px; background:var(--yellow); font:700 13px 'Space Grotesk',sans-serif; }
 .molecule-item strong { display:block; font-size:13px; }
 .molecule-item small { color:var(--muted); font-size:11px; }
+.molecule-forces-detail { margin-top:12px; padding:12px; border:1px solid var(--line); border-radius:12px; background:#ffffffb8; }
+.molecule-forces-detail strong { display:block; font:700 14px 'Space Grotesk',sans-serif; margin-bottom:8px; }
+.molecule-forces-content p { margin:0 0 8px; font-size:12px; color:var(--muted); line-height:1.4; }
+.molecule-forces-content .force-tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+.molecule-forces-content .force-tag { padding:3px 8px; border-radius:6px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; }
+.molecule-forces-content .force-tag.hydrogen-bonding { background:#ef8354; color:#fff; }
+.molecule-forces-content .force-tag.dipole-dipole { background:#f7d774; color:#0a1f2e; }
+.molecule-forces-content .force-tag.london-dispersion { background:#b9e5d4; color:#0a1f2e; }
+.molecule-forces-content .force-tag.ionic { background:#8dc5e8; color:#fff; }
+.molecule-forces-content .primary-force { margin-top:8px; padding:6px 8px; border-left:3px solid var(--coral); background:#fff0e9; font-size:11px; color:var(--ink); }
 .toast { position:fixed; left:50%; bottom:22px; transform:translate(-50%,120px); padding:13px 18px; border-radius:14px; background:var(--ink); color:white; font-size:13px; box-shadow:0 8px 24px #102a4340; transition:transform .25s; z-index:3; }
 .toast.show { transform:translate(-50%,0); }
 .reaction-section { margin-top:32px; }
@@ -132,6 +158,17 @@ h1,h2,h3,p { margin:0; } h1,h2,h3 { font-family:'Space Grotesk',sans-serif; } h1
 .quantum-view svg { display:block; margin-bottom:12px; }
 .quantum-info { font-size:13px; color:var(--muted); }
 .quantum-info p { margin:0; }
+.quantum-educational { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:12px; margin-bottom:16px; }
+.orbital-explanation { padding:14px; border:1px solid var(--line); border-radius:12px; background:#fff; transition:border-color .16s,box-shadow .16s; }
+.orbital-explanation:hover { border-color:var(--coral); box-shadow:0 4px 12px rgba(239,131,84,.12); }
+.orbital-explanation h4 { margin:0 0 8px; font-size:14px; color:var(--ink); font-family:'Space Grotesk',sans-serif; }
+.orbital-explanation p { margin:0 0 12px; font-size:12px; color:var(--muted); line-height:1.5; }
+.orbital-explanation strong { color:var(--coral); }
+.orbital-visual { height:50px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--ink); font-weight:600; }
+.orbital-visual.s-orbital { background:radial-gradient(circle at 30% 30%,#b9e5d4 0%,#8dc5e8 70%,#6ba8c4 100%); }
+.orbital-visual.s-orbital::after { content:'● ●'; letter-spacing:8px; }
+.orbital-visual.p-orbital { background:linear-gradient(135deg,#b9e5d4 0%,#8dc5e8 40%,#eeb6c9 100%); }
+.orbital-visual.p-orbital::after { content:'● ● ●'; letter-spacing:4px; }
 @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
 @keyframes atomPop { 0% { opacity:0; transform:translate(-50%,-50%) scale(.45); } 60% { opacity:1; transform:translate(-50%,-50%) scale(1.08); } 100% { opacity:1; transform:translate(-50%,-50%) scale(1); } }
 @keyframes bondDraw { to { stroke-dashoffset:0; opacity:1; } }
@@ -139,5 +176,5 @@ h1,h2,h3,p { margin:0; } h1,h2,h3 { font-family:'Space Grotesk',sans-serif; } h1
 @keyframes workspaceGlow { 0% { box-shadow:0 0 0 0 rgba(82,185,120,.38), inset 0 0 40px rgba(144,214,160,.18); } 50% { box-shadow:0 0 0 8px rgba(82,185,120,.18), inset 0 0 40px rgba(144,214,160,.38); } 100% { box-shadow:0 0 0 3px rgba(82,185,120,.35), inset 0 0 40px rgba(144,214,160,.32); } }
 @keyframes workspaceShake { 0%,100% { transform:translateX(0); } 20% { transform:translateX(-6px); } 40% { transform:translateX(6px); } 60% { transform:translateX(-5px); } 80% { transform:translateX(5px); } }
 @keyframes completionIn { from { opacity:0; transform:translateY(14px) scale(.97); } to { opacity:1; transform:translateY(0) scale(1); } }
-@media (max-width:520px) { .app-shell { padding:22px 16px 35px; } h1 { font-size:25px; } h2 { font-size:23px; }.workspace { height:300px; }.formula-card { width:76px; font-size:20px; }.mission-panel { padding-left:19px; }.element-grid { gap:5px; }.element-choice { padding:9px 2px 7px; }.element-choice strong { font-size:17px; }.molecule-list { grid-template-columns:1fr; }.reaction-grid { grid-template-columns:1fr; }.reaction-controls .primary-button { width:100%; margin-left:0; }.atom { width:62px; height:62px; } }
+@media (max-width:520px) { .app-shell { padding:22px 16px 35px; } h1 { font-size:25px; } h2 { font-size:23px; }.workspace { height:300px; }.formula-card { width:76px; font-size:20px; }.mission-panel { padding-left:19px; }.element-grid { gap:5px; }.element-choice { padding:9px 2px 7px; }.element-choice strong { font-size:17px; }.molecule-list { grid-template-columns:1fr; }.reaction-grid { grid-template-columns:1fr; }.reaction-controls .primary-button { width:100%; margin-left:0; }.atom { width:62px; height:62px; }.forces-grid { grid-template-columns:1fr; }.forces-detail .force-meta { flex-direction:column; gap:8px; } }
 @media (min-width:700px) { .workspace { height:390px; }.app-shell { padding-top:42px; } }
