@@ -39,6 +39,19 @@ python -m http.server 8000
 4. Vajuta "Kontrolli molekuli".
 5. Kui kõik aatomid ja sidemed on õigesti paika pandud, võidad taseme.
 
+## Õppetasemed
+
+Graafiline mäng kasutab `LevelConfig` konfiguratsiooni, kus iga tase avatakse eelmise taseme läbimisel. Tasemed liiguvad kontseptsioonide kaupa:
+
+1. aatomid ja lihtmolekulid;
+2. ioonid ja soolad;
+3. happed ja alused;
+4. polaarsus ja molekulidevahelised jõud;
+5. reaktsioonilabor ehk energia ja kineetika;
+6. kvanttase ehk orbitaalid ja valentselektronid.
+
+Iga taseme ülesannete edenemine salvestatakse brauseri `localStorage`-isse võtmega `chemistry-game-level-tasks`, mistõttu järgmine tase avaneb alles pärast eelneva kõigi ülesannete lahendamist.
+
 ### Ioonide, aluste ja hapete režiimid
 
 - Enne aatomi lisamist vali selle laeng: neutraalne, positiivne või negatiivne.

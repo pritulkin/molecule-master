@@ -2,17 +2,21 @@ const molecules = [
   { id:'water', name:'Vesi', formula:'H₂O', hint:'Igapäevane aine, mida vajame eluks.', atoms:['O','H','H'], charges:[-2,1,1], bonds:[[0,1,1],[0,2,1]], bondTypes:['covalent','covalent'], fact:'Vesi on elu üks tähtsamaid aineid.', guide:'Hapnikul on mudelis −2 ja mõlemal vesinikul +1; kaks kovalentset sidet annavad kokku neutraalse vee.', difficulty:'easy', intermolecularForces:['hydrogen-bonding','dipole-dipole','london-dispersion'], primaryForce:'hydrogen-bonding', forceAnalysis:'Vesi on polaarne molekul tugevate vesiniksidemetega hapniku ja vesiniku vahel. See annab veele kõrge keemispunkti ja pindpinevuse.' },
   { id:'carbon-dioxide', name:'Süsinikdioksiid', formula:'CO₂', hint:'Taimed kasutavad seda fotosünteesis.', atoms:['C','O','O'], charges:[4,-2,-2], bonds:[[0,1,2],[0,2,2]], fact:'Süsinikdioksiid liigub süsinikiringes.', guide:'Süsinik on keskel ja iga hapnik on sellega seotud kahekordse sidemega.', difficulty:'easy', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'CO₂ on mittepolaarne lineaarne molekul. Ainukesed intermolekulaarsed jõud on Londoni dispersioonijõud, mis on nõrgad.' },
   { id:'methane', name:'Metaan', formula:'CH₄', hint:'Maagaasi peamine koostisosa.', atoms:['C','H','H','H','H'], charges:[-4,1,1,1,1], bonds:[[0,1,1],[0,2,1],[0,3,1],[0,4,1]], fact:'Metaan on kõige lihtsam alkaan.', guide:'Süsinikul on mudelis −4 ja neljal vesinikul +1; kogulaeng on null.', difficulty:'easy', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Metaan on mittepolaarne tetraeedriline molekul. Ainukesed jõud on Londoni dispersioonijõud, mistõttu metaan on gaas toatemperatuuril.' },
-  { id:'ammonia', name:'Ammoniaak', formula:'NH₃', hint:'Seda kasutatakse väetiste tootmisel.', atoms:['N','H','H','H'], bonds:[[0,1,1],[0,2,1],[0,3,1]], fact:'Ammoniaagil on terav iseloomulik lõhn.', guide:'Lämmastik on keskel ja kolm vesinikku on temaga üksikute sidemetega seotud.', difficulty:'easy', intermolecularForces:['hydrogen-bonding','dipole-dipole','london-dispersion'], primaryForce:'hydrogen-bonding', forceAnalysis:'Ammoniaak on polaarne trigonaal-püramidaalne molekul tugevate vesiniksidemetega. See selgitab ammoniaagi kõrget keemispunkti.' },
+  { id:'ammonia', name:'Ammoniaak', formula:'NH₃', hint:'Seda kasutatakse väetiste tootmisel.', atoms:['N','H','H','H'], charges:[-3,1,1,1], bonds:[[0,1,1],[0,2,1],[0,3,1]], fact:'Ammoniaagil on terav iseloomulik lõhn.', guide:'Lämmastikul on oksüdatsiooniaste −3 ja igal vesinikul +1; kolm üksiksidet moodustavad ammoniaagi struktuuri.', difficulty:'easy', intermolecularForces:['hydrogen-bonding','dipole-dipole','london-dispersion'], primaryForce:'hydrogen-bonding', forceAnalysis:'Ammoniaak on polaarne trigonaal-püramidaalne molekul tugevate vesiniksidemetega. See selgitab ammoniaagi kõrget keemispunkti.' },
   { id:'hydrogen', name:'Vesinik', formula:'H₂', hint:'Lihtsaim ja kõige kergem element.', atoms:['H','H'], bonds:[[0,1,1]], fact:'Vesinik on tähtede peamine ehitusplokk.', guide:'Kaks vesiniku aatomit on seotud ühe ühise sidemega.', difficulty:'easy', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Vesinik on mittepolaarne diatomiline molekul. Ainukesed jõud on väga nõrgad Londoni dispersioonijõud.' },
   { id:'oxygen', name:'Hapnik', formula:'O₂', hint:'Hingamiseks vajalik gaas.', atoms:['O','O'], bonds:[[0,1,2]], fact:'Hapnik on meie hingamise puhul oluline.', guide:'Hapniku kaks aatomit on seotud kahekordse sidemega.', difficulty:'easy', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Hapnik on mittepolaarne diatomiline molekul. Londoni dispersioonijõud on nõrgad, mistõttu hapnik on gaas toatemperatuuril.' },
-  { id:'hydrogen-chloride', name:'Vesinikkloriidhape', formula:'HCl', hint:'Krõbe hape, millel on tugev lõhn.', atoms:['H','Cl'], bonds:[[0,1,1]], fact:'Soolhape tekib HCl lahustamisel vees.', guide:'Vesinik ja kloor on ühinenud ühe singliga.', difficulty:'medium', intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'HCl on polaarne molekul tugevate dipool-dipool jõududega. HCl on gaas toatemperatuuril, kuid kondenseerub madalal temperatuuril.' },
+  { id:'hydrogen-chloride', name:'Vesinikkloriidhape', formula:'HCl', hint:'Krõbe hape, millel on tugev lõhn.', atoms:['H','Cl'], charges:[1,-1], bonds:[[0,1,1]], bondTypes:['covalent'], fact:'Soolhape tekib HCl lahustamisel vees.', guide:'Vesinikul on oksüdatsiooniaste +1 ja klooril −1; H–Cl side on kovalentne.', difficulty:'medium', intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'HCl on polaarne molekul tugevate dipool-dipool jõududega. HCl on gaas toatemperatuuril, kuid kondenseerub madalal temperatuuril.' },
   { id:'sodium-chloride', name:'Naatriumkloriid', formula:'NaCl', hint:'Tuntud ka lauasoolana.', atoms:['Na','Cl'], charges:[1,-1], bonds:[[0,1,1]], bondTypes:['ionic'], fact:'Tavaline lauasool on ioniline ühend.', guide:'Naatrium ja kloor on ühendatud ühe sidemega.', difficulty:'medium', intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'NaCl on ioniline ühend tugevate iooniliste jõududega. Need on palju tugevamad kui kõik intermolekulaarsed jõud, mistõttu NaCl on tahke toatemperatuuril.' },
   { id:'hydrogen-peroxide', name:'Vesinikperoksiid', formula:'H₂O₂', hint:'Kasutatakse desinfitseerimiseks ja pleegitamiseks.', atoms:['H','O','O','H'], bonds:[[0,1,1],[1,2,1],[2,3,1]], fact:'See on tugev oksüdeerija ja laguneb kiiresti.', guide:'Molekulis on O-O keskne ühend ja mõlemad otsad on H-ga seotud.', difficulty:'medium', intermolecularForces:['hydrogen-bonding','dipole-dipole','london-dispersion'], primaryForce:'hydrogen-bonding', forceAnalysis:'Vesinikperoksiid on polaarne molekul vesiniksidemetega. Kuid need on nõrgamad kui vees, mistõttu H₂O₂ on ebastabiilne.' },
   { id:'carbon-monoxide', name:'Süsinikmonooksiid', formula:'CO', hint:'Mürgine gaas, mis tekib mittetäielikul põlemisel.', atoms:['C','O'], bonds:[[0,1,3]], fact:'CO on väga mürgine, sest see seob hemoglobiini.', guide:'Süsinik ja hapnik on seotud kolmekordse sidemega.', difficulty:'medium', intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'CO on väga polaarne molekul tugevate dipool-dipool jõududega. See on gaas toatemperatuuril, kuid lahustub vees.' },
-  { id:'sulfur-dioxide', name:'Sulfardioksiid', formula:'SO₂', hint:'Aine, mida moodustub koldes ja tööstuses.', atoms:['S','O','O'], bonds:[[0,1,2],[0,2,2]], fact:'Dioksiid on tugev reostaja ja tekitab kuivest lõhna.', guide:'Väävel on keskel ja mõlemad hapnikud on temaga kahekordsete sidemetega ühendatud.', difficulty:'medium', intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'SO₂ on polaarine bent molekul dipool-dipool jõududega. See on gaas toatemperatuuril, kuid kondenseerub kergesti.' },
-  { id:'carbon-tetrachloride', name:'Süsiniktetrakloriid', formula:'CCl₄', hint:'Märkimisväärselt raske ja kloriga seotud ühend.', atoms:['C','Cl','Cl','Cl','Cl'], bonds:[[0,1,1],[0,2,1],[0,3,1],[0,4,1]], fact:'CCl₄ on üldiselt ebapüsiv ja läheb kasutuselt välja.', guide:'Süsinik on keskel ja kõik neli klori aatomit on temaga üksikute sidemetega ühendatud.', difficulty:'hard', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'CCl₄ on mittepolaarne tetraeedriline molekul. Londoni dispersioonijõud on mõõdukad massi tõttu, mistõttu CCl₄ on vedelik toatemperatuuril.' },
+  { id:'sulfur-dioxide', name:'Sulfadioksiid', formula:'SO₂', hint:'Aine, mida moodustub koldes ja tööstuses.', atoms:['S','O','O'], charges:[4,-2,-2], bonds:[[0,1,2],[0,2,2]], fact:'Dioksiid on tugev reostaja ja tekitab kuivest lõhna.', guide:'Väävlil on oksüdatsiooniaste +4 ja kummalgi hapnikul −2; mõlemad hapnikud on väävliga kahekordse sidemega ühendatud.', difficulty:'medium', intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'SO₂ on polaarne bent molekul dipool-dipool jõududega. See on gaas toatemperatuuril, kuid kondenseerub kergesti.' },
+  { id:'carbon-tetrachloride', name:'Süsiniktetrakloriid', formula:'CCl₄', hint:'Märkimisväärselt raske ja kloriga seotud ühend.', atoms:['C','Cl','Cl','Cl','Cl'], charges:[4,-1,-1,-1,-1], bonds:[[0,1,1],[0,2,1],[0,3,1],[0,4,1]], bondTypes:['covalent','covalent','covalent','covalent'], fact:'CCl₄ on üldiselt ebapüsiv ja läheb kasutuselt välja.', guide:'Süsinikul on oksüdatsiooniaste +4 ja igal klooril −1; kõik neli sidet on kovalentsed.', difficulty:'hard', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'CCl₄ on mittepolaarne tetraeedriline molekul. Londoni dispersioonijõud on mõõdukad massi tõttu, mistõttu CCl₄ on vedelik toatemperatuuril.' },
   { id:'ozone', name:'Osoon', formula:'O₃', hint:'Kaitseb Maad UV-kiirguse eest.', atoms:['O','O','O'], bonds:[[0,1,1],[1,2,2]], fact:'Osoon on stratosfääris ülioluline.', guide:'Osoonis on üks O aatom keskel ja üks side on lihtne, teine kahekordne.', difficulty:'hard', intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'Osoon on polaarne bent molekul dipool-dipool jõududega. See on gaas toatemperatuuril, kuid on reaktiivsem kui hapnik.' },
-  { id:'sodium-hydroxide', name:'Naatriumhüdroksiid', formula:'NaOH', hint:'Levinud base, tugev leelis.', atoms:['Na','O','H'], charges:[1,-1,0], bonds:[[0,1,1],[1,2,1]], bondTypes:['ionic','covalent'], fact:'NaOH lahuses moodustab leelise ja on tugev alus.', guide:'Naatrium ja hapnik on ühendatud ühe ioonse sidemega, hapnik ja vesinik ühe kovalentse sidemega.', difficulty:'hard', intermolecularForces:['ionic','hydrogen-bonding'], primaryForce:'ionic', forceAnalysis:'NaOH on ioniline ühend tugevate iooniliste jõududega. Na⁺ ja OH⁻ ioonid on tugevalt seotud, mistõttu NaOH on tahke.' },
+  { id:'sodium-hydroxide', name:'Naatriumhüdroksiid', formula:'NaOH', hint:'Levinud base, tugev leelis.', atoms:['Na','O','H'], charges:[1,-2,1], bonds:[[0,1,1],[1,2,1]], bondTypes:['ionic','covalent'], fact:'NaOH lahuses moodustab leelise ja on tugev alus.', guide:'Naatriumi oksüdatsiooniaste on +1, hapnikul −2 ja vesinikul +1; Na–O side on ioonne ning O–H side kovalentne.', difficulty:'hard', intermolecularForces:['ionic','hydrogen-bonding'], primaryForce:'ionic', forceAnalysis:'NaOH on ioniline ühend tugevate iooniliste jõududega. Na⁺ ja OH⁻ ioonid on tugevalt seotud, mistõttu NaOH on tahke.' },
+  { id:'magnesium-chloride', name:'Magneesiumkloriid', formula:'MgCl₂', hint:'Magneesiumi ja kloori iooniline sool.', atoms:['Mg','Cl','Cl'], charges:[2,-1,-1], bonds:[[0,1,1],[0,2,1]], bondTypes:['ionic','ionic'], fact:'Magneesiumkloriid on iooniline ühend.', guide:'Mg²⁺ vajab laengu tasakaalustamiseks kahte Cl⁻ iooni.', difficulty:'medium', intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'Magneesiumkloriidis tasakaalustavad Mg²⁺ ja kaks Cl⁻ iooni teineteise laengu.' },
+  { id:'calcium-sulfate', name:'Kaltsiumsulfaat', formula:'CaSO₄', hint:'Kipsi põhikomponent.', atoms:['Ca','S','O','O','O','O'], charges:[2,6,-2,-2,-2,-2], bonds:[[0,2,1],[1,2,2],[1,3,1],[1,4,1],[1,5,1]], bondTypes:['ionic','covalent','covalent','covalent','covalent'], fact:'Kaltsiumsulfaat esineb looduses muu hulgas kipsina.', guide:'Kaltsiumioon tasakaalustab sulfaatiooni kogulaengu.', difficulty:'medium', intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'Kaltsiumsulfaat on iooniline sool, milles Ca²⁺ tasakaalustab SO₄²⁻ laengu.' },
+  { id:'sodium-nitrate', name:'Naatriumnitraat', formula:'NaNO₃', hint:'Lämmastikku sisaldav iooniline sool.', atoms:['Na','N','O','O','O'], charges:[1,5,-2,-2,-2], bonds:[[0,2,1],[1,2,1],[1,3,2],[1,4,1]], bondTypes:['ionic','covalent','covalent','covalent'], fact:'Naatriumnitraati kasutatakse muu hulgas väetistes.', guide:'Naatriumioon tasakaalustab nitraatiooni kogulaengu.', difficulty:'medium', intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'Naatriumnitraat koosneb Na⁺ ioonidest ja NO₃⁻ nitraatioonidest.' },
+  { id:'sulfuric-acid', name:'Väävelhape', formula:'H₂SO₄', hint:'Tugev hape, mida kasutatakse tööstuses.', atoms:['H','H','S','O','O','O','O'], charges:[1,1,6,-2,-2,-2,-2], bonds:[[2,3,2],[2,4,2],[2,5,1],[2,6,1],[0,5,1],[1,6,1]], bondTypes:['covalent','covalent','covalent','covalent','covalent','covalent'], fact:'Väävelhape on üks tähtsamaid tööstuskemikaale.', guide:'Molekulis on kaks happelist vesinikku ja sulfaatne keskosa.', difficulty:'hard', intermolecularForces:['hydrogen-bonding','dipole-dipole'], primaryForce:'hydrogen-bonding', forceAnalysis:'Väävelhape on tugev polaarne hape, mis annab lahuses ära H⁺ ioone.' },
   { id:'hydrogen-sulfide', name:'Vesiniksulfiid', formula:'H₂S', hint:'Mürgine gaas, millel on ebameeldiv lõhn.', atoms:['H','S','H'], bonds:[[0,1,1],[1,2,1]], fact:'H₂S on mürgine ja seda leidub mõnedes geotermilistes allikates.', guide:'Väävel on keskel ja kaks vesinikku on temaga ühekordsete sidemetega seotud.', difficulty:'hard', intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'H₂S on polaarne bent molekul dipool-dipool jõududega. Kuid need on nõrgamad kui vees, mistõttu H₂S on gaas toatemperatuuril.' },
   { id:'nitrogen', name:'Lämmastik', formula:'N₂', hint:'Maa atmosfääris on see kõige levinum gaas.', atoms:['N','N'], bonds:[[0,1,3]], fact:'Lämmastikmolekul on väga stabiilne ja sisaldab kolmekordset sidet.', guide:'Lämmastiku kaks aatomit on ühendatud kolmekordse sidemega.', difficulty:'hard', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Lämmastik on mittepolaarne diatomiline molekul väga nõrkade Londoni dispersioonijõududega. See on gaas väga madalal temperatuuril.' },
   { id:'chlorine', name:'Kloor', formula:'Cl₂', hint:'Kloor on üsna reaktiivne ja kasutusel desinfitseerimisel.', atoms:['Cl','Cl'], bonds:[[0,1,1]], fact:'Kloor on vajalik veepuhastuses ja tekib ka valgenditest.', guide:'Kaks klooriaatomit on ühendatud ühekordse sidemega.', difficulty:'hard', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Kloor on mittepolaarne diatomiline molekul. Londoni dispersioonijõud on mõõdukad massi tõttu, mistõttu kloor on gaas toatemperatuuril.' },
@@ -21,6 +25,23 @@ const molecules = [
   { id:'radium-chloride', name:'Raadiumkloriid', formula:'RaCl₂', hint:'Raadiumi ja kloori iooniline ühend.', atoms:['Ra','Cl','Cl'], charges:[2,-1,-1], bonds:[[0,1,1],[0,2,1]], bondTypes:['ionic','ionic'], fact:'Raadiumkloriid on ajalooliselt tuntud raadiumiühend.', guide:'Raadiumi ioon seostub kahe kloriidiooniga.', difficulty:'hard', intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'Raadiumkloriid on iooniline ühend. Raadiumi tuum laguneb alfakiirguse saatel.' },
   { id:'plutonium-dioxide', name:'Plutooniumi dioksiid', formula:'PuO₂', hint:'Tuumatehnoloogias tuntud plutooniumiühend.', atoms:['Pu','O','O'], charges:[4,-2,-2], bonds:[[0,1,2],[0,2,2]], fact:'PuO₂ on keraamiline ja kõrge sulamistemperatuuriga ühend.', guide:'Plutoonium on keskel ja kaks hapnikku on seotud kahekordsete sidemetega.', difficulty:'hard', intermolecularForces:['ionic','london-dispersion'], primaryForce:'ionic', forceAnalysis:'Plutooniumi dioksiid on tugevasti seotud tahke ühend, mille plutooniumi isotoobid lagunevad alfakiirguse kaudu.' }
 ];
+molecules.find(molecule => molecule.id === 'hydrogen-peroxide').charges = [1,-1,-1,1];
+molecules.find(molecule => molecule.id === 'hydrogen-peroxide').bondTypes = ['covalent','covalent','covalent'];
+molecules.find(molecule => molecule.id === 'hydrogen-sulfide').charges = [1,-2,1];
+molecules.find(molecule => molecule.id === 'hydrogen-sulfide').bondTypes = ['covalent','covalent'];
+const levelConfigs = [
+  { id:1, name:'Aatomid ja lihtmolekulid', nameEn:'Atoms and simple molecules', description:'Õpi valentsi, sidemete arvu ja molekuli ehitust.', descriptionEn:'Learn valence, bond order and molecular structure.', requiredMolecules:['hydrogen','oxygen','water','carbon-dioxide','methane','ammonia'], focusConcepts:['valents','üksik- ja kaksikside'], focusConceptsEn:['valence','single and double bonds'] },
+  { id:2, name:'Ioonid ja lihtsamad ühendid', nameEn:'Ions and simple compounds', description:'Tasakaalusta laengud ja ehita järjest keerukamaid ühendeid.', descriptionEn:'Balance charges and build increasingly complex compounds.', requiredMolecules:['hydrogen-chloride','sodium-chloride','hydrogen-peroxide','carbon-monoxide'], focusConcepts:['laengutasakaal','kovalentne side'], focusConceptsEn:['charge balance','covalent bonding'] },
+  { id:3, name:'Soolad ja polaarsus', nameEn:'Salts and polarity', description:'Võrdle ioonseid ühendeid ja polaarseid molekule.', descriptionEn:'Compare ionic compounds and polar molecules.', requiredMolecules:['sulfur-dioxide','magnesium-chloride','calcium-sulfate','sodium-nitrate'], focusConcepts:['iooniline side','polaarsus'], focusConceptsEn:['ionic bonding','polarity'] },
+  { id:4, name:'Keerukamad molekulid', nameEn:'More complex molecules', description:'Uuri molekuli kuju, sidemete järku ja intermolekulaarseid jõude.', descriptionEn:'Explore molecular shape, bond order and intermolecular forces.', requiredMolecules:['carbon-tetrachloride','ozone','sodium-hydroxide','sulfuric-acid'], focusConcepts:['molekuli kuju','vesiniksidemed','Londoni jõud'], focusConceptsEn:['molecular shape','hydrogen bonding','London forces'] },
+  { id:5, name:'Reaktsioonilabor', nameEn:'Reaction laboratory', description:'Lahenda suurema sidemete arvu ja reaktsioonivõimega ülesandeid.', descriptionEn:'Solve challenges with more bonds and greater reactivity.', requiredMolecules:['hydrogen-sulfide','nitrogen','chlorine'], focusConcepts:['reaktsioonivõime','sideme tugevus'], focusConceptsEn:['reactivity','bond strength'] },
+  { id:6, name:'Kvanttase', nameEn:'Quantum level', description:'Seosta elektronkonfiguratsioon, radioaktiivsus ja keerukate ühendite ehitus.', descriptionEn:'Connect electron configuration, radioactivity and complex compound structure.', requiredMolecules:['uranium-dioxide','cesium-iodide','radium-chloride','plutonium-dioxide'], focusConcepts:['orbitaalid','radioaktiivsus'], focusConceptsEn:['orbitals','radioactivity'] }
+];
+levelConfigs.forEach(level => {
+  level.avatudKui = level.id === 1 ? [] : [`level:${level.id - 1}`];
+  level.vajalikudMolekulid = level.requiredMolecules;
+  level.fookusKontseptsioonid = level.focusConcepts;
+});
 const elements = [
   {symbol:'H',name:'vesinik',className:'h',atomicNumber:1,group:1,period:1},
   {symbol:'He',name:'heelium',className:'he',atomicNumber:2,group:18,period:1},
@@ -181,7 +202,7 @@ const saltChallenges = [
   { id:'salt-cao', name:'Kaltsiumoksiid', formula:'CaO', atoms:['Ca','O'], charges:[2,-2], bonds:[[0,1,1]], bondTypes:['ionic'] }
 ];
 const baseChallenges = [
-  { id:'base-naoh', name:'Naatriumhüdroksiid', formula:'NaOH', atoms:['Na','O','H'], charges:[1,-1,0], bonds:[[0,1,1],[1,2,1]], bondTypes:['ionic','covalent'] },
+  { id:'base-naoh', name:'Naatriumhüdroksiid', formula:'NaOH', atoms:['Na','O','H'], charges:[1,-2,1], bonds:[[0,1,1],[1,2,1]], bondTypes:['ionic','covalent'] },
   { id:'base-caoh2', name:'Kaltsiumhüdroksiid', formula:'Ca(OH)₂', atoms:['Ca','O','H','O','H'], charges:[2,-1,0,-1,0], bonds:[[0,1,1],[1,2,1],[0,3,1],[3,4,1]], bondTypes:['ionic','covalent','ionic','covalent'] }
 ];
 
@@ -271,6 +292,51 @@ const reactions = [
     fact:'See on peamine energiaallikas rakkudele.',
     difficulty:'hard',
     isBiochemical:true
+  },
+  {
+    id:'iron-thiocyanate-equilibrium',
+    name:'Raud(III)-tiotsüanaadi tasakaal',
+    equation:'Fe³⁺ + SCN⁻ ⇌ FeSCN²⁺',
+    reactants:['iron(iii)-ion','thiocyanate-ion'],
+    products:['iron-thiocyanate-complex'],
+    stoichiometry:{ 'iron(iii)-ion':1, 'thiocyanate-ion':1, 'iron-thiocyanate-complex':1 },
+    energy:'exo',
+    energyChange:-12,
+    activationEnergy:45,
+    conditions:{ ph:2, pressure:1 },
+    hint:'Verepunane FeSCN²⁺ kompleks moodustub pöörduvas ioonreaktsioonis.',
+    fact:'FeSCN²⁺ värvuse tugevus näitab tasakaalu nihkumist kompleksi suunas.',
+    difficulty:'hard'
+  },
+  {
+    id:'haber-equilibrium',
+    name:'Ammoniaagi tasakaalusüntees',
+    equation:'N₂ + 3H₂ ⇌ 2NH₃',
+    reactants:['nitrogen','hydrogen'],
+    products:['ammonia'],
+    stoichiometry:{ nitrogen:1, hydrogen:3, ammonia:2 },
+    energy:'exo',
+    energyChange:-92,
+    activationEnergy:335,
+    conditions:{ minTemp:400, pressure:200, catalyst:'iron' },
+    hint:'Kõrge rõhk ja sobiv temperatuur nihutavad tasakaalu ammoniaagi suunas.',
+    fact:'Raua katalüsaator kiirendab tasakaalu saavutamist, kuid ei muuda tasakaaluasendit.',
+    difficulty:'hard'
+  },
+  {
+    id:'peroxide-catalytic-decomposition',
+    name:'Vesinikperoksiidi katalüütiline lagunemine',
+    equation:'2H₂O₂ → 2H₂O + O₂',
+    reactants:['hydrogen-peroxide'],
+    products:['water','oxygen'],
+    stoichiometry:{ 'hydrogen-peroxide':2, water:2, oxygen:1 },
+    energy:'exo',
+    energyChange:-98,
+    activationEnergy:75,
+    conditions:{ minTemp:25, catalyst:'manganese-dioxide' },
+    hint:'MnO₂ vähendab aktiveerumisenergiat ja kiirendab peroksiidi lagunemist.',
+    fact:'Katalüsaator ei kulu reaktsioonis ära, kuid muudab reaktsiooni palju kiiremaks.',
+    difficulty:'hard'
   }
 ];
 
@@ -340,6 +406,9 @@ let selectedReaction = reactions[0];
 let selectedForce = intermolecularForces[0];
 let selectedElementReaction = elementReactionCards[0];
 let elementReactionFilter = '';
+let currentLevelId = 1;
+let completedLevelTasks = new Set();
+let replayingCompletedLevel = false;
 
 // Radioactive decay data (expanded)
 const radioactiveDecay = {
@@ -368,6 +437,7 @@ let reactionTimer = null;
 const STORAGE_KEY = 'chemistry-game-best-score';
 const COMPLETED_KEY = 'chemistry-game-completed';
 const LANG_KEY = 'chemistry-game-language';
+const LEVEL_TASKS_KEY = 'chemistry-game-level-tasks';
 
 const translations = {
   et: {
@@ -415,7 +485,7 @@ const translations = {
     moleculesSolved: 'molekuli lahendatud',
     restart: 'Alusta uuesti',
     timeUp: 'Aeg sai otsa! Proovi uuesti.',
-    capacity: 'Selles prototüübis mahub kuus aatomit.',
+    capacity: 'Selles prototüübis mahub kaheksa aatomit.',
     hintPrefix: 'Vihje:',
     shownStructure: 'Näidatud õige struktuur. Vajuta "Võta tagasi", et taastada.',
     statusSelect: 'Vali aatom',
@@ -526,7 +596,7 @@ const translations = {
     moleculesSolved: 'molecules solved',
     restart: 'Start over',
     timeUp: 'Time is up! Try again.',
-    capacity: 'This prototype supports up to six atoms.',
+    capacity: 'This prototype supports up to eight atoms.',
     hintPrefix: 'Hint:',
     shownStructure: 'Correct structure shown. Press "Undo" to restore.',
     statusSelect: 'Select an atom',
@@ -857,10 +927,13 @@ function getBondType(bond) {
 }
 
 function shouldUseIonicBond(firstAtom, secondAtom) {
-  const targetBondIndex = target.bonds.findIndex(bond =>
-    (bond[0] === atoms.indexOf(firstAtom) && bond[1] === atoms.indexOf(secondAtom)) ||
-    (bond[0] === atoms.indexOf(secondAtom) && bond[1] === atoms.indexOf(firstAtom))
-  );
+  const targetBondIndex = target.bonds.findIndex((bond, bondIndex) => {
+    const firstSymbol = target.atoms[bond[0]];
+    const secondSymbol = target.atoms[bond[1]];
+    return ((firstSymbol === firstAtom.symbol && secondSymbol === secondAtom.symbol) ||
+      (firstSymbol === secondAtom.symbol && secondSymbol === firstAtom.symbol)) &&
+      target.bondTypes?.[bondIndex] === 'ionic';
+  });
   if (targetBondIndex >= 0 && target.bondTypes?.[targetBondIndex]) {
     return target.bondTypes[targetBondIndex] === 'ionic';
   }
@@ -959,6 +1032,70 @@ function loadCompletedLevels() {
   }
 }
 
+function loadCompletedLevelTasks() {
+  try {
+    const storedValue = localStorage.getItem(LEVEL_TASKS_KEY);
+    completedLevelTasks = storedValue ? new Set(JSON.parse(storedValue)) : new Set();
+  } catch (error) {
+    completedLevelTasks = new Set();
+  }
+}
+
+function saveCompletedLevelTasks() {
+  try {
+    localStorage.setItem(LEVEL_TASKS_KEY, JSON.stringify([...completedLevelTasks]));
+  } catch (error) {
+    // Ignore storage failures in browsers that block localStorage.
+  }
+}
+
+function getLevelConfig(levelId = currentLevelId) {
+  return levelConfigs.find(level => level.id === levelId) || levelConfigs[0];
+}
+
+function getLevelTaskKey(levelId, moleculeId) {
+  return `${levelId}:${moleculeId}`;
+}
+
+function isLevelUnlocked(levelId) {
+  return levelId === 1 || completedLevelTasks.has(`level:${levelId - 1}`);
+}
+
+function isLevelComplete(level) {
+  return level.requiredMolecules.every(moleculeId => completedLevelTasks.has(getLevelTaskKey(level.id, moleculeId)));
+}
+
+function getLevelMolecules(level = getLevelConfig()) {
+  return level.requiredMolecules.map(moleculeId => molecules.find(molecule => molecule.id === moleculeId)).filter(Boolean);
+}
+
+function renderLevelProgress() {
+  const level = getLevelConfig();
+  const conceptLabels = currentLang === 'en' ? level.focusConceptsEn : level.focusConcepts;
+  const completedCount = level.requiredMolecules.filter(moleculeId => completedLevelTasks.has(getLevelTaskKey(level.id, moleculeId))).length;
+  $('level-grid').innerHTML = levelConfigs.map(config => {
+    const unlocked = isLevelUnlocked(config.id);
+    const complete = isLevelComplete(config);
+    const configCompleted = config.requiredMolecules.filter(moleculeId => completedLevelTasks.has(getLevelTaskKey(config.id, moleculeId))).length;
+    const configName = currentLang === 'en' ? config.nameEn : config.name;
+    return `<button class="level-choice ${config.id === currentLevelId ? 'active' : ''} ${complete ? 'completed' : ''} ${unlocked ? '' : 'locked'}" data-level-id="${config.id}" type="button" ${unlocked ? '' : 'disabled'}><span class="level-choice-number">${String(config.id).padStart(2, '0')}</span><strong>${configName}</strong><small>${unlocked ? `${configCompleted}/${config.requiredMolecules.length}` : (currentLang === 'en' ? 'Locked' : 'Lukus')}</small></button>`;
+  }).join('');
+  document.querySelectorAll('.level-choice:not(:disabled)').forEach(button => button.addEventListener('click', () => selectLevel(Number(button.dataset.levelId))));
+  $('level-focus').textContent = `${currentLang === 'en' ? 'Focus' : 'Fookus'}: ${conceptLabels.join(' · ')} · ${completedCount}/${level.requiredMolecules.length}`;
+  $('level-description').textContent = currentLang === 'en' ? level.descriptionEn : level.description;
+}
+
+function selectLevel(levelId) {
+  if (!isLevelUnlocked(levelId)) return;
+  currentLevelId = levelId;
+  const level = getLevelConfig();
+  replayingCompletedLevel = isLevelComplete(level);
+  const levelMolecules = getLevelMolecules(level);
+  const nextMolecule = levelMolecules.find(molecule => !completedLevelTasks.has(getLevelTaskKey(level.id, molecule.id))) || levelMolecules[0];
+  renderLevelProgress();
+  selectTarget(nextMolecule.id);
+}
+
 function loadLanguage() {
   try {
     const storedLang = localStorage.getItem(LANG_KEY);
@@ -991,6 +1128,9 @@ function getReactionCopy(reaction) {
     neutralization: ['Neutralization', 'An acid and a base neutralize each other, forming salt and water.'],
     'atp-synthesis': ['ATP synthesis', 'ADP and phosphate combine to form ATP, storing chemical energy.'],
     'glucose-breakdown': ['Glucose breakdown', 'Cellular respiration converts glucose into carbon dioxide and water.'],
+    'iron-thiocyanate-equilibrium': ['Iron(III) thiocyanate equilibrium', 'Iron(III) and thiocyanate ions form the red FeSCN²⁺ complex.'],
+    'haber-equilibrium': ['Ammonia equilibrium synthesis', 'Pressure, temperature and an iron catalyst affect ammonia formation.'],
+    'peroxide-catalytic-decomposition': ['Catalytic hydrogen peroxide decomposition', 'Manganese dioxide lowers the activation energy for peroxide decomposition.'],
     peroxide: ['Hydrogen peroxide decomposition', 'A catalyst helps peroxide decompose faster.'],
     photosynthesis: ['Photosynthesis', 'The plant stores light energy as chemical energy in glucose.']
   };
@@ -1263,14 +1403,8 @@ function updateLanguageUI() {
     el.textContent = elementNames[currentLang][elements[index].symbol] || elements[index].name;
   });
   
-  // Update molecule list difficulty labels
-  document.querySelectorAll('.molecule-item small').forEach((el, index) => {
-    const diff = molecules[index].difficulty;
-    el.textContent = diff === 'easy' ? lang.easy : diff === 'medium' ? lang.medium : lang.hard;
-  });
-  document.querySelectorAll('.molecule-item strong').forEach((el, index) => {
-    el.textContent = getMoleculeText(molecules[index])[0];
-  });
+  renderMoleculeList();
+  renderLevelProgress();
   
   // Update completion overlay
   document.querySelector('.completion-card .eyebrow').textContent = lang.allLevelsCompleted;
@@ -1379,18 +1513,16 @@ function toggleTimer() {
 function init() {
   loadBestScore();
   loadCompletedLevels();
+  loadCompletedLevelTasks();
+  currentLevelId = Math.max(...levelConfigs.filter(level => isLevelUnlocked(level.id)).map(level => level.id));
   loadLanguage();
   $('element-grid').innerHTML = elements.map(element => `<button class="element-choice" data-symbol="${element.symbol}" type="button"><strong>${element.symbol}</strong><small>${element.name}</small></button>`).join('');
-  $('molecule-list').innerHTML = molecules.map((molecule, index) => `<button class="molecule-item ${index === 0 ? 'active' : ''} ${completed.has(molecule.id) ? 'completed' : ''}" data-id="${molecule.id}" data-difficulty="${molecule.difficulty}" type="button"><span class="molecule-symbol">${molecule.formula}</span><span><strong>${molecule.name}</strong><small>${molecule.difficulty === 'easy' ? 'Lihtne' : molecule.difficulty === 'medium' ? 'Keskmine' : 'Raske'}</small></span></button>`).join('');
-  document.querySelectorAll('.molecule-item').forEach(button => button.addEventListener('click', () => {
-    selectTarget(button.dataset.id);
-  }));
+  renderMoleculeList();
   document.querySelectorAll('.element-choice').forEach(button => button.addEventListener('click', () => addAtom(button.dataset.symbol)));
   document.querySelectorAll('.charge-choice').forEach(button => button.addEventListener('click', () => {
     selectedCharge = Number(button.dataset.charge);
     document.querySelectorAll('.charge-choice').forEach(choice => choice.classList.toggle('active', choice === button));
   }));
-  document.querySelectorAll('.molecule-item').forEach(button => button.addEventListener('click', () => selectTarget(button.dataset.id)));
   $('salt-mode-toggle').addEventListener('click', toggleSaltMode);
   document.querySelectorAll('.build-mode-choice').forEach(button => button.addEventListener('click', () => selectBuildMode(button.dataset.buildMode)));
   $('undo-button').addEventListener('click', undo);
@@ -1421,6 +1553,7 @@ function init() {
   renderReactionLab();
   updateScoreUI();
   updateLanguageUI();
+  renderLevelProgress();
   render();
   
   if (!tutorialShown && completed.size === 0) {
@@ -1443,12 +1576,12 @@ function showTutorial() {
   
   showNextStep();
 }
-function selectTarget(id) { saltMode = false; $('salt-challenges').hidden = true; $('salt-mode-toggle').textContent = currentLang === 'et' ? 'Alusta' : 'Start'; stopDecayTimer(); radioactiveAtoms = []; target = molecules.find(molecule => molecule.id === id); atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.molecule-item').forEach(button => button.classList.toggle('active', button.dataset.id === id)); const moleculeDisplay = getMoleculeText(target); $('level').textContent = String(molecules.indexOf(target) + 1).padStart(2,'0'); $('target-name').textContent = moleculeDisplay[0]; $('target-formula').textContent = target.formula; $('target-hint').textContent = moleculeDisplay[1]; updateMoleculeForcesInfo(); render(); }
+function selectTarget(id) { saltMode = false; $('salt-challenges').hidden = true; $('salt-mode-toggle').textContent = currentLang === 'et' ? 'Alusta' : 'Start'; stopDecayTimer(); radioactiveAtoms = []; target = molecules.find(molecule => molecule.id === id); atoms = []; bonds = []; selected = null; actionHistory = []; renderMoleculeList(); const moleculeDisplay = getMoleculeText(target); $('level').textContent = String(currentLevelId).padStart(2,'0'); $('target-name').textContent = moleculeDisplay[0]; $('target-formula').textContent = target.formula; $('target-hint').textContent = moleculeDisplay[1]; updateMoleculeForcesInfo(); render(); }
 function selectBuildMode(mode) { buildMode = mode; saltMode = true; $('salt-challenges').hidden = false; $('salt-mode-toggle').textContent = t('saltModeClose'); const challenges = buildChallenges[buildMode]; $('salt-challenges').innerHTML = challenges.map((challenge, index) => `<button class="salt-challenge ${index === 0 ? 'active' : ''}" data-index="${index}" type="button">${challenge.formula}</button>`).join(''); document.querySelectorAll('.salt-challenge').forEach(button => button.addEventListener('click', () => selectBuildChallenge(Number(button.dataset.index)))); updateLanguageUI(); selectBuildChallenge(0); }
 function selectBuildChallenge(index) { saltMode = true; stopDecayTimer(); radioactiveAtoms = []; target = buildChallenges[buildMode][index]; atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.salt-challenge').forEach((button, buttonIndex) => button.classList.toggle('active', buttonIndex === index)); $('level').textContent = `${buildMode === 'salt' ? 'S' : buildMode === 'base' ? 'B' : 'H'}${index + 1}`; $('target-name').textContent = target.name; $('target-formula').textContent = target.formula; $('target-hint').textContent = t(`${buildMode}ModePrompt`); updateMoleculeForcesInfo(); render(); }
 function toggleSaltMode() { saltMode = !saltMode; $('salt-challenges').hidden = !saltMode; $('salt-mode-toggle').textContent = saltMode ? t('saltModeClose') : t('saltModeStart'); if (saltMode) selectBuildMode(buildMode); }
 function addAtom(symbol) {
-  if (atoms.length >= 6) return toast(t('capacity'));
+  if (atoms.length >= 8) return toast(t('capacity'));
   const nextIndex = atoms.length;
   const element = elements.find(e => e.symbol === symbol);
   
@@ -1507,23 +1640,39 @@ function showStructure() {
   }, 3000);
 }
 function advanceLevel() {
-  const currentIndex = molecules.findIndex(molecule => molecule.id === target.id);
+  const level = getLevelConfig();
   if (target && target.id) {
     completed.add(target.id);
+    completedLevelTasks.add(getLevelTaskKey(level.id, target.id));
   }
   saveCompletedLevels();
+  saveCompletedLevelTasks();
 
-  const nextUnfinished = molecules.find(molecule => !completed.has(molecule.id));
-  if (!nextUnfinished || completed.size >= molecules.length) {
-    showCompletion();
+  if (replayingCompletedLevel) {
+    const levelMolecules = getLevelMolecules(level);
+    const currentIndex = levelMolecules.findIndex(molecule => molecule.id === target.id);
+    const nextMolecule = levelMolecules[(currentIndex + 1) % levelMolecules.length];
+    selectTarget(nextMolecule.id);
+    toast(currentLang === 'en' ? 'Replay complete. Choose another challenge.' : 'Kordusmäng tehtud. Vali järgmine ülesanne.');
     return;
   }
 
-  let nextIndex = currentIndex >= 0 ? (currentIndex + 1) % molecules.length : 0;
-  while (completed.has(molecules[nextIndex].id)) {
-    nextIndex = (nextIndex + 1) % molecules.length;
+  const nextUnfinished = getLevelMolecules(level).find(molecule => !completedLevelTasks.has(getLevelTaskKey(level.id, molecule.id)));
+  if (!nextUnfinished) {
+    completedLevelTasks.add(`level:${level.id}`);
+    saveCompletedLevelTasks();
+    if (level.id < levelConfigs.length) {
+      currentLevelId = level.id + 1;
+      replayingCompletedLevel = false;
+      renderLevelProgress();
+      selectTarget(getLevelMolecules(getLevelConfig())[0].id);
+      toast(currentLang === 'en' ? `Level ${currentLevelId} unlocked!` : `Tase ${currentLevelId} avanes!`);
+      return;
+    }
+    showCompletion();
+    return;
   }
-  selectTarget(molecules[nextIndex].id);
+  selectTarget(nextUnfinished.id);
 }
 function showCompletion() {
   if (score > bestScore) {
@@ -1538,10 +1687,21 @@ function showCompletion() {
 function restartGame() {
   score = 0;
   completed = new Set();
+  completedLevelTasks = new Set();
+  currentLevelId = 1;
+  replayingCompletedLevel = false;
   saveCompletedLevels();
+  saveCompletedLevelTasks();
   updateScoreUI();
   $('completion-overlay').hidden = true;
-  selectTarget(molecules[0].id);
+  renderLevelProgress();
+  selectTarget(getLevelMolecules()[0].id);
+}
+function renderMoleculeList() {
+  const level = getLevelConfig();
+  const levelMolecules = getLevelMolecules(level);
+  $('molecule-list').innerHTML = levelMolecules.map(molecule => `<button class="molecule-item ${target?.id === molecule.id ? 'active' : ''} ${completedLevelTasks.has(getLevelTaskKey(level.id, molecule.id)) ? 'completed' : ''}" data-id="${molecule.id}" data-difficulty="${molecule.difficulty}" type="button"><span class="molecule-symbol">${molecule.formula}</span><span><strong>${molecule.name}</strong><small>${molecule.difficulty === 'easy' ? 'Lihtne' : molecule.difficulty === 'medium' ? 'Keskmine' : 'Raske'}</small></span></button>`).join('');
+  document.querySelectorAll('.molecule-item').forEach(button => button.addEventListener('click', () => selectTarget(button.dataset.id)));
 }
 function render() {
   updateMoleculeForcesInfo();

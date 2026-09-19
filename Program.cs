@@ -197,7 +197,7 @@ static class MoleculeCatalog
 			[new(0, 1, 3)],
 			"See gaas on mürgine ja värvitu.",
 			"CO tekib mittetäieliku põlemise käigus ja sidemete järk on kolm."),
-		new("sulfur-dioxide", "Räni dioksiid", "SO2", 3,
+		new("sulfur-dioxide", "Sulfadioksiid", "SO2", 3,
 			["S", "O", "O"],
 			[new(0, 1, 2), new(0, 2, 2)],
 			"Seda tekib põlemisproduktina ja tööstusprotsessides.",
