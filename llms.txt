@@ -1,0 +1,28 @@
+# Molekulimeister
+
+> Molekulimeister helps you explore and understand chemical structures and reactions interactively.
+
+## Core Features / Products
+- [Molekulimeister Valmis](https://moleculemaster.eu/): Start using the Molekulimeister platform to educate yourself on molecular structures.
+- [Õppeteed](https://moleculemaster.eu/): Learn about valence, bond counts, and molecular construction with six chemistry levels.
+- [Labor](https://moleculemaster.eu/labor): Build your own molecules by selecting atoms and combining them.
+- [Reaktsioonilabor](https://moleculemaster.eu/reaktsioonilabor): Conduct reaction experiments involving acids, bases, and catalysts.
+- [Elementide Reaktsioonid](https://moleculemaster.eu/elementide-reaktsioonid): Learn about the reactivity of all 118 elements.
+- [Intermolekulaarsed Jõud](https://moleculemaster.eu/intermolekulaarsed-joud): Explore various intermolecular forces in detail.
+- [Kogumik](https://moleculemaster.eu/kogumik): Review and learn about different molecules and their properties.
+- [Kvanttase](https://moleculemaster.eu/kvanttase): Understand electronic orbitals and electron configurations.
+
+## Support and Documentation
+- [Kontakt](mailto:priit.linnakivi@gmail.com): Reach out for support and inquiries to Priit Linnakivi.
+
+## Company Information
+- [Molekulimeister](https://moleculemaster.eu/): Discover the purpose and features of Molekulimeister.
+
+## Legal and Compliance
+- [Privacy Policy](https://moleculemaster.eu/privacy): Review our privacy practices regarding user data.
+
+## Resources and Insights
+- [Molekulimeister Blog](https://moleculemaster.eu/blog): Get updates and insights on chemistry education and tools.
+
+## Contact and Support
+- [Toetamine](https://moleculemaster.eu/toetamine): Support the platform via bank details provided.
