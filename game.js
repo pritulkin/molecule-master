@@ -15,9 +15,165 @@ const molecules = [
   { id:'sodium-hydroxide', name:'Naatriumhüdroksiid', formula:'NaOH', hint:'Levinud base, tugev leelis.', atoms:['Na','O','H'], charges:[1,-1,0], bonds:[[0,1,1],[1,2,1]], bondTypes:['ionic','covalent'], fact:'NaOH lahuses moodustab leelise ja on tugev alus.', guide:'Naatrium ja hapnik on ühendatud ühe ioonse sidemega, hapnik ja vesinik ühe kovalentse sidemega.', difficulty:'hard', intermolecularForces:['ionic','hydrogen-bonding'], primaryForce:'ionic', forceAnalysis:'NaOH on ioniline ühend tugevate iooniliste jõududega. Na⁺ ja OH⁻ ioonid on tugevalt seotud, mistõttu NaOH on tahke.' },
   { id:'hydrogen-sulfide', name:'Vesiniksulfiid', formula:'H₂S', hint:'Mürgine gaas, millel on ebameeldiv lõhn.', atoms:['H','S','H'], bonds:[[0,1,1],[1,2,1]], fact:'H₂S on mürgine ja seda leidub mõnedes geotermilistes allikates.', guide:'Väävel on keskel ja kaks vesinikku on temaga ühekordsete sidemetega seotud.', difficulty:'hard', intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'H₂S on polaarne bent molekul dipool-dipool jõududega. Kuid need on nõrgamad kui vees, mistõttu H₂S on gaas toatemperatuuril.' },
   { id:'nitrogen', name:'Lämmastik', formula:'N₂', hint:'Maa atmosfääris on see kõige levinum gaas.', atoms:['N','N'], bonds:[[0,1,3]], fact:'Lämmastikmolekul on väga stabiilne ja sisaldab kolmekordset sidet.', guide:'Lämmastiku kaks aatomit on ühendatud kolmekordse sidemega.', difficulty:'hard', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Lämmastik on mittepolaarne diatomiline molekul väga nõrkade Londoni dispersioonijõududega. See on gaas väga madalal temperatuuril.' },
-  { id:'chlorine', name:'Kloor', formula:'Cl₂', hint:'Kloor on üsna reaktiivne ja kasutusel desinfitseerimisel.', atoms:['Cl','Cl'], bonds:[[0,1,1]], fact:'Kloor on vajalik veepuhastuses ja tekib ka valgenditest.', guide:'Kaks klooriaatomit on ühendatud ühekordse sidemega.', difficulty:'hard', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Kloor on mittepolaarne diatomiline molekul. Londoni dispersioonijõud on mõõdukad massi tõttu, mistõttu kloor on gaas toatemperatuuril.' }
+  { id:'chlorine', name:'Kloor', formula:'Cl₂', hint:'Kloor on üsna reaktiivne ja kasutusel desinfitseerimisel.', atoms:['Cl','Cl'], bonds:[[0,1,1]], fact:'Kloor on vajalik veepuhastuses ja tekib ka valgenditest.', guide:'Kaks klooriaatomit on ühendatud ühekordse sidemega.', difficulty:'hard', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Kloor on mittepolaarne diatomiline molekul. Londoni dispersioonijõud on mõõdukad massi tõttu, mistõttu kloor on gaas toatemperatuuril.' },
+  { id:'uranium-dioxide', name:'Uraani dioksiid', formula:'UO₂', hint:'Tuumakütuses kasutatav uraaniühend.', atoms:['U','O','O'], charges:[4,-2,-2], bonds:[[0,1,2],[0,2,2]], fact:'UO₂ on üks tavalisemaid tuumakütuse lähteaineid.', guide:'Uraan on keskel ja kaks hapnikku on seotud kahekordsete sidemetega.', difficulty:'hard', intermolecularForces:['ionic','london-dispersion'], primaryForce:'ionic', forceAnalysis:'Uraani dioksiid on tahke ioonilise iseloomuga ühend, milles uraani radioaktiivne isotoop võib aja jooksul laguneda.' },
+  { id:'cesium-iodide', name:'Tseesiumjodiid', formula:'CsI', hint:'Radioaktiivse tseesiumi uurimisel kasutatav iooniline ühend.', atoms:['Cs','I'], charges:[1,-1], bonds:[[0,1,1]], bondTypes:['ionic'], fact:'CsI kristall sisaldab tseesiumi- ja jodiidioone.', guide:'Tseesium ja jood moodustavad vastasmärgiliste ioonidega ühendi.', difficulty:'hard', intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'Tseesiumjodiid on iooniline kristall. Radioaktiivne tseesium võib laguneda beetalagunemise kaudu.' },
+  { id:'radium-chloride', name:'Raadiumkloriid', formula:'RaCl₂', hint:'Raadiumi ja kloori iooniline ühend.', atoms:['Ra','Cl','Cl'], charges:[2,-1,-1], bonds:[[0,1,1],[0,2,1]], bondTypes:['ionic','ionic'], fact:'Raadiumkloriid on ajalooliselt tuntud raadiumiühend.', guide:'Raadiumi ioon seostub kahe kloriidiooniga.', difficulty:'hard', intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'Raadiumkloriid on iooniline ühend. Raadiumi tuum laguneb alfakiirguse saatel.' },
+  { id:'plutonium-dioxide', name:'Plutooniumi dioksiid', formula:'PuO₂', hint:'Tuumatehnoloogias tuntud plutooniumiühend.', atoms:['Pu','O','O'], charges:[4,-2,-2], bonds:[[0,1,2],[0,2,2]], fact:'PuO₂ on keraamiline ja kõrge sulamistemperatuuriga ühend.', guide:'Plutoonium on keskel ja kaks hapnikku on seotud kahekordsete sidemetega.', difficulty:'hard', intermolecularForces:['ionic','london-dispersion'], primaryForce:'ionic', forceAnalysis:'Plutooniumi dioksiid on tugevasti seotud tahke ühend, mille plutooniumi isotoobid lagunevad alfakiirguse kaudu.' }
 ];
-const elements = [{symbol:'H',name:'vesinik',className:'h'},{symbol:'O',name:'hapnik',className:'o'},{symbol:'C',name:'süsinik',className:'c'},{symbol:'N',name:'lämmastik',className:'n'},{symbol:'Cl',name:'kloor',className:'cl'},{symbol:'Na',name:'naatrium',className:'na'},{symbol:'S',name:'väävel',className:'s'},{symbol:'Mg',name:'magneesium',className:'mg'},{symbol:'Ca',name:'kaltsium',className:'ca'},{symbol:'Al',name:'alumiinium',className:'al'},{symbol:'F',name:'fluor',className:'f'}];
+const elements = [
+  {symbol:'H',name:'vesinik',className:'h',atomicNumber:1,group:1,period:1},
+  {symbol:'He',name:'heelium',className:'he',atomicNumber:2,group:18,period:1},
+  {symbol:'Li',name:'liitium',className:'li',atomicNumber:3,group:1,period:2},
+  {symbol:'Be',name:'berüllium',className:'be',atomicNumber:4,group:2,period:2},
+  {symbol:'B',name:'boor',className:'b',atomicNumber:5,group:13,period:2},
+  {symbol:'C',name:'süsinik',className:'c',atomicNumber:6,group:14,period:2},
+  {symbol:'N',name:'lämmastik',className:'n',atomicNumber:7,group:15,period:2},
+  {symbol:'O',name:'hapnik',className:'o',atomicNumber:8,group:16,period:2},
+  {symbol:'F',name:'fluor',className:'f',atomicNumber:9,group:17,period:2},
+  {symbol:'Ne',name:'neoon',className:'ne',atomicNumber:10,group:18,period:2},
+  {symbol:'Na',name:'naatrium',className:'na',atomicNumber:11,group:1,period:3},
+  {symbol:'Mg',name:'magneesium',className:'mg',atomicNumber:12,group:2,period:3},
+  {symbol:'Al',name:'alumiinium',className:'al',atomicNumber:13,group:13,period:3},
+  {symbol:'Si',name:'ränik',className:'si',atomicNumber:14,group:14,period:3},
+  {symbol:'P',name:'fosfor',className:'p',atomicNumber:15,group:15,period:3},
+  {symbol:'S',name:'väävel',className:'s',atomicNumber:16,group:16,period:3},
+  {symbol:'Cl',name:'kloor',className:'cl',atomicNumber:17,group:17,period:3},
+  {symbol:'Ar',name:'argoon',className:'ar',atomicNumber:18,group:18,period:3},
+  {symbol:'K',name:'kaalium',className:'k',atomicNumber:19,group:1,period:4},
+  {symbol:'Ca',name:'kaltsium',className:'ca',atomicNumber:20,group:2,period:4},
+  {symbol:'Sc',name:'skandium',className:'sc',atomicNumber:21,group:3,period:4},
+  {symbol:'Ti',name:'titaan',className:'ti',atomicNumber:22,group:4,period:4},
+  {symbol:'V',name:'vaanaadium',className:'v',atomicNumber:23,group:5,period:4},
+  {symbol:'Cr',name:'kroom',className:'cr',atomicNumber:24,group:6,period:4},
+  {symbol:'Mn',name:'mangaan',className:'mn',atomicNumber:25,group:7,period:4},
+  {symbol:'Fe',name:'raud',className:'fe',atomicNumber:26,group:8,period:4},
+  {symbol:'Co',name:'koobalt',className:'co',atomicNumber:27,group:9,period:4},
+  {symbol:'Ni',name:'nikkel',className:'ni',atomicNumber:28,group:10,period:4},
+  {symbol:'Cu',name:'vas',className:'cu',atomicNumber:29,group:11,period:4},
+  {symbol:'Zn',name:'tsink',className:'zn',atomicNumber:30,group:12,period:4},
+  {symbol:'Ga',name:'gallium',className:'ga',atomicNumber:31,group:13,period:4},
+  {symbol:'Ge',name:'germaanium',className:'ge',atomicNumber:32,group:14,period:4},
+  {symbol:'As',name:'arseen',className:'as',atomicNumber:33,group:15,period:4},
+  {symbol:'Se',name:'selen',className:'se',atomicNumber:34,group:16,period:4},
+  {symbol:'Br',name:'broom',className:'br',atomicNumber:35,group:17,period:4},
+  {symbol:'Kr',name:'kripton',className:'kr',atomicNumber:36,group:18,period:4},
+  {symbol:'Rb',name:'rubiidium',className:'rb',atomicNumber:37,group:1,period:5},
+  {symbol:'Sr',name:'stroontium',className:'sr',atomicNumber:38,group:2,period:5},
+  {symbol:'Y',name:'ütrium',className:'y',atomicNumber:39,group:3,period:5},
+  {symbol:'Zr',name:'tsirkoonium',className:'zr',atomicNumber:40,group:4,period:5},
+  {symbol:'Nb',name:'nioobium',className:'nb',atomicNumber:41,group:5,period:5},
+  {symbol:'Mo',name:'molübdeen',className:'mo',atomicNumber:42,group:6,period:5},
+  {symbol:'Tc',name:'tehneesium',className:'tc',atomicNumber:43,group:7,period:5,radioactive:true,halflife:5},
+  {symbol:'Ru',name:'ruuteenium',className:'ru',atomicNumber:44,group:8,period:5},
+  {symbol:'Rh',name:'roodium',className:'rh',atomicNumber:45,group:9,period:5},
+  {symbol:'Pd',name:'pallaadium',className:'pd',atomicNumber:46,group:10,period:5},
+  {symbol:'Ag',name:'hõbe',className:'ag',atomicNumber:47,group:11,period:5},
+  {symbol:'Cd',name:'kadmium',className:'cd',atomicNumber:48,group:12,period:5},
+  {symbol:'In',name:'indium',className:'in',atomicNumber:49,group:13,period:5},
+  {symbol:'Sn',name:'tin',className:'sn',atomicNumber:50,group:14,period:5},
+  {symbol:'Sb',name:'antimon',className:'sb',atomicNumber:51,group:15,period:5},
+  {symbol:'Te',name:'telluur',className:'te',atomicNumber:52,group:16,period:5},
+  {symbol:'I',name:'jood',className:'i',atomicNumber:53,group:17,period:5,radioactive:true,halflife:8},
+  {symbol:'Xe',name:'ksenon',className:'xe',atomicNumber:54,group:18,period:5},
+  {symbol:'Cs',name:'tseesium',className:'cs',atomicNumber:55,group:1,period:6,radioactive:true,halflife:15},
+  {symbol:'Ba',name:'baarium',className:'ba',atomicNumber:56,group:2,period:6},
+  {symbol:'La',name:'lantaan',className:'la',atomicNumber:57,group:3,period:6},
+  {symbol:'Ce',name:'tseerium',className:'ce',atomicNumber:58,group:3,period:6},
+  {symbol:'Pr',name:'praseodüüm',className:'pr',atomicNumber:59,group:3,period:6},
+  {symbol:'Nd',name:'neodüüm',className:'nd',atomicNumber:60,group:3,period:6},
+  {symbol:'Pm',name:'promeetium',className:'pm',atomicNumber:61,group:3,period:6,radioactive:true,halflife:3},
+  {symbol:'Sm',name:'samaarium',className:'sm',atomicNumber:62,group:3,period:6},
+  {symbol:'Eu',name:'europium',className:'eu',atomicNumber:63,group:3,period:6},
+  {symbol:'Gd',name:'gadoliinium',className:'gd',atomicNumber:64,group:3,period:6},
+  {symbol:'Tb',name:'terbium',className:'tb',atomicNumber:65,group:3,period:6},
+  {symbol:'Dy',name:'düsproosium',className:'dy',atomicNumber:66,group:3,period:6},
+  {symbol:'Ho',name:'holmium',className:'ho',atomicNumber:67,group:3,period:6},
+  {symbol:'Er',name:'erbuim',className:'er',atomicNumber:68,group:3,period:6},
+  {symbol:'Tm',name:'tuulium',className:'tm',atomicNumber:69,group:3,period:6},
+  {symbol:'Yb',name:'üterbium',className:'yb',atomicNumber:70,group:3,period:6},
+  {symbol:'Lu',name:'luteetsium',className:'lu',atomicNumber:71,group:3,period:6},
+  {symbol:'Hf',name:'hafnium',className:'hf',atomicNumber:72,group:4,period:6},
+  {symbol:'Ta',name:'tantaal',className:'ta',atomicNumber:73,group:5,period:6},
+  {symbol:'W',name:'volfram',className:'w',atomicNumber:74,group:6,period:6},
+  {symbol:'Re',name:'reenium',className:'re',atomicNumber:75,group:7,period:6},
+  {symbol:'Os',name:'osmium',className:'os',atomicNumber:76,group:8,period:6},
+  {symbol:'Ir',name:'iridium',className:'ir',atomicNumber:77,group:9,period:6},
+  {symbol:'Pt',name:'plaatina',className:'pt',atomicNumber:78,group:10,period:6},
+  {symbol:'Au',name:'kuld',className:'au',atomicNumber:79,group:11,period:6},
+  {symbol:'Hg',name:'elavhõbe',className:'hg',atomicNumber:80,group:12,period:6},
+  {symbol:'Tl',name:'taallium',className:'tl',atomicNumber:81,group:13,period:6},
+  {symbol:'Pb',name:'pli',className:'pb',atomicNumber:82,group:14,period:6},
+  {symbol:'Bi',name:'vismut',className:'bi',atomicNumber:83,group:15,period:6},
+  {symbol:'Po',name:'poloonium',className:'po',atomicNumber:84,group:16,period:6,radioactive:true,halflife:4},
+  {symbol:'At',name:'astaat',className:'at',atomicNumber:85,group:17,period:6,radioactive:true,halflife:2},
+  {symbol:'Rn',name:'radon',className:'rn',atomicNumber:86,group:18,period:6,radioactive:true,halflife:6},
+  {symbol:'Fr',name:'frantsium',className:'fr',atomicNumber:87,group:1,period:7,radioactive:true,halflife:3},
+  {symbol:'Ra',name:'raadium',className:'ra',atomicNumber:88,group:2,period:7,radioactive:true,halflife:20},
+  {symbol:'Ac',name:'aktiinium',className:'ac',atomicNumber:89,group:3,period:7,radioactive:true,halflife:12},
+  {symbol:'Th',name:'toorium',className:'th',atomicNumber:90,group:3,period:7,radioactive:true,halflife:25},
+  {symbol:'Pa',name:'protaktiinium',className:'pa',atomicNumber:91,group:3,period:7,radioactive:true,halflife:18},
+  {symbol:'U',name:'uraan',className:'u',atomicNumber:92,group:3,period:7,radioactive:true,halflife:30},
+  {symbol:'Np',name:'neptuunium',className:'np',atomicNumber:93,group:3,period:7,radioactive:true,halflife:7},
+  {symbol:'Pu',name:'plutoonium',className:'pu',atomicNumber:94,group:3,period:7,radioactive:true,halflife:10},
+  {symbol:'Am',name:'ameeritsium',className:'am',atomicNumber:95,group:3,period:7,radioactive:true,halflife:5},
+  {symbol:'Cm',name:'kuurium',className:'cm',atomicNumber:96,group:3,period:7,radioactive:true,halflife:8},
+  {symbol:'Bk',name:'berkeelium',className:'bk',atomicNumber:97,group:3,period:7,radioactive:true,halflife:6},
+  {symbol:'Cf',name:'kalifornium',className:'cf',atomicNumber:98,group:3,period:7,radioactive:true,halflife:5},
+  {symbol:'Es',name:'einsteinium',className:'es',atomicNumber:99,group:3,period:7,radioactive:true,halflife:4},
+  {symbol:'Fm',name:'fermium',className:'fm',atomicNumber:100,group:3,period:7,radioactive:true,halflife:3},
+  {symbol:'Md',name:'mendeleevium',className:'md',atomicNumber:101,group:3,period:7,radioactive:true,halflife:3},
+  {symbol:'No',name:'nobelium',className:'no',atomicNumber:102,group:3,period:7,radioactive:true,halflife:2},
+  {symbol:'Lr',name:'loorensium',className:'lr',atomicNumber:103,group:3,period:7,radioactive:true,halflife:2},
+  {symbol:'Rf',name:'rutherfordium',className:'rf',atomicNumber:104,group:4,period:7,radioactive:true,halflife:2},
+  {symbol:'Db',name:'dubnium',className:'db',atomicNumber:105,group:5,period:7,radioactive:true,halflife:2},
+  {symbol:'Sg',name:'seaborgium',className:'sg',atomicNumber:106,group:6,period:7,radioactive:true,halflife:2},
+  {symbol:'Bh',name:'boorium',className:'bh',atomicNumber:107,group:7,period:7,radioactive:true,halflife:2},
+  {symbol:'Hs',name:'hassium',className:'hs',atomicNumber:108,group:8,period:7,radioactive:true,halflife:2},
+  {symbol:'Mt',name:'meitneerium',className:'mt',atomicNumber:109,group:9,period:7,radioactive:true,halflife:2},
+  {symbol:'Ds',name:'darmstadtium',className:'ds',atomicNumber:110,group:10,period:7,radioactive:true,halflife:2},
+  {symbol:'Rg',name:'röntgeenium',className:'rg',atomicNumber:111,group:11,period:7,radioactive:true,halflife:2},
+  {symbol:'Cn',name:'koperniitsium',className:'cn',atomicNumber:112,group:12,period:7,radioactive:true,halflife:2},
+  {symbol:'Nh',name:'nihonium',className:'nh',atomicNumber:113,group:13,period:7,radioactive:true,halflife:2},
+  {symbol:'Fl',name:'flerovium',className:'fl',atomicNumber:114,group:14,period:7,radioactive:true,halflife:2},
+  {symbol:'Mc',name:'moskoovium',className:'mc',atomicNumber:115,group:15,period:7,radioactive:true,halflife:2},
+  {symbol:'Lv',name:'livermoorium',className:'lv',atomicNumber:116,group:16,period:7,radioactive:true,halflife:2},
+  {symbol:'Ts',name:'tennessiin',className:'ts',atomicNumber:117,group:17,period:7,radioactive:true,halflife:2},
+  {symbol:'Og',name:'oganeessoon',className:'og',atomicNumber:118,group:18,period:7,radioactive:true,halflife:2}
+];
+const elementReactionCards = elements.map(element => {
+  let equation;
+  let detail;
+  if (element.group === 18) {
+    equation = 'Tavatingimustes puudub levinud reaktsioon';
+    detail = 'Väärisgaasi väliskest on stabiilne; reaktsioonivõime on väga väike.';
+  } else if (element.symbol === 'H') {
+    equation = '2H₂ + O₂ → 2H₂O';
+    detail = 'Vesinik põleb hapnikus ja moodustab vett.';
+  } else if (element.symbol === 'O') {
+    equation = 'C + O₂ → CO₂';
+    detail = 'Hapnik toetab põlemist; näites oksüdeerub süsinik süsinikdioksiidiks.';
+  } else if (element.group === 1) {
+    equation = `4${element.symbol} + O₂ → 2${element.symbol}₂O`;
+    detail = 'Leelismetalli tüüpiline reaktsioon hapnikuga; tegelik saadus sõltub tingimustest.';
+  } else if (element.group === 2) {
+    equation = `2${element.symbol} + O₂ → 2${element.symbol}O`;
+    detail = 'Leelismuldmetall moodustab hapnikuga tüüpilise metallioksiidi.';
+  } else if ([17].includes(element.group)) {
+    equation = `2Na + ${element.symbol}₂ → 2Na${element.symbol}`;
+    detail = 'Halogeen reageerib naatriumiga ja moodustab ioonse halogeniidi.';
+  } else if (element.radioactive) {
+    equation = `${element.symbol} → lagunemisproduktid`;
+    detail = 'Sellel elemendil pole stabiilseid isotoope; reaktsioonikaart rõhutab radioaktiivset lagunemist, mitte tavalist laborireaktsiooni.';
+  } else if (element.symbol === 'C') {
+    equation = 'C + O₂ → CO₂';
+    detail = 'Süsinik põleb hapnikus ja moodustab süsinikdioksiidi.';
+  } else {
+    equation = `${element.symbol} + O₂ → ${element.symbol}Oₙ`;
+    detail = 'Näide on üldistatud oksiidi moodustumine; täpne oksiidi valem sõltub elemendi oksüdatsiooniastmest.';
+  }
+  return { ...element, equation, detail };
+});
 const saltChallenges = [
   { id:'salt-nacl', name:'Naatriumkloriid', formula:'NaCl', atoms:['Na','Cl'], charges:[1,-1], bonds:[[0,1,1]], bondTypes:['ionic'] },
   { id:'salt-mgcl2', name:'Magneesiumkloriid', formula:'MgCl₂', atoms:['Mg','Cl','Cl'], charges:[2,-1,-1], bonds:[[0,1,1],[0,2,1]], bondTypes:['ionic','ionic'] },
@@ -161,10 +317,10 @@ const acidChallenges = [
 const buildChallenges = { salt: saltChallenges, base: baseChallenges, acid: acidChallenges };
 const reactionCopy = {
   et: {
-    labLabel:'REAKTSIOONILABOR', labTitle:'Happed, alused ja energia', ready:'Valmis', catalyst:'Katalüsaator', noCatalyst:'Ilma katalüsaatorita', manganese:'MnO₂ · mangaan(IV)oksiid', platinum:'Pt · plaatina', run:'Käivita reaktsioon', exoTag:'EKSOTERMILINE', endoTag:'ENDOTERMILINE', heatReleased:'Soojust eraldub', energyAbsorbed:'Energiat neeldub', running:'Reaktsioon käib', speedsUp:'Kiireneb', lowersBarrier:'Katalüsaator vähendab aktiveerumisbarjääri; valmib', withoutCatalyst:'Ilma katalüsaatorita valmib see', seconds:'sekundiga.', readyHeat:'Valmis · soojus eraldus', readyEnergy:'Valmis · energia neeldus', catalystNotConsumed:'ei kulu reaktsioonis ära, kuid muutis selle kiiremaks.', compareSpeed:'Katse valmis. Lisa katalüsaator ja võrdle reaktsiooni kiirust.', exoToast:'Eksotermiline efekt: tööala soojeneb.', endoToast:'Endotermiline efekt: tööala jahtub.'
+  labLabel:'REAKTSIOONILABOR', labTitle:'Happed, alused ja energia', elementLabLabel:'ELEMENTIDE REAKTSIOONID', elementLabTitle:'Õpi iga elemendi reaktsioonivõimet', elementSearch:'Otsi sümboli, nime või aatomnumbri järgi', ready:'Valmis', catalyst:'Katalüsaator', noCatalyst:'Ilma katalüsaatorita', manganese:'MnO₂ · mangaan(IV)oksiid', platinum:'Pt · plaatina', run:'Käivita reaktsioon', exoTag:'EKSOTERMILINE', endoTag:'ENDOTERMILINE', heatReleased:'Soojust eraldub', energyAbsorbed:'Energiat neeldub', running:'Reaktsioon käib', speedsUp:'Kiireneb', lowersBarrier:'Katalüsaator vähendab aktiveerumisbarjääri; valmib', withoutCatalyst:'Ilma katalüsaatorita valmib see', seconds:'sekundiga.', readyHeat:'Valmis · soojus eraldus', readyEnergy:'Valmis · energia neeldus', catalystNotConsumed:'ei kulu reaktsioonis ära, kuid muutis selle kiiremaks.', compareSpeed:'Katse valmis. Lisa katalüsaator ja võrdle reaktsiooni kiirust.', exoToast:'Eksotermiline efekt: tööala soojeneb.', endoToast:'Endotermiline efekt: tööala jahtub.'
   },
   en: {
-    labLabel:'REACTION LAB', labTitle:'Acids, bases and energy', ready:'Ready', catalyst:'Catalyst', noCatalyst:'Without a catalyst', manganese:'MnO₂ · manganese(IV) oxide', platinum:'Pt · platinum', run:'Run reaction', exoTag:'EXOTHERMIC', endoTag:'ENDOTHERMIC', heatReleased:'Heat is released', energyAbsorbed:'Energy is absorbed', running:'Reaction running', speedsUp:'Faster', lowersBarrier:'The catalyst lowers the activation barrier; complete in', withoutCatalyst:'Without a catalyst, this completes in', seconds:'seconds.', readyHeat:'Complete · heat released', readyEnergy:'Complete · energy absorbed', catalystNotConsumed:'is not used up, but made the reaction faster.', compareSpeed:'Experiment complete. Add a catalyst to compare the reaction speed.', exoToast:'Exothermic effect: the lab warms up.', endoToast:'Endothermic effect: the lab cools down.'
+    labLabel:'REACTION LAB', labTitle:'Acids, bases and energy', elementLabLabel:'ELEMENT REACTIONS', elementLabTitle:'Learn the reactivity of every element', elementSearch:'Search by symbol, name or atomic number', ready:'Ready', catalyst:'Catalyst', noCatalyst:'Without a catalyst', manganese:'MnO₂ · manganese(IV) oxide', platinum:'Pt · platinum', run:'Run reaction', exoTag:'EXOTHERMIC', endoTag:'ENDOTHERMIC', heatReleased:'Heat is released', energyAbsorbed:'Energy is absorbed', running:'Reaction running', speedsUp:'Faster', lowersBarrier:'The catalyst lowers the activation barrier; complete in', withoutCatalyst:'Without a catalyst, this completes in', seconds:'seconds.', readyHeat:'Complete · heat released', readyEnergy:'Complete · energy absorbed', catalystNotConsumed:'is not used up, but made the reaction faster.', compareSpeed:'Experiment complete. Add a catalyst to compare the reaction speed.', exoToast:'Exothermic effect: the lab warms up.', endoToast:'Endothermic effect: the lab cools down.'
   }
 };
 let target = molecules[0], atoms = [], bonds = [], selected = null, score = 0, completed = new Set(), bestScore = 0;
@@ -182,6 +338,32 @@ let currentLang = 'et';
 let audioContext = null;
 let selectedReaction = reactions[0];
 let selectedForce = intermolecularForces[0];
+let selectedElementReaction = elementReactionCards[0];
+let elementReactionFilter = '';
+
+// Radioactive decay data (expanded)
+const radioactiveDecay = {
+  'Tc': { products: ['Ru'], halfLife: 5, decayType: 'beta' },
+  'Pm': { products: ['Nd'], halfLife: 3, decayType: 'beta' },
+  'Po': { products: ['Pb', 'He'], halfLife: 4, decayType: 'alpha' },
+  'At': { products: ['Bi'], halfLife: 2, decayType: 'alpha' },
+  'Rn': { products: ['Po', 'He'], halfLife: 6, decayType: 'alpha' },
+  'Fr': { products: ['Ra'], halfLife: 3, decayType: 'alpha' },
+  'Ra': { products: ['Rn', 'He'], halfLife: 20, decayType: 'alpha' },
+  'Ac': { products: ['Th'], halfLife: 12, decayType: 'beta' },
+  'Th': { products: ['Pa'], halfLife: 25, decayType: 'alpha' },
+  'Pa': { products: ['U'], halfLife: 18, decayType: 'beta' },
+  'U': { products: ['Th', 'He'], halfLife: 30, decayType: 'alpha' },
+  'Np': { products: ['Pu'], halfLife: 7, decayType: 'beta' },
+  'Pu': { products: ['U', 'He'], halfLife: 10, decayType: 'alpha' },
+  'Am': { products: ['Np'], halfLife: 5, decayType: 'alpha' },
+  'Cm': { products: ['Pu'], halfLife: 8, decayType: 'alpha' },
+  'I': { products: ['Xe'], halfLife: 8, decayType: 'beta' },
+  'Cs': { products: ['Ba'], halfLife: 15, decayType: 'beta' }
+};
+
+let radioactiveAtoms = []; // Track radioactive atoms with their creation time
+let decayInterval = null;
 let reactionTimer = null;
 const STORAGE_KEY = 'chemistry-game-best-score';
 const COMPLETED_KEY = 'chemistry-game-completed';
@@ -412,8 +594,8 @@ const translations = {
   }
 };
 const elementNames = {
-  et: { H:'vesinik', O:'hapnik', C:'süsinik', N:'lämmastik', Cl:'kloor', Na:'naatrium', S:'väävel', Mg:'magneesium', Ca:'kaltsium', Al:'alumiinium', F:'fluor' },
-  en: { H:'hydrogen', O:'oxygen', C:'carbon', N:'nitrogen', Cl:'chlorine', Na:'sodium', S:'sulfur', Mg:'magnesium', Ca:'calcium', Al:'aluminium', F:'fluorine' }
+  et: { H:'vesinik', O:'hapnik', C:'süsinik', N:'lämmastik', Cl:'kloor', Na:'naatrium', S:'väävel', Mg:'magneesium', Ca:'kaltsium', Al:'alumiinium', F:'fluor', U:'uraan', Cs:'tseesium', Ra:'raadium', Pu:'plutoonium', I:'jood' },
+  en: { H:'hydrogen', O:'oxygen', C:'carbon', N:'nitrogen', Cl:'chlorine', Na:'sodium', S:'sulfur', Mg:'magnesium', Ca:'calcium', Al:'aluminium', F:'fluorine', U:'uranium', Cs:'cesium', Ra:'radium', Pu:'plutonium', I:'iodine' }
 };
 const moleculeText = {
   en: {
@@ -433,7 +615,11 @@ const moleculeText = {
     'sodium-hydroxide': ['Sodium hydroxide', 'A common strong base.'],
     'hydrogen-sulfide': ['Hydrogen sulfide', 'A poisonous gas with an unpleasant smell.'],
     nitrogen: ['Nitrogen', 'The most abundant gas in Earth’s atmosphere.'],
-    chlorine: ['Chlorine', 'A reactive element used for disinfection.']
+    chlorine: ['Chlorine', 'A reactive element used for disinfection.'],
+    'uranium-dioxide': ['Uranium dioxide', 'A uranium compound used in nuclear fuel.'],
+    'cesium-iodide': ['Cesium iodide', 'An ionic compound used in radioactive cesium studies.'],
+    'radium-chloride': ['Radium chloride', 'An ionic compound of radium and chlorine.'],
+    'plutonium-dioxide': ['Plutonium dioxide', 'A well-known plutonium compound in nuclear technology.']
   }
 };
 const moleculeFacts = {
@@ -454,7 +640,11 @@ const moleculeFacts = {
     'sodium-hydroxide': 'Sodium hydroxide is a strong base.',
     'hydrogen-sulfide': 'Hydrogen sulfide is poisonous and has an unpleasant smell.',
     nitrogen: 'Nitrogen molecules are very stable because of their triple bond.',
-    chlorine: 'Chlorine is used in water treatment and can form from bleach.'
+    chlorine: 'Chlorine is used in water treatment and can form from bleach.',
+    'uranium-dioxide': 'Uranium dioxide is a common nuclear fuel compound.',
+    'cesium-iodide': 'Cesium iodide forms an ionic crystal lattice.',
+    'radium-chloride': 'Radium chloride is a historically known radium compound.',
+    'plutonium-dioxide': 'Plutonium dioxide is a stable ceramic compound.'
   }
 };
 const $ = id => document.getElementById(id);
@@ -819,6 +1009,32 @@ function renderReactionLab() {
   updateReactionUI();
 }
 
+function renderElementReactionCards() {
+  const query = elementReactionFilter.trim().toLocaleLowerCase();
+  const visibleCards = elementReactionCards.filter(element =>
+    !query || `${element.symbol} ${element.name} ${element.atomicNumber}`.toLocaleLowerCase().includes(query)
+  );
+  $('element-reaction-grid').innerHTML = visibleCards.map(element => `
+    <button class="element-reaction-card ${element.symbol === selectedElementReaction.symbol ? 'active' : ''}" data-symbol="${element.symbol}" type="button">
+      <span class="element-reaction-number">${element.atomicNumber}</span>
+      <strong>${element.symbol}</strong>
+      <small>${element.name}</small>
+    </button>
+  `).join('');
+  document.querySelectorAll('.element-reaction-card').forEach(button => button.addEventListener('click', () => {
+    selectedElementReaction = elementReactionCards.find(element => element.symbol === button.dataset.symbol);
+    updateElementReactionDetail();
+    renderElementReactionCards();
+  }));
+  updateElementReactionDetail();
+}
+
+function updateElementReactionDetail() {
+  if (!selectedElementReaction) return;
+  $('element-reaction-equation').textContent = selectedElementReaction.equation;
+  $('element-reaction-detail').textContent = `${selectedElementReaction.name} (${selectedElementReaction.symbol}, Z=${selectedElementReaction.atomicNumber}): ${selectedElementReaction.detail}`;
+}
+
 function renderForces() {
   $('forces-grid').innerHTML = intermolecularForces.map((force, index) => {
     const strengthClass = force.strength === 'strong' ? 'strong' : force.strength === 'medium' ? 'medium' : 'weak';
@@ -1044,7 +1260,7 @@ function updateLanguageUI() {
     quantumInfo.textContent = atoms.length ? translations[currentLang].orbitalsInfo.replace('{count}', atoms.length) : translations[currentLang].quantumPrompt;
   }
   document.querySelectorAll('.element-choice small').forEach((el, index) => {
-    el.textContent = elementNames[currentLang][elements[index].symbol];
+    el.textContent = elementNames[currentLang][elements[index].symbol] || elements[index].name;
   });
   
   // Update molecule list difficulty labels
@@ -1063,11 +1279,14 @@ function updateLanguageUI() {
   document.querySelector('.completion-score').innerHTML = `<span id="final-score">${score}</span> ${lang.pointsScore}`;
   document.querySelector('.completion-count').innerHTML = `<span id="completed-count">${completed.size}</span> ${lang.moleculesSolved}`;
   $('restart-button').innerHTML = `${lang.restart} <span>↻</span>`;
-  $('charge-label').textContent = currentLang === 'et' ? 'Laeng' : 'Charge';
+  $('charge-label').textContent = currentLang === 'et' ? 'Laeng / oksüdatsiooniaste' : 'Charge / oxidation state';
   $('salt-mode-description').textContent = translations[currentLang][`${buildMode}ModeDescription`] || translations[currentLang].saltModeDescription;
   const reactionLabels = reactionCopy[currentLang];
   $('reaction-lab-label').textContent = reactionLabels.labLabel;
   $('reaction-lab-title').textContent = reactionLabels.labTitle;
+  $('element-reaction-label').textContent = reactionLabels.elementLabLabel;
+  $('element-reaction-title').textContent = reactionLabels.elementLabTitle;
+  $('element-reaction-search').placeholder = reactionLabels.elementSearch;
   $('reaction-state').textContent = reactionLabels.ready;
   $('catalyst-label').textContent = reactionLabels.catalyst;
   $('catalyst-none').textContent = reactionLabels.noCatalyst;
@@ -1088,7 +1307,7 @@ function updateLanguageUI() {
   $('forces-title').textContent = t('forcesTitle');
   
   renderReactionLab();
-  renderForces();
+  renderElementReactionCards();
   renderForces();
 }
 
@@ -1183,6 +1402,10 @@ function init() {
   $('check-button').addEventListener('click', checkMolecule);
   $('restart-button').addEventListener('click', restartGame);
   $('run-reaction-button').addEventListener('click', runReaction);
+  $('element-reaction-search').addEventListener('input', event => {
+    elementReactionFilter = event.target.value;
+    renderElementReactionCards();
+  });
   $('temperature-slider').addEventListener('input', () => {
     $('temperature-value').textContent = `${$('temperature-slider').value}°C`;
   });
@@ -1220,14 +1443,28 @@ function showTutorial() {
   
   showNextStep();
 }
-function selectTarget(id) { saltMode = false; $('salt-challenges').hidden = true; $('salt-mode-toggle').textContent = currentLang === 'et' ? 'Alusta' : 'Start'; target = molecules.find(molecule => molecule.id === id); atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.molecule-item').forEach(button => button.classList.toggle('active', button.dataset.id === id)); const moleculeDisplay = getMoleculeText(target); $('level').textContent = String(molecules.indexOf(target) + 1).padStart(2,'0'); $('target-name').textContent = moleculeDisplay[0]; $('target-formula').textContent = target.formula; $('target-hint').textContent = moleculeDisplay[1]; updateMoleculeForcesInfo(); render(); }
+function selectTarget(id) { saltMode = false; $('salt-challenges').hidden = true; $('salt-mode-toggle').textContent = currentLang === 'et' ? 'Alusta' : 'Start'; stopDecayTimer(); radioactiveAtoms = []; target = molecules.find(molecule => molecule.id === id); atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.molecule-item').forEach(button => button.classList.toggle('active', button.dataset.id === id)); const moleculeDisplay = getMoleculeText(target); $('level').textContent = String(molecules.indexOf(target) + 1).padStart(2,'0'); $('target-name').textContent = moleculeDisplay[0]; $('target-formula').textContent = target.formula; $('target-hint').textContent = moleculeDisplay[1]; updateMoleculeForcesInfo(); render(); }
 function selectBuildMode(mode) { buildMode = mode; saltMode = true; $('salt-challenges').hidden = false; $('salt-mode-toggle').textContent = t('saltModeClose'); const challenges = buildChallenges[buildMode]; $('salt-challenges').innerHTML = challenges.map((challenge, index) => `<button class="salt-challenge ${index === 0 ? 'active' : ''}" data-index="${index}" type="button">${challenge.formula}</button>`).join(''); document.querySelectorAll('.salt-challenge').forEach(button => button.addEventListener('click', () => selectBuildChallenge(Number(button.dataset.index)))); updateLanguageUI(); selectBuildChallenge(0); }
-function selectBuildChallenge(index) { saltMode = true; target = buildChallenges[buildMode][index]; atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.salt-challenge').forEach((button, buttonIndex) => button.classList.toggle('active', buttonIndex === index)); $('level').textContent = `${buildMode === 'salt' ? 'S' : buildMode === 'base' ? 'B' : 'H'}${index + 1}`; $('target-name').textContent = target.name; $('target-formula').textContent = target.formula; $('target-hint').textContent = t(`${buildMode}ModePrompt`); updateMoleculeForcesInfo(); render(); }
+function selectBuildChallenge(index) { saltMode = true; stopDecayTimer(); radioactiveAtoms = []; target = buildChallenges[buildMode][index]; atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.salt-challenge').forEach((button, buttonIndex) => button.classList.toggle('active', buttonIndex === index)); $('level').textContent = `${buildMode === 'salt' ? 'S' : buildMode === 'base' ? 'B' : 'H'}${index + 1}`; $('target-name').textContent = target.name; $('target-formula').textContent = target.formula; $('target-hint').textContent = t(`${buildMode}ModePrompt`); updateMoleculeForcesInfo(); render(); }
 function toggleSaltMode() { saltMode = !saltMode; $('salt-challenges').hidden = !saltMode; $('salt-mode-toggle').textContent = saltMode ? t('saltModeClose') : t('saltModeStart'); if (saltMode) selectBuildMode(buildMode); }
 function addAtom(symbol) {
   if (atoms.length >= 6) return toast(t('capacity'));
   const nextIndex = atoms.length;
+  const element = elements.find(e => e.symbol === symbol);
+  
   atoms.push({ symbol, charge: selectedCharge, x: 50, y: 50 });
+  
+  // Track radioactive atoms
+  if (element && element.radioactive) {
+    radioactiveAtoms.push({
+      atom: atoms[nextIndex],
+      symbol: symbol,
+      createdAt: Date.now(),
+      halfLife: element.halflife
+    });
+    startDecayTimer();
+  }
+  
   snapAtomToLayout(nextIndex);
   actionHistory.push({ type: 'addAtom', symbol, index: nextIndex });
   initAudio();
@@ -1520,6 +1757,87 @@ function checkMolecule() {
   setTimeout(() => workspace.classList.remove('success', 'shake'), 480);
 }
 function toast(message) { const element=$('toast'); element.textContent=message; element.classList.add('show'); clearTimeout(window.toastTimer); window.toastTimer=setTimeout(() => element.classList.remove('show'),3200); }
+
+function startDecayTimer() {
+  if (decayInterval) return;
+  
+  decayInterval = setInterval(() => {
+    const now = Date.now();
+    const atomsToRemove = [];
+    
+    radioactiveAtoms.forEach((radioAtom, radioIndex) => {
+      const elapsedSeconds = (now - radioAtom.createdAt) / 1000;
+      const decayData = radioactiveDecay[radioAtom.symbol];
+      
+      if (decayData && elapsedSeconds >= decayData.halfLife) {
+        // Atom has decayed
+        atomsToRemove.push(radioAtom);
+        
+        // Remove original atom
+        const atomIndex = atoms.indexOf(radioAtom.atom);
+        if (atomIndex >= 0) {
+          atoms.splice(atomIndex, 1);
+        }
+        
+        // Add decay products
+        decayData.products.forEach((productSymbol, i) => {
+          if (atoms.length < 6) {
+            const productElement = elements.find(e => e.symbol === productSymbol);
+            const productAtom = { 
+              symbol: productSymbol, 
+              charge: 0, 
+              x: (atomIndex >= 0 ? atomIndex : 0) * 10 + 20 + (i * 10), 
+              y: 50 
+            };
+            atoms.push(productAtom);
+            
+            // If product is also radioactive, track it
+            if (productElement && productElement.radioactive) {
+              radioactiveAtoms.push({
+                atom: productAtom,
+                symbol: productSymbol,
+                createdAt: Date.now(),
+                halfLife: productElement.halflife
+              });
+            }
+          }
+        });
+        
+        // Show decay notification
+        const decayMessage = currentLang === 'et' 
+          ? `${radioAtom.symbol} lagunes ${decayData.products.join(' → ')}!`
+          : `${radioAtom.symbol} decayed to ${decayData.products.join(' → ')}!`;
+        toast(decayMessage);
+        playSound('error'); // Use error sound for decay
+      }
+    });
+    
+    // Remove decayed atoms from tracking
+    radioactiveAtoms = radioactiveAtoms.filter(r => !atomsToRemove.includes(r));
+    
+    // Stop timer if no radioactive atoms left
+    if (radioactiveAtoms.length === 0) {
+      clearInterval(decayInterval);
+      decayInterval = null;
+    }
+    
+    // Re-render if atoms changed
+    if (atomsToRemove.length > 0) {
+      if (is3DView) {
+        render3DMolecule();
+      } else {
+        render();
+      }
+    }
+  }, 1000); // Check every second
+}
+
+function stopDecayTimer() {
+  if (decayInterval) {
+    clearInterval(decayInterval);
+    decayInterval = null;
+  }
+}
 
 function toggleQuantumView() {
   const view = $('quantum-view');

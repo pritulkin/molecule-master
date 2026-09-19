@@ -61,6 +61,10 @@ Mängus on välja pakutud järgmised näited:
 - vesinikkloriidhape (HCl)
 - vesinikperoksiid (H₂O₂)
 
+Graafilises veebiversioonis on nüüd kõik 118 elementi. Elementide all kuvatakse eraldi
+õppevaade, kus saab otsida sümboli, nime või aatomnumbri järgi ning vaadata iga elemendi
+representatiivset reaktsiooni või selgitust, kui tavatingimustes levinud reaktsiooni ei ole.
+
 ## Sisestusvorm C# versioonis
 
 Terminali versioonis tuleb sisestada:

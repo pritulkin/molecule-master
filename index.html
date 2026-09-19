@@ -62,17 +62,25 @@
 
     <section class="elements-section">
       <div class="section-heading compact"><div><span class="section-kicker">AATOMID</span><h3>Vali ehitusklots</h3></div><span class="atom-count"><span id="atom-count">0</span> / 6</span></div>
-      <div class="charge-picker" aria-label="Vali lisatava aatomi laeng">
-        <span class="charge-label" id="charge-label">Laeng</span>
+      <div class="charge-picker" aria-label="Vali lisatava aatomi laeng või oksüdatsiooniaste">
+        <span class="charge-label" id="charge-label">Laeng / oksüdatsiooniaste</span>
         <button class="charge-choice active" data-charge="0" type="button">0</button>
         <button class="charge-choice" data-charge="1" type="button">+1</button>
         <button class="charge-choice" data-charge="2" type="button">+2</button>
         <button class="charge-choice" data-charge="3" type="button">+3</button>
         <button class="charge-choice" data-charge="4" type="button">+4</button>
+        <button class="charge-choice" data-charge="5" type="button">+5</button>
+        <button class="charge-choice" data-charge="6" type="button">+6</button>
+        <button class="charge-choice" data-charge="7" type="button">+7</button>
+        <button class="charge-choice" data-charge="8" type="button">+8</button>
         <button class="charge-choice negative" data-charge="-1" type="button">−1</button>
         <button class="charge-choice negative" data-charge="-2" type="button">−2</button>
         <button class="charge-choice negative" data-charge="-3" type="button">−3</button>
         <button class="charge-choice negative" data-charge="-4" type="button">−4</button>
+        <button class="charge-choice negative" data-charge="-5" type="button">−5</button>
+        <button class="charge-choice negative" data-charge="-6" type="button">−6</button>
+        <button class="charge-choice negative" data-charge="-7" type="button">−7</button>
+        <button class="charge-choice negative" data-charge="-8" type="button">−8</button>
       </div>
       <div class="element-grid" id="element-grid"></div>
       <p class="connection-tip" id="connection-tip">Ühendamiseks puuduta järjest kahte aatomit. Vastasmärgiga ioonid ühenduvad automaatselt.</p>
@@ -123,6 +131,13 @@
         <strong id="reaction-equation">Vali reaktsioon</strong>
         <span id="reaction-detail">Energia ja katalüsaatori mõju ilmuvad siia.</span>
       </div>
+    </section>
+
+    <section class="element-reactions-section">
+      <div class="section-heading compact"><div><span class="section-kicker" id="element-reaction-label">ELEMENTIDE REAKTSIOONID</span><h3 id="element-reaction-title">Õpi iga elemendi reaktsioonivõimet</h3></div><span class="element-reaction-count">118 elementi</span></div>
+      <input class="element-reaction-search" id="element-reaction-search" type="search" placeholder="Otsi sümboli, nime või aatomnumbri järgi" aria-label="Otsi elementi">
+      <div class="element-reaction-grid" id="element-reaction-grid"></div>
+      <div class="element-reaction-detail" aria-live="polite"><strong id="element-reaction-equation"></strong><span id="element-reaction-detail"></span></div>
     </section>
 
     <section class="forces-section">
