@@ -1,41 +1,41 @@
 const molecules = [
-  { id:'water', name:'Vesi', formula:'H₂O', hint:'Igapäevane aine, mida vajame eluks.', atoms:['O','H','H'], charges:[-2,1,1], bonds:[[0,1,1],[0,2,1]], bondTypes:['covalent','covalent'], fact:'Vesi on elu üks tähtsamaid aineid.', guide:'Hapnikul on mudelis −2 ja mõlemal vesinikul +1; kaks kovalentset sidet annavad kokku neutraalse vee.', difficulty:'easy', intermolecularForces:['hydrogen-bonding','dipole-dipole','london-dispersion'], primaryForce:'hydrogen-bonding', forceAnalysis:'Vesi on polaarne molekul tugevate vesiniksidemetega hapniku ja vesiniku vahel. See annab veele kõrge keemispunkti ja pindpinevuse.' },
-  { id:'carbon-dioxide', name:'Süsinikdioksiid', formula:'CO₂', hint:'Taimed kasutavad seda fotosünteesis.', atoms:['C','O','O'], charges:[4,-2,-2], bonds:[[0,1,2],[0,2,2]], fact:'Süsinikdioksiid liigub süsinikiringes.', guide:'Süsinik on keskel ja iga hapnik on sellega seotud kahekordse sidemega.', difficulty:'easy', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'CO₂ on mittepolaarne lineaarne molekul. Ainukesed intermolekulaarsed jõud on Londoni dispersioonijõud, mis on nõrgad.' },
-  { id:'methane', name:'Metaan', formula:'CH₄', hint:'Maagaasi peamine koostisosa.', atoms:['C','H','H','H','H'], charges:[-4,1,1,1,1], bonds:[[0,1,1],[0,2,1],[0,3,1],[0,4,1]], fact:'Metaan on kõige lihtsam alkaan.', guide:'Süsinikul on mudelis −4 ja neljal vesinikul +1; kogulaeng on null.', difficulty:'easy', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Metaan on mittepolaarne tetraeedriline molekul. Ainukesed jõud on Londoni dispersioonijõud, mistõttu metaan on gaas toatemperatuuril.' },
-  { id:'ammonia', name:'Ammoniaak', formula:'NH₃', hint:'Seda kasutatakse väetiste tootmisel.', atoms:['N','H','H','H'], charges:[-3,1,1,1], bonds:[[0,1,1],[0,2,1],[0,3,1]], fact:'Ammoniaagil on terav iseloomulik lõhn.', guide:'Lämmastikul on oksüdatsiooniaste −3 ja igal vesinikul +1; kolm üksiksidet moodustavad ammoniaagi struktuuri.', difficulty:'easy', intermolecularForces:['hydrogen-bonding','dipole-dipole','london-dispersion'], primaryForce:'hydrogen-bonding', forceAnalysis:'Ammoniaak on polaarne trigonaal-püramidaalne molekul tugevate vesiniksidemetega. See selgitab ammoniaagi kõrget keemispunkti.' },
-  { id:'hydrogen', name:'Vesinik', formula:'H₂', hint:'Lihtsaim ja kõige kergem element.', atoms:['H','H'], bonds:[[0,1,1]], fact:'Vesinik on tähtede peamine ehitusplokk.', guide:'Kaks vesiniku aatomit on seotud ühe ühise sidemega.', difficulty:'easy', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Vesinik on mittepolaarne diatomiline molekul. Ainukesed jõud on väga nõrgad Londoni dispersioonijõud.' },
-  { id:'oxygen', name:'Hapnik', formula:'O₂', hint:'Hingamiseks vajalik gaas.', atoms:['O','O'], bonds:[[0,1,2]], fact:'Hapnik on meie hingamise puhul oluline.', guide:'Hapniku kaks aatomit on seotud kahekordse sidemega.', difficulty:'easy', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Hapnik on mittepolaarne diatomiline molekul. Londoni dispersioonijõud on nõrgad, mistõttu hapnik on gaas toatemperatuuril.' },
-  { id:'hydrogen-chloride', name:'Vesinikkloriidhape', formula:'HCl', hint:'Krõbe hape, millel on tugev lõhn.', atoms:['H','Cl'], charges:[1,-1], bonds:[[0,1,1]], bondTypes:['covalent'], fact:'Soolhape tekib HCl lahustamisel vees.', guide:'Vesinikul on oksüdatsiooniaste +1 ja klooril −1; H–Cl side on kovalentne.', difficulty:'medium', intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'HCl on polaarne molekul tugevate dipool-dipool jõududega. HCl on gaas toatemperatuuril, kuid kondenseerub madalal temperatuuril.' },
-  { id:'sodium-chloride', name:'Naatriumkloriid', formula:'NaCl', hint:'Tuntud ka lauasoolana.', atoms:['Na','Cl'], charges:[1,-1], bonds:[[0,1,1]], bondTypes:['ionic'], fact:'Tavaline lauasool on ioniline ühend.', guide:'Naatrium ja kloor on ühendatud ühe sidemega.', difficulty:'medium', intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'NaCl on ioniline ühend tugevate iooniliste jõududega. Need on palju tugevamad kui kõik intermolekulaarsed jõud, mistõttu NaCl on tahke toatemperatuuril.' },
-  { id:'hydrogen-peroxide', name:'Vesinikperoksiid', formula:'H₂O₂', hint:'Kasutatakse desinfitseerimiseks ja pleegitamiseks.', atoms:['H','O','O','H'], bonds:[[0,1,1],[1,2,1],[2,3,1]], fact:'See on tugev oksüdeerija ja laguneb kiiresti.', guide:'Molekulis on O-O keskne ühend ja mõlemad otsad on H-ga seotud.', difficulty:'medium', intermolecularForces:['hydrogen-bonding','dipole-dipole','london-dispersion'], primaryForce:'hydrogen-bonding', forceAnalysis:'Vesinikperoksiid on polaarne molekul vesiniksidemetega. Kuid need on nõrgamad kui vees, mistõttu H₂O₂ on ebastabiilne.' },
-  { id:'carbon-monoxide', name:'Süsinikmonooksiid', formula:'CO', hint:'Mürgine gaas, mis tekib mittetäielikul põlemisel.', atoms:['C','O'], bonds:[[0,1,3]], fact:'CO on väga mürgine, sest see seob hemoglobiini.', guide:'Süsinik ja hapnik on seotud kolmekordse sidemega.', difficulty:'medium', intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'CO on väga polaarne molekul tugevate dipool-dipool jõududega. See on gaas toatemperatuuril, kuid lahustub vees.' },
-  { id:'sulfur-dioxide', name:'Sulfadioksiid', formula:'SO₂', hint:'Aine, mida moodustub koldes ja tööstuses.', atoms:['S','O','O'], charges:[4,-2,-2], bonds:[[0,1,2],[0,2,2]], fact:'Dioksiid on tugev reostaja ja tekitab kuivest lõhna.', guide:'Väävlil on oksüdatsiooniaste +4 ja kummalgi hapnikul −2; mõlemad hapnikud on väävliga kahekordse sidemega ühendatud.', difficulty:'medium', intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'SO₂ on polaarne bent molekul dipool-dipool jõududega. See on gaas toatemperatuuril, kuid kondenseerub kergesti.' },
-  { id:'carbon-tetrachloride', name:'Süsiniktetrakloriid', formula:'CCl₄', hint:'Märkimisväärselt raske ja kloriga seotud ühend.', atoms:['C','Cl','Cl','Cl','Cl'], charges:[4,-1,-1,-1,-1], bonds:[[0,1,1],[0,2,1],[0,3,1],[0,4,1]], bondTypes:['covalent','covalent','covalent','covalent'], fact:'CCl₄ on üldiselt ebapüsiv ja läheb kasutuselt välja.', guide:'Süsinikul on oksüdatsiooniaste +4 ja igal klooril −1; kõik neli sidet on kovalentsed.', difficulty:'hard', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'CCl₄ on mittepolaarne tetraeedriline molekul. Londoni dispersioonijõud on mõõdukad massi tõttu, mistõttu CCl₄ on vedelik toatemperatuuril.' },
-  { id:'ozone', name:'Osoon', formula:'O₃', hint:'Kaitseb Maad UV-kiirguse eest.', atoms:['O','O','O'], bonds:[[0,1,1],[1,2,2]], fact:'Osoon on stratosfääris ülioluline.', guide:'Osoonis on üks O aatom keskel ja üks side on lihtne, teine kahekordne.', difficulty:'hard', intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'Osoon on polaarne bent molekul dipool-dipool jõududega. See on gaas toatemperatuuril, kuid on reaktiivsem kui hapnik.' },
-  { id:'sodium-hydroxide', name:'Naatriumhüdroksiid', formula:'NaOH', hint:'Levinud base, tugev leelis.', atoms:['Na','O','H'], charges:[1,-2,1], bonds:[[0,1,1],[1,2,1]], bondTypes:['ionic','covalent'], fact:'NaOH lahuses moodustab leelise ja on tugev alus.', guide:'Naatriumi oksüdatsiooniaste on +1, hapnikul −2 ja vesinikul +1; Na–O side on ioonne ning O–H side kovalentne.', difficulty:'hard', intermolecularForces:['ionic','hydrogen-bonding'], primaryForce:'ionic', forceAnalysis:'NaOH on ioniline ühend tugevate iooniliste jõududega. Na⁺ ja OH⁻ ioonid on tugevalt seotud, mistõttu NaOH on tahke.' },
-  { id:'magnesium-chloride', name:'Magneesiumkloriid', formula:'MgCl₂', hint:'Magneesiumi ja kloori iooniline sool.', atoms:['Mg','Cl','Cl'], charges:[2,-1,-1], bonds:[[0,1,1],[0,2,1]], bondTypes:['ionic','ionic'], fact:'Magneesiumkloriid on iooniline ühend.', guide:'Mg²⁺ vajab laengu tasakaalustamiseks kahte Cl⁻ iooni.', difficulty:'medium', intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'Magneesiumkloriidis tasakaalustavad Mg²⁺ ja kaks Cl⁻ iooni teineteise laengu.' },
-  { id:'calcium-sulfate', name:'Kaltsiumsulfaat', formula:'CaSO₄', hint:'Kipsi põhikomponent.', atoms:['Ca','S','O','O','O','O'], charges:[2,6,-2,-2,-2,-2], bonds:[[0,2,1],[1,2,2],[1,3,1],[1,4,1],[1,5,1]], bondTypes:['ionic','covalent','covalent','covalent','covalent'], fact:'Kaltsiumsulfaat esineb looduses muu hulgas kipsina.', guide:'Kaltsiumioon tasakaalustab sulfaatiooni kogulaengu.', difficulty:'medium', intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'Kaltsiumsulfaat on iooniline sool, milles Ca²⁺ tasakaalustab SO₄²⁻ laengu.' },
-  { id:'sodium-nitrate', name:'Naatriumnitraat', formula:'NaNO₃', hint:'Lämmastikku sisaldav iooniline sool.', atoms:['Na','N','O','O','O'], charges:[1,5,-2,-2,-2], bonds:[[0,2,1],[1,2,1],[1,3,2],[1,4,1]], bondTypes:['ionic','covalent','covalent','covalent'], fact:'Naatriumnitraati kasutatakse muu hulgas väetistes.', guide:'Naatriumioon tasakaalustab nitraatiooni kogulaengu.', difficulty:'medium', intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'Naatriumnitraat koosneb Na⁺ ioonidest ja NO₃⁻ nitraatioonidest.' },
-  { id:'sulfuric-acid', name:'Väävelhape', formula:'H₂SO₄', hint:'Tugev hape, mida kasutatakse tööstuses.', atoms:['H','H','S','O','O','O','O'], charges:[1,1,6,-2,-2,-2,-2], bonds:[[2,3,2],[2,4,2],[2,5,1],[2,6,1],[0,5,1],[1,6,1]], bondTypes:['covalent','covalent','covalent','covalent','covalent','covalent'], fact:'Väävelhape on üks tähtsamaid tööstuskemikaale.', guide:'Molekulis on kaks happelist vesinikku ja sulfaatne keskosa.', difficulty:'hard', intermolecularForces:['hydrogen-bonding','dipole-dipole'], primaryForce:'hydrogen-bonding', forceAnalysis:'Väävelhape on tugev polaarne hape, mis annab lahuses ära H⁺ ioone.' },
-  { id:'hydrogen-sulfide', name:'Vesiniksulfiid', formula:'H₂S', hint:'Mürgine gaas, millel on ebameeldiv lõhn.', atoms:['H','S','H'], bonds:[[0,1,1],[1,2,1]], fact:'H₂S on mürgine ja seda leidub mõnedes geotermilistes allikates.', guide:'Väävel on keskel ja kaks vesinikku on temaga ühekordsete sidemetega seotud.', difficulty:'hard', intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'H₂S on polaarne bent molekul dipool-dipool jõududega. Kuid need on nõrgamad kui vees, mistõttu H₂S on gaas toatemperatuuril.' },
-  { id:'nitrogen', name:'Lämmastik', formula:'N₂', hint:'Maa atmosfääris on see kõige levinum gaas.', atoms:['N','N'], bonds:[[0,1,3]], fact:'Lämmastikmolekul on väga stabiilne ja sisaldab kolmekordset sidet.', guide:'Lämmastiku kaks aatomit on ühendatud kolmekordse sidemega.', difficulty:'hard', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Lämmastik on mittepolaarne diatomiline molekul väga nõrkade Londoni dispersioonijõududega. See on gaas väga madalal temperatuuril.' },
-  { id:'chlorine', name:'Kloor', formula:'Cl₂', hint:'Kloor on üsna reaktiivne ja kasutusel desinfitseerimisel.', atoms:['Cl','Cl'], bonds:[[0,1,1]], fact:'Kloor on vajalik veepuhastuses ja tekib ka valgenditest.', guide:'Kaks klooriaatomit on ühendatud ühekordse sidemega.', difficulty:'hard', intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Kloor on mittepolaarne diatomiline molekul. Londoni dispersioonijõud on mõõdukad massi tõttu, mistõttu kloor on gaas toatemperatuuril.' },
-  { id:'uranium-dioxide', name:'Uraani dioksiid', formula:'UO₂', hint:'Tuumakütuses kasutatav uraaniühend.', atoms:['U','O','O'], charges:[4,-2,-2], bonds:[[0,1,2],[0,2,2]], fact:'UO₂ on üks tavalisemaid tuumakütuse lähteaineid.', guide:'Uraan on keskel ja kaks hapnikku on seotud kahekordsete sidemetega.', difficulty:'hard', intermolecularForces:['ionic','london-dispersion'], primaryForce:'ionic', forceAnalysis:'Uraani dioksiid on tahke ioonilise iseloomuga ühend, milles uraani radioaktiivne isotoop võib aja jooksul laguneda.' },
-  { id:'cesium-iodide', name:'Tseesiumjodiid', formula:'CsI', hint:'Radioaktiivse tseesiumi uurimisel kasutatav iooniline ühend.', atoms:['Cs','I'], charges:[1,-1], bonds:[[0,1,1]], bondTypes:['ionic'], fact:'CsI kristall sisaldab tseesiumi- ja jodiidioone.', guide:'Tseesium ja jood moodustavad vastasmärgiliste ioonidega ühendi.', difficulty:'hard', intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'Tseesiumjodiid on iooniline kristall. Radioaktiivne tseesium võib laguneda beetalagunemise kaudu.' },
-  { id:'radium-chloride', name:'Raadiumkloriid', formula:'RaCl₂', hint:'Raadiumi ja kloori iooniline ühend.', atoms:['Ra','Cl','Cl'], charges:[2,-1,-1], bonds:[[0,1,1],[0,2,1]], bondTypes:['ionic','ionic'], fact:'Raadiumkloriid on ajalooliselt tuntud raadiumiühend.', guide:'Raadiumi ioon seostub kahe kloriidiooniga.', difficulty:'hard', intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'Raadiumkloriid on iooniline ühend. Raadiumi tuum laguneb alfakiirguse saatel.' },
-  { id:'plutonium-dioxide', name:'Plutooniumi dioksiid', formula:'PuO₂', hint:'Tuumatehnoloogias tuntud plutooniumiühend.', atoms:['Pu','O','O'], charges:[4,-2,-2], bonds:[[0,1,2],[0,2,2]], fact:'PuO₂ on keraamiline ja kõrge sulamistemperatuuriga ühend.', guide:'Plutoonium on keskel ja kaks hapnikku on seotud kahekordsete sidemetega.', difficulty:'hard', intermolecularForces:['ionic','london-dispersion'], primaryForce:'ionic', forceAnalysis:'Plutooniumi dioksiid on tugevasti seotud tahke ühend, mille plutooniumi isotoobid lagunevad alfakiirguse kaudu.' }
+  { id:'water', name:'Vesi', formula:'H₂O', hint:'Igapäevane aine, mida vajame eluks.', atoms:['O','H','H'], charges:[-2,1,1], bonds:[[0,1,1],[0,2,1]], bondTypes:['covalent','covalent'], fact:'Vesi on elu üks tähtsamaid aineid.', guide:'Hapnikul on mudelis −2 ja mõlemal vesinikul +1; kaks kovalentset sidet annavad kokku neutraalse vee.', difficulty:1, intermolecularForces:['hydrogen-bonding','dipole-dipole','london-dispersion'], primaryForce:'hydrogen-bonding', forceAnalysis:'Vesi on polaarne molekul tugevate vesiniksidemetega hapniku ja vesiniku vahel. See annab veele kõrge keemispunkti ja pindpinevuse.' },
+  { id:'carbon-dioxide', name:'Süsinikdioksiid', formula:'CO₂', hint:'Taimed kasutavad seda fotosünteesis.', atoms:['C','O','O'], charges:[4,-2,-2], bonds:[[0,1,2],[0,2,2]], fact:'Süsinikdioksiid liigub süsinikiringes.', guide:'Süsinik on keskel ja iga hapnik on sellega seotud kahekordse sidemega.', difficulty:1, intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'CO₂ on mittepolaarne lineaarne molekul. Ainukesed intermolekulaarsed jõud on Londoni dispersioonijõud, mis on nõrgad.' },
+  { id:'methane', name:'Metaan', formula:'CH₄', hint:'Maagaasi peamine koostisosa.', atoms:['C','H','H','H','H'], charges:[-4,1,1,1,1], bonds:[[0,1,1],[0,2,1],[0,3,1],[0,4,1]], fact:'Metaan on kõige lihtsam alkaan.', guide:'Süsinikul on mudelis −4 ja neljal vesinikul +1; kogulaeng on null.', difficulty:1, intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Metaan on mittepolaarne tetraeedriline molekul. Ainukesed jõud on Londoni dispersioonijõud, mistõttu metaan on gaas toatemperatuuril.' },
+  { id:'ammonia', name:'Ammoniaak', formula:'NH₃', hint:'Seda kasutatakse väetiste tootmisel.', atoms:['N','H','H','H'], charges:[-3,1,1,1], bonds:[[0,1,1],[0,2,1],[0,3,1]], fact:'Ammoniaagil on terav iseloomulik lõhn.', guide:'Lämmastikul on oksüdatsiooniaste −3 ja igal vesinikul +1; kolm üksiksidet moodustavad ammoniaagi struktuuri.', difficulty:1, intermolecularForces:['hydrogen-bonding','dipole-dipole','london-dispersion'], primaryForce:'hydrogen-bonding', forceAnalysis:'Ammoniaak on polaarne trigonaal-püramidaalne molekul tugevate vesiniksidemetega. See selgitab ammoniaagi kõrget keemispunkti.' },
+  { id:'hydrogen', name:'Vesinik', formula:'H₂', hint:'Lihtsaim ja kõige kergem element.', atoms:['H','H'], bonds:[[0,1,1]], fact:'Vesinik on tähtede peamine ehitusplokk.', guide:'Kaks vesiniku aatomit on seotud ühe ühise sidemega.', difficulty:1, intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Vesinik on mittepolaarne diatomiline molekul. Ainukesed jõud on väga nõrgad Londoni dispersioonijõud.' },
+  { id:'oxygen', name:'Hapnik', formula:'O₂', hint:'Hingamiseks vajalik gaas.', atoms:['O','O'], bonds:[[0,1,2]], fact:'Hapnik on meie hingamise puhul oluline.', guide:'Hapniku kaks aatomit on seotud kahekordse sidemega.', difficulty:1, intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Hapnik on mittepolaarne diatomiline molekul. Londoni dispersioonijõud on nõrgad, mistõttu hapnik on gaas toatemperatuuril.' },
+  { id:'hydrogen-chloride', name:'Vesinikkloriidhape', formula:'HCl', hint:'Krõbe hape, millel on tugev lõhn.', atoms:['H','Cl'], charges:[1,-1], bonds:[[0,1,1]], bondTypes:['covalent'], fact:'Soolhape tekib HCl lahustamisel vees.', guide:'Vesinikul on oksüdatsiooniaste +1 ja klooril −1; H–Cl side on kovalentne.', difficulty:2, intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'HCl on polaarne molekul tugevate dipool-dipool jõududega. HCl on gaas toatemperatuuril, kuid kondenseerub madalal temperatuuril.' },
+  { id:'sodium-chloride', name:'Naatriumkloriid', formula:'NaCl', hint:'Tuntud ka lauasoolana.', atoms:['Na','Cl'], charges:[1,-1], bonds:[[0,1,1]], bondTypes:['ionic'], fact:'Tavaline lauasool on ioniline ühend.', guide:'Naatrium ja kloor on ühendatud ühe sidemega.', difficulty:2, intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'NaCl on ioniline ühend tugevate iooniliste jõududega. Need on palju tugevamad kui kõik intermolekulaarsed jõud, mistõttu NaCl on tahke toatemperatuuril.' },
+  { id:'hydrogen-peroxide', name:'Vesinikperoksiid', formula:'H₂O₂', hint:'Kasutatakse desinfitseerimiseks ja pleegitamiseks.', atoms:['H','O','O','H'], bonds:[[0,1,1],[1,2,1],[2,3,1]], fact:'See on tugev oksüdeerija ja laguneb kiiresti.', guide:'Molekulis on O-O keskne ühend ja mõlemad otsad on H-ga seotud.', difficulty:2, intermolecularForces:['hydrogen-bonding','dipole-dipole','london-dispersion'], primaryForce:'hydrogen-bonding', forceAnalysis:'Vesinikperoksiid on polaarne molekul vesiniksidemetega. Kuid need on nõrgamad kui vees, mistõttu H₂O₂ on ebastabiilne.' },
+  { id:'carbon-monoxide', name:'Süsinikmonooksiid', formula:'CO', hint:'Mürgine gaas, mis tekib mittetäielikul põlemisel.', atoms:['C','O'], bonds:[[0,1,3]], fact:'CO on väga mürgine, sest see seob hemoglobiini.', guide:'Süsinik ja hapnik on seotud kolmekordse sidemega.', difficulty:2, intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'CO on väga polaarne molekul tugevate dipool-dipool jõududega. See on gaas toatemperatuuril, kuid lahustub vees.' },
+  { id:'sulfur-dioxide', name:'Sulfadioksiid', formula:'SO₂', hint:'Aine, mida moodustub koldes ja tööstuses.', atoms:['S','O','O'], charges:[4,-2,-2], bonds:[[0,1,2],[0,2,2]], fact:'Dioksiid on tugev reostaja ja tekitab kuivest lõhna.', guide:'Väävlil on oksüdatsiooniaste +4 ja kummalgi hapnikul −2; mõlemad hapnikud on väävliga kahekordse sidemega ühendatud.', difficulty:2, intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'SO₂ on polaarne bent molekul dipool-dipool jõududega. See on gaas toatemperatuuril, kuid kondenseerub kergesti.' },
+  { id:'carbon-tetrachloride', name:'Süsiniktetrakloriid', formula:'CCl₄', hint:'Märkimisväärselt raske ja kloriga seotud ühend.', atoms:['C','Cl','Cl','Cl','Cl'], charges:[4,-1,-1,-1,-1], bonds:[[0,1,1],[0,2,1],[0,3,1],[0,4,1]], bondTypes:['covalent','covalent','covalent','covalent'], fact:'CCl₄ on üldiselt ebapüsiv ja läheb kasutuselt välja.', guide:'Süsinikul on oksüdatsiooniaste +4 ja igal klooril −1; kõik neli sidet on kovalentsed.', difficulty:3, intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'CCl₄ on mittepolaarne tetraeedriline molekul. Londoni dispersioonijõud on mõõdukad massi tõttu, mistõttu CCl₄ on vedelik toatemperatuuril.' },
+  { id:'ozone', name:'Osoon', formula:'O₃', hint:'Kaitseb Maad UV-kiirguse eest.', atoms:['O','O','O'], bonds:[[0,1,1],[1,2,2]], fact:'Osoon on stratosfääris ülioluline.', guide:'Osoonis on üks O aatom keskel ja üks side on lihtne, teine kahekordne.', difficulty:3, intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'Osoon on polaarne bent molekul dipool-dipool jõududega. See on gaas toatemperatuuril, kuid on reaktiivsem kui hapnik.' },
+  { id:'sodium-hydroxide', name:'Naatriumhüdroksiid', formula:'NaOH', hint:'Levinud base, tugev leelis.', atoms:['Na','O','H'], charges:[1,-2,1], bonds:[[0,1,1],[1,2,1]], bondTypes:['ionic','covalent'], fact:'NaOH lahuses moodustab leelise ja on tugev alus.', guide:'Naatriumi oksüdatsiooniaste on +1, hapnikul −2 ja vesinikul +1; Na–O side on ioonne ning O–H side kovalentne.', difficulty:3, intermolecularForces:['ionic','hydrogen-bonding'], primaryForce:'ionic', forceAnalysis:'NaOH on ioniline ühend tugevate iooniliste jõududega. Na⁺ ja OH⁻ ioonid on tugevalt seotud, mistõttu NaOH on tahke.' },
+  { id:'magnesium-chloride', name:'Magneesiumkloriid', formula:'MgCl₂', hint:'Magneesiumi ja kloori iooniline sool.', atoms:['Mg','Cl','Cl'], charges:[2,-1,-1], bonds:[[0,1,1],[0,2,1]], bondTypes:['ionic','ionic'], fact:'Magneesiumkloriid on iooniline ühend.', guide:'Mg²⁺ vajab laengu tasakaalustamiseks kahte Cl⁻ iooni.', difficulty:2, intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'Magneesiumkloriidis tasakaalustavad Mg²⁺ ja kaks Cl⁻ iooni teineteise laengu.' },
+  { id:'calcium-sulfate', name:'Kaltsiumsulfaat', formula:'CaSO₄', hint:'Kipsi põhikomponent.', atoms:['Ca','S','O','O','O','O'], charges:[2,6,-2,-2,-2,-2], bonds:[[0,2,1],[1,2,2],[1,3,1],[1,4,1],[1,5,1]], bondTypes:['ionic','covalent','covalent','covalent','covalent'], fact:'Kaltsiumsulfaat esineb looduses muu hulgas kipsina.', guide:'Kaltsiumioon tasakaalustab sulfaatiooni kogulaengu.', difficulty:2, intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'Kaltsiumsulfaat on iooniline sool, milles Ca²⁺ tasakaalustab SO₄²⁻ laengu.' },
+  { id:'sodium-nitrate', name:'Naatriumnitraat', formula:'NaNO₃', hint:'Lämmastikku sisaldav iooniline sool.', atoms:['Na','N','O','O','O'], charges:[1,5,-2,-2,-2], bonds:[[0,2,1],[1,2,1],[1,3,2],[1,4,1]], bondTypes:['ionic','covalent','covalent','covalent'], fact:'Naatriumnitraati kasutatakse muu hulgas väetistes.', guide:'Naatriumioon tasakaalustab nitraatiooni kogulaengu.', difficulty:2, intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'Naatriumnitraat koosneb Na⁺ ioonidest ja NO₃⁻ nitraatioonidest.' },
+  { id:'sulfuric-acid', name:'Väävelhape', formula:'H₂SO₄', hint:'Tugev hape, mida kasutatakse tööstuses.', atoms:['H','H','S','O','O','O','O'], charges:[1,1,6,-2,-2,-2,-2], bonds:[[2,3,2],[2,4,2],[2,5,1],[2,6,1],[0,5,1],[1,6,1]], bondTypes:['covalent','covalent','covalent','covalent','covalent','covalent'], fact:'Väävelhape on üks tähtsamaid tööstuskemikaale.', guide:'Molekulis on kaks happelist vesinikku ja sulfaatne keskosa.', difficulty:3, intermolecularForces:['hydrogen-bonding','dipole-dipole'], primaryForce:'hydrogen-bonding', forceAnalysis:'Väävelhape on tugev polaarne hape, mis annab lahuses ära H⁺ ioone.' },
+  { id:'hydrogen-sulfide', name:'Vesiniksulfiid', formula:'H₂S', hint:'Mürgine gaas, millel on ebameeldiv lõhn.', atoms:['H','S','H'], bonds:[[0,1,1],[1,2,1]], fact:'H₂S on mürgine ja seda leidub mõnedes geotermilistes allikates.', guide:'Väävel on keskel ja kaks vesinikku on temaga ühekordsete sidemetega seotud.', difficulty:3, intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'H₂S on polaarne bent molekul dipool-dipool jõududega. Kuid need on nõrgamad kui vees, mistõttu H₂S on gaas toatemperatuuril.' },
+  { id:'nitrogen', name:'Lämmastik', formula:'N₂', hint:'Maa atmosfääris on see kõige levinum gaas.', atoms:['N','N'], bonds:[[0,1,3]], fact:'Lämmastikmolekul on väga stabiilne ja sisaldab kolmekordset sidet.', guide:'Lämmastiku kaks aatomit on ühendatud kolmekordse sidemega.', difficulty:3, intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Lämmastik on mittepolaarne diatomiline molekul väga nõrkade Londoni dispersioonijõududega. See on gaas väga madalal temperatuuril.' },
+  { id:'chlorine', name:'Kloor', formula:'Cl₂', hint:'Kloor on üsna reaktiivne ja kasutusel desinfitseerimisel.', atoms:['Cl','Cl'], bonds:[[0,1,1]], fact:'Kloor on vajalik veepuhastuses ja tekib ka valgenditest.', guide:'Kaks klooriaatomit on ühendatud ühekordse sidemega.', difficulty:3, intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'Kloor on mittepolaarne diatomiline molekul. Londoni dispersioonijõud on mõõdukad massi tõttu, mistõttu kloor on gaas toatemperatuuril.' },
+  { id:'uranium-dioxide', name:'Uraani dioksiid', formula:'UO₂', hint:'Tuumakütuses kasutatav uraaniühend.', atoms:['U','O','O'], charges:[4,-2,-2], bonds:[[0,1,2],[0,2,2]], fact:'UO₂ on üks tavalisemaid tuumakütuse lähteaineid.', guide:'Uraan on keskel ja kaks hapnikku on seotud kahekordsete sidemetega.', difficulty:3, intermolecularForces:['ionic','london-dispersion'], primaryForce:'ionic', forceAnalysis:'Uraani dioksiid on tahke ioonilise iseloomuga ühend, milles uraani radioaktiivne isotoop võib aja jooksul laguneda.' },
+  { id:'cesium-iodide', name:'Tseesiumjodiid', formula:'CsI', hint:'Radioaktiivse tseesiumi uurimisel kasutatav iooniline ühend.', atoms:['Cs','I'], charges:[1,-1], bonds:[[0,1,1]], bondTypes:['ionic'], fact:'CsI kristall sisaldab tseesiumi- ja jodiidioone.', guide:'Tseesium ja jood moodustavad vastasmärgiliste ioonidega ühendi.', difficulty:3, intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'Tseesiumjodiid on iooniline kristall. Radioaktiivne tseesium võib laguneda beetalagunemise kaudu.' },
+  { id:'radium-chloride', name:'Raadiumkloriid', formula:'RaCl₂', hint:'Raadiumi ja kloori iooniline ühend.', atoms:['Ra','Cl','Cl'], charges:[2,-1,-1], bonds:[[0,1,1],[0,2,1]], bondTypes:['ionic','ionic'], fact:'Raadiumkloriid on ajalooliselt tuntud raadiumiühend.', guide:'Raadiumi ioon seostub kahe kloriidiooniga.', difficulty:3, intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'Raadiumkloriid on iooniline ühend. Raadiumi tuum laguneb alfakiirguse saatel.' },
+  { id:'plutonium-dioxide', name:'Plutooniumi dioksiid', formula:'PuO₂', hint:'Tuumatehnoloogias tuntud plutooniumiühend.', atoms:['Pu','O','O'], charges:[4,-2,-2], bonds:[[0,1,2],[0,2,2]], fact:'PuO₂ on keraamiline ja kõrge sulamistemperatuuriga ühend.', guide:'Plutoonium on keskel ja kaks hapnikku on seotud kahekordsete sidemetega.', difficulty:3, intermolecularForces:['ionic','london-dispersion'], primaryForce:'ionic', forceAnalysis:'Plutooniumi dioksiid on tugevasti seotud tahke ühend, mille plutooniumi isotoobid lagunevad alfakiirguse kaudu.' }
 ];
 molecules.find(molecule => molecule.id === 'hydrogen-peroxide').charges = [1,-1,-1,1];
 molecules.find(molecule => molecule.id === 'hydrogen-peroxide').bondTypes = ['covalent','covalent','covalent'];
 molecules.find(molecule => molecule.id === 'hydrogen-sulfide').charges = [1,-2,1];
 molecules.find(molecule => molecule.id === 'hydrogen-sulfide').bondTypes = ['covalent','covalent'];
 const levelConfigs = [
-  { id:1, name:'Aatomid ja lihtmolekulid', nameEn:'Atoms and simple molecules', description:'Õpi valentsi, sidemete arvu ja molekuli ehitust.', descriptionEn:'Learn valence, bond order and molecular structure.', requiredMolecules:['hydrogen','oxygen','water','carbon-dioxide','methane','ammonia'], focusConcepts:['valents','üksik- ja kaksikside'], focusConceptsEn:['valence','single and double bonds'] },
-  { id:2, name:'Ioonid ja lihtsamad ühendid', nameEn:'Ions and simple compounds', description:'Tasakaalusta laengud ja ehita järjest keerukamaid ühendeid.', descriptionEn:'Balance charges and build increasingly complex compounds.', requiredMolecules:['hydrogen-chloride','sodium-chloride','hydrogen-peroxide','carbon-monoxide'], focusConcepts:['laengutasakaal','kovalentne side'], focusConceptsEn:['charge balance','covalent bonding'] },
-  { id:3, name:'Soolad ja polaarsus', nameEn:'Salts and polarity', description:'Võrdle ioonseid ühendeid ja polaarseid molekule.', descriptionEn:'Compare ionic compounds and polar molecules.', requiredMolecules:['sulfur-dioxide','magnesium-chloride','calcium-sulfate','sodium-nitrate'], focusConcepts:['iooniline side','polaarsus'], focusConceptsEn:['ionic bonding','polarity'] },
-  { id:4, name:'Keerukamad molekulid', nameEn:'More complex molecules', description:'Uuri molekuli kuju, sidemete järku ja intermolekulaarseid jõude.', descriptionEn:'Explore molecular shape, bond order and intermolecular forces.', requiredMolecules:['carbon-tetrachloride','ozone','sodium-hydroxide','sulfuric-acid'], focusConcepts:['molekuli kuju','vesiniksidemed','Londoni jõud'], focusConceptsEn:['molecular shape','hydrogen bonding','London forces'] },
-  { id:5, name:'Reaktsioonilabor', nameEn:'Reaction laboratory', description:'Lahenda suurema sidemete arvu ja reaktsioonivõimega ülesandeid.', descriptionEn:'Solve challenges with more bonds and greater reactivity.', requiredMolecules:['hydrogen-sulfide','nitrogen','chlorine'], focusConcepts:['reaktsioonivõime','sideme tugevus'], focusConceptsEn:['reactivity','bond strength'] },
-  { id:6, name:'Kvanttase', nameEn:'Quantum level', description:'Seosta elektronkonfiguratsioon, radioaktiivsus ja keerukate ühendite ehitus.', descriptionEn:'Connect electron configuration, radioactivity and complex compound structure.', requiredMolecules:['uranium-dioxide','cesium-iodide','radium-chloride','plutonium-dioxide'], focusConcepts:['orbitaalid','radioaktiivsus'], focusConceptsEn:['orbitals','radioactivity'] }
+  { id:1, name:'Aatomid ja lihtmolekulid', nameEn:'Atoms and simple molecules', description:'Õpi valentsi, sidemete arvu ja molekuli ehitust.', descriptionEn:'Learn valence, bond order and molecular structure.', requiredMolecules:['hydrogen','oxygen','nitrogen','water','carbon-dioxide','methane','ammonia'], focusConcepts:['valents','üksik- ja kaksikside'], focusConceptsEn:['valence','single and double bonds'] },
+  { id:2, name:'Ioonid ja lihtsamad ühendid', nameEn:'Ions and simple compounds', description:'Tasakaalusta laengud ja ehita järjest keerukamaid ühendeid.', descriptionEn:'Balance charges and build increasingly complex compounds.', requiredMolecules:['hydrogen-chloride','carbon-monoxide','sodium-chloride','sodium-fluoride','hydrogen-peroxide','sulfur-dioxide','magnesium-chloride','calcium-sulfate','sodium-nitrate'], focusConcepts:['laengutasakaal','kovalentne side'], focusConceptsEn:['charge balance','covalent bonding'] },
+  { id:3, name:'Keerukamad molekulid', nameEn:'More complex molecules', description:'Uuri molekuli kuju, sidemete järku ja intermolekulaarseid jõude.', descriptionEn:'Explore molecular shape, bond order and intermolecular forces.', requiredMolecules:['carbon-tetrachloride','ozone','sodium-hydroxide','potassium-hydroxide','sulfuric-acid','hydrogen-sulfide','nitrous-oxide'], focusConcepts:['molekuli kuju','vesiniksidemed','Londoni jõud'], focusConceptsEn:['molecular shape','hydrogen bonding','London forces'] },
+  { id:4, name:'Koordineeritud ühendid', nameEn:'Coordination compounds', description:'Uuri keerukamaid anorgaanilisi ühendeid ja side tüüpe.', descriptionEn:'Explore more complex inorganic compounds and bond types.', requiredMolecules:['chlorine','fluorine','calcium-carbonate','iron-oxide','aluminum-oxide','zinc-oxide'], focusConcepts:['anorgaanilised ühendid','metallid'], focusConceptsEn:['inorganic compounds','metals'] },
+  { id:5, name:'Radioaktiivsed elemendid', nameEn:'Radioactive elements', description:'Õpi radioaktiivsusest ja lagunemisest.', descriptionEn:'Learn about radioactivity and decay.', requiredMolecules:['uranium-dioxide','cesium-iodide','radium-chloride','plutonium-dioxide'], focusConcepts:['radioaktiivsus','lagunemine'], focusConceptsEn:['radioactivity','decay'] },
+  { id:6, name:'Eksperttase', nameEn:'Expert level', description:'Võrrandite tasakaalustamine ja kompleksed sünteesid.', descriptionEn:'Equation balancing and complex syntheses.', requiredMolecules:['copper-sulfate'], focusConcepts:['võrrandite tasakaalustamine','süntees'], focusConceptsEn:['equation balancing','synthesis'] }
 ];
 levelConfigs.forEach(level => {
   level.avatudKui = level.id === 1 ? [] : [`level:${level.id - 1}`];
@@ -219,7 +219,7 @@ const reactions = [
     conditions:{ minTemp:500, catalyst:'platinum' },
     hint:'Vesinik ja hapnik reageerivad, moodustades vett.',
     fact:'See on eksotermiline reaktsioon, eraldab soojust.',
-    difficulty:'easy'
+    difficulty:1
   },
   {
     id:'combustion-methane',
@@ -233,7 +233,7 @@ const reactions = [
     conditions:{ minTemp:600 },
     hint:'Metaan põleb hapnikus, moodustades süsinikdioksiidi ja vett.',
     fact:'See on loodusliku gaasi põlemisreaktsioon.',
-    difficulty:'easy'
+    difficulty:1
   },
   {
     id:'ammonia-synthesis',
@@ -247,7 +247,7 @@ const reactions = [
     conditions:{ minTemp:400, pressure:200, catalyst:'iron' },
     hint:'Lämmastik ja vesinik moodustavad ammoniaaki.',
     fact:'Haberi protsess on oluline väetiste tootmisel.',
-    difficulty:'medium'
+    difficulty:2
   },
   {
     id:'neutralization',
@@ -261,7 +261,7 @@ const reactions = [
     conditions:{ minTemp:25 },
     hint:'Hape ja alus reageerivad, moodustades soola ja vett.',
     fact:'See on klassikaline happe-aluse reaktsioon.',
-    difficulty:'medium'
+    difficulty:2
   },
   {
     id:'atp-synthesis',
@@ -275,7 +275,7 @@ const reactions = [
     conditions:{ ph:7.5, catalyst:'atp-synthase' },
     hint:'ADP ja fosfaat moodustavad ATP energiamolekuli.',
     fact:'ATP on rakkude peamine energiatransportija.',
-    difficulty:'hard',
+    difficulty:3,
     isBiochemical:true
   },
   {
@@ -290,7 +290,7 @@ const reactions = [
     conditions:{ ph:7.2, catalyst:'enzymes' },
     hint:'Glükoos laguneb rakulise hingamise käigus.',
     fact:'See on peamine energiaallikas rakkudele.',
-    difficulty:'hard',
+    difficulty:3,
     isBiochemical:true
   },
   {
@@ -306,7 +306,7 @@ const reactions = [
     conditions:{ ph:2, pressure:1 },
     hint:'Verepunane FeSCN²⁺ kompleks moodustub pöörduvas ioonreaktsioonis.',
     fact:'FeSCN²⁺ värvuse tugevus näitab tasakaalu nihkumist kompleksi suunas.',
-    difficulty:'hard'
+    difficulty:3
   },
   {
     id:'haber-equilibrium',
@@ -321,7 +321,7 @@ const reactions = [
     conditions:{ minTemp:400, pressure:200, catalyst:'iron' },
     hint:'Kõrge rõhk ja sobiv temperatuur nihutavad tasakaalu ammoniaagi suunas.',
     fact:'Raua katalüsaator kiirendab tasakaalu saavutamist, kuid ei muuda tasakaaluasendit.',
-    difficulty:'hard'
+    difficulty:3
   },
   {
     id:'peroxide-catalytic-decomposition',
@@ -336,9 +336,174 @@ const reactions = [
     conditions:{ minTemp:25, catalyst:'manganese-dioxide' },
     hint:'MnO₂ vähendab aktiveerumisenergiat ja kiirendab peroksiidi lagunemist.',
     fact:'Katalüsaator ei kulu reaktsioonis ära, kuid muudab reaktsiooni palju kiiremaks.',
-    difficulty:'hard'
+    difficulty:3
   }
 ];
+
+// Equation balancing problems
+const balancingProblems = [
+  {
+    id:'water-formation',
+    reactants: [{ formula:'H₂', coefficient:2 }, { formula:'O₂', coefficient:1 }],
+    products: [{ formula:'H₂O', coefficient:2 }],
+    hint:'Vesinik ja hapnik moodustavad vee.',
+    difficulty:1
+  },
+  {
+    id:'carbon-dioxide-formation',
+    reactants: [{ formula:'C', coefficient:1 }, { formula:'O₂', coefficient:1 }],
+    products: [{ formula:'CO₂', coefficient:1 }],
+    hint:'Süsinik põleb hapnikus moodustades CO₂.',
+    difficulty:1
+  },
+  {
+    id:'methane-formation',
+    reactants: [{ formula:'C', coefficient:1 }, { formula:'H₂', coefficient:2 }],
+    products: [{ formula:'CH₄', coefficient:1 }],
+    hint:'Süsinik ja vesinik moodustavad metaani.',
+    difficulty:1
+  },
+  {
+    id:'ammonia-formation',
+    reactants: [{ formula:'N₂', coefficient:1 }, { formula:'H₂', coefficient:3 }],
+    products: [{ formula:'NH₃', coefficient:2 }],
+    hint:'Lämmastik ja vesinik moodustavad ammoniaagi.',
+    difficulty:2
+  },
+  {
+    id:'sulfur-dioxide-formation',
+    reactants: [{ formula:'S', coefficient:1 }, { formula:'O₂', coefficient:1 }],
+    products: [{ formula:'SO₂', coefficient:1 }],
+    hint:'Väävel põleb hapnikus moodustades SO₂.',
+    difficulty:2
+  },
+  {
+    id:'hydrogen-peroxide-formation',
+    reactants: [{ formula:'H₂', coefficient:1 }, { formula:'O₂', coefficient:1 }],
+    products: [{ formula:'H₂O₂', coefficient:1 }],
+    hint:'Vesinik ja hapnik moodustavad vesinikperoksiidi.',
+    difficulty:2
+  },
+  {
+    id:'iron-oxide-formation',
+    reactants: [{ formula:'Fe', coefficient:4 }, { formula:'O₂', coefficient:3 }],
+    products: [{ formula:'Fe₂O₃', coefficient:2 }],
+    hint:'Raud oksüdeerib moodustades Fe₂O₃.',
+    difficulty:3
+  },
+  {
+    id:'calcium-carbonate-formation',
+    reactants: [{ formula:'CaO', coefficient:1 }, { formula:'CO₂', coefficient:1 }],
+    products: [{ formula:'CaCO₃', coefficient:1 }],
+    hint:'Kaltsiumoksiid ja CO₂ moodustavad CaCO₃.',
+    difficulty:3
+  },
+  {
+    id:'sulfuric-acid-formation',
+    reactants: [{ formula:'SO₃', coefficient:1 }, { formula:'H₂O', coefficient:1 }],
+    products: [{ formula:'H₂SO₄', coefficient:1 }],
+    hint:'Vääveltrioksiid ja vesi moodustavad väävelhapet.',
+    difficulty:3
+  },
+  {
+    id:'combustion-methane',
+    reactants: [{ formula:'CH₄', coefficient:1 }, { formula:'O₂', coefficient:2 }],
+    products: [{ formula:'CO₂', coefficient:1 }, { formula:'H₂O', coefficient:2 }],
+    hint:'Metaan põleb täielikult moodustades CO₂ ja H₂O.',
+    difficulty:4
+  }
+];
+
+let currentBalancingProblem = 0;
+let balancingScore = 0;
+
+function loadBalancingProblem() {
+  const problem = balancingProblems[currentBalancingProblem];
+  if (!problem) {
+    document.getElementById('balancing-result').innerHTML = '<strong>🎉 Kõik võrrandid on tasakaalustatud!</strong><span>Tubli töö! Oled edukalt tasakaalustanud kõik võrrandid.</span>';
+    document.getElementById('next-equation-button').disabled = true;
+    document.getElementById('check-equation-button').disabled = true;
+    return;
+  }
+
+  // Set up reactants
+  const reactant1Coeff = document.getElementById('reactant1-coeff');
+  const reactant1Formula = document.getElementById('reactant1-formula');
+  const reactant2Coeff = document.getElementById('reactant2-coeff');
+  const reactant2Formula = document.getElementById('reactant2-formula');
+
+  reactant1Formula.textContent = problem.reactants[0].formula;
+  reactant1Coeff.textContent = '?';
+  
+  if (problem.reactants[1]) {
+    reactant2Formula.textContent = problem.reactants[1].formula;
+    reactant2Coeff.textContent = '?';
+    reactant2Coeff.style.display = 'inline-block';
+    reactant2Formula.style.display = 'inline-block';
+  } else {
+    reactant2Coeff.style.display = 'none';
+    reactant2Formula.style.display = 'none';
+  }
+
+  // Set up products
+  const product1Coeff = document.getElementById('product1-coeff');
+  const product1Formula = document.getElementById('product1-formula');
+  
+  product1Formula.textContent = problem.products[0].formula;
+  product1Coeff.textContent = '?';
+
+  // Reset result
+  document.getElementById('balancing-result').innerHTML = '';
+  document.getElementById('next-equation-button').disabled = true;
+  document.getElementById('check-equation-button').disabled = false;
+  
+  // Update progress
+  document.getElementById('balancing-progress').textContent = `${balancingScore} / ${balancingProblems.length}`;
+}
+
+function checkBalancing() {
+  const problem = balancingProblems[currentBalancingProblem];
+  if (!problem) return;
+
+  const reactant1Coeff = parseInt(document.getElementById('reactant1-coeff').textContent) || 0;
+  const reactant2Coeff = problem.reactants[1] ? (parseInt(document.getElementById('reactant2-coeff').textContent) || 0) : 0;
+  const product1Coeff = parseInt(document.getElementById('product1-coeff').textContent) || 0;
+
+  const isCorrect = reactant1Coeff === problem.reactants[0].coefficient &&
+                    (!problem.reactants[1] || reactant2Coeff === problem.reactants[1].coefficient) &&
+                    product1Coeff === problem.products[0].coefficient;
+
+  const resultDiv = document.getElementById('balancing-result');
+  
+  if (isCorrect) {
+    resultDiv.innerHTML = '<strong>✓ Õige!</strong><span>Võrrand on tasakaalustatud korrektselt.</span>';
+    resultDiv.className = 'balancing-result success';
+    balancingScore++;
+    document.getElementById('next-equation-button').disabled = false;
+    document.getElementById('check-equation-button').disabled = true;
+    showNotification('Võrrand tasakaalustatud!', 'success');
+  } else {
+    resultDiv.innerHTML = '<strong>✗ Vale</strong><span>Proovi uuesti. Kordade arv peab olema õige.</span>';
+    resultDiv.className = 'balancing-result error';
+    showNotification('Vale vastus, proovi uuesti!', 'error');
+  }
+  
+  document.getElementById('balancing-progress').textContent = `${balancingScore} / ${balancingProblems.length}`;
+}
+
+function nextBalancingProblem() {
+  currentBalancingProblem++;
+  loadBalancingProblem();
+}
+
+function showBalancingHint() {
+  const problem = balancingProblems[currentBalancingProblem];
+  if (!problem) return;
+  
+  const resultDiv = document.getElementById('balancing-result');
+  resultDiv.innerHTML = `<strong>💡 Vihje</strong><span>${problem.hint}</span>`;
+  resultDiv.className = 'balancing-result';
+}
 
 const intermolecularForces = [
   {
@@ -1518,6 +1683,7 @@ function init() {
   loadLanguage();
   $('element-grid').innerHTML = elements.map(element => `<button class="element-choice" data-symbol="${element.symbol}" type="button"><strong>${element.symbol}</strong><small>${element.name}</small></button>`).join('');
   renderMoleculeList();
+  loadBalancingProblem();
   document.querySelectorAll('.element-choice').forEach(button => button.addEventListener('click', () => addAtom(button.dataset.symbol)));
   document.querySelectorAll('.charge-choice').forEach(button => button.addEventListener('click', () => {
     selectedCharge = Number(button.dataset.charge);
@@ -1534,6 +1700,9 @@ function init() {
   $('check-button').addEventListener('click', checkMolecule);
   $('restart-button').addEventListener('click', restartGame);
   $('run-reaction-button').addEventListener('click', runReaction);
+  $('check-equation-button').addEventListener('click', checkBalancing);
+  $('next-equation-button').addEventListener('click', nextBalancingProblem);
+  $('hint-equation-button').addEventListener('click', showBalancingHint);
   $('element-reaction-search').addEventListener('input', event => {
     elementReactionFilter = event.target.value;
     renderElementReactionCards();

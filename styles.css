@@ -122,6 +122,19 @@ h1,h2,h3,p { margin:0; } h1,h2,h3 { font-family:'Space Grotesk',sans-serif; } h1
 .element-reaction-detail { display:flex; flex-direction:column; gap:5px; margin-top:12px; padding:12px; border-left:4px solid var(--coral); border-radius:0 10px 10px 0; background:#fff0e9; }
 .element-reaction-detail strong { font:700 14px 'Space Grotesk',sans-serif; }
 .element-reaction-detail span { color:var(--muted); font-size:12px; line-height:1.4; }
+.balancing-section { margin-top:32px; padding-top:20px; border-top:1px solid #d8e4df; }
+.balancing-progress { color:var(--muted); font-size:12px; }
+.balancing-problem { padding:16px; border:1px solid var(--line); border-radius:16px; background:#fff; }
+.equation-display { display:flex; align-items:center; flex-wrap:wrap; gap:8px; padding:16px; margin-bottom:12px; border:1px solid #d8e4df; border-radius:12px; background:#f8f9f6; font-family:'Space Grotesk',sans-serif; font-size:18px; }
+.equation-coefficient { width:50px; padding:6px 8px; border:1px solid var(--line); border-radius:6px; background:#fff; text-align:center; font-weight:700; transition:all .2s ease; }
+.equation-coefficient:focus { outline:none; border-color:var(--coral); background:#fff0e9; }
+.equation-coefficient:hover { border-color:var(--coral); }
+.equation-formula { font-weight:600; }
+.equation-operator { color:var(--muted); font-weight:500; }
+.balancing-controls { display:flex; gap:8px; margin-bottom:12px; }
+.balancing-result { min-height:44px; padding:12px; border:1px solid var(--line); border-radius:10px; background:#fff; font-size:13px; color:var(--muted); }
+.balancing-result.success { border-color:#c8ded6; background:#e7f3ed; color:#0a5f3e; }
+.balancing-result.error { border-color:#ead7a6; background:#f8f1d9; color:#5f3e0a; }
 .forces-section { margin-top:32px; padding-top:20px; border-top:1px solid #d8e4df; }
 .forces-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:12px; }
 .force-card { border:1px solid var(--line); border-radius:14px; background:#fff; color:var(--ink); padding:14px; text-align:left; transition:border-color .16s,background .16s; cursor:pointer; }

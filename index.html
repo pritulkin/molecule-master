@@ -146,6 +146,28 @@
       <div class="element-reaction-detail" aria-live="polite"><strong id="element-reaction-equation"></strong><span id="element-reaction-detail"></span></div>
     </section>
 
+    <section class="balancing-section">
+      <div class="section-heading compact"><div><span class="section-kicker" id="balancing-label">VÕRRANDITE TASAKAALUSTAMINE</span><h3 id="balancing-title">Tasakaalusta keemilised võrrandid</h3></div><span class="balancing-progress" id="balancing-progress">0 / 10</span></div>
+      <div class="balancing-problem" id="balancing-problem">
+        <div class="equation-display" id="equation-display">
+          <span class="equation-coefficient" id="reactant1-coeff" contenteditable="true">? </span>
+          <span class="equation-formula" id="reactant1-formula">H₂</span>
+          <span class="equation-operator"> + </span>
+          <span class="equation-coefficient" id="reactant2-coeff" contenteditable="true">? </span>
+          <span class="equation-formula" id="reactant2-formula">O₂</span>
+          <span class="equation-operator"> → </span>
+          <span class="equation-coefficient" id="product1-coeff" contenteditable="true">? </span>
+          <span class="equation-formula" id="product1-formula">H₂O</span>
+        </div>
+        <div class="balancing-controls">
+          <button class="text-button" id="check-equation-button" type="button">Kontrolli võrrandit</button>
+          <button class="text-button" id="next-equation-button" type="button" disabled>Järgmine võrrand</button>
+          <button class="text-button" id="hint-equation-button" type="button">💡 Vihje</button>
+        </div>
+        <div class="balancing-result" id="balancing-result" aria-live="polite"></div>
+      </div>
+    </section>
+
     <section class="forces-section">
       <div class="section-heading compact"><div><span class="section-kicker" id="forces-label">INTERMOLEKULAARSED JÕUD</span><h3 id="forces-title">Molekulidevahelised jõud</h3></div></div>
       <div class="forces-grid" id="forces-grid"></div>
