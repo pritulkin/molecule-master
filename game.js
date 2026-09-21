@@ -8,7 +8,7 @@ const molecules = [
   { id:'hydrogen-chloride', name:'Vesinikkloriidhape', formula:'HCl', hint:'Krõbe hape, millel on tugev lõhn.', atoms:['H','Cl'], charges:[1,-1], bonds:[[0,1,1]], bondTypes:['covalent'], fact:'Soolhape tekib HCl lahustamisel vees.', guide:'Vesinikul on oksüdatsiooniaste +1 ja klooril −1; H–Cl side on kovalentne.', difficulty:2, intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'HCl on polaarne molekul tugevate dipool-dipool jõududega. HCl on gaas toatemperatuuril, kuid kondenseerub madalal temperatuuril.' },
   { id:'sodium-chloride', name:'Naatriumkloriid', formula:'NaCl', hint:'Tuntud ka lauasoolana.', atoms:['Na','Cl'], charges:[1,-1], bonds:[[0,1,1]], bondTypes:['ionic'], fact:'Tavaline lauasool on ioniline ühend.', guide:'Naatrium ja kloor on ühendatud ühe sidemega.', difficulty:2, intermolecularForces:['ionic'], primaryForce:'ionic', forceAnalysis:'NaCl on ioniline ühend tugevate iooniliste jõududega. Need on palju tugevamad kui kõik intermolekulaarsed jõud, mistõttu NaCl on tahke toatemperatuuril.' },
   { id:'hydrogen-peroxide', name:'Vesinikperoksiid', formula:'H₂O₂', hint:'Kasutatakse desinfitseerimiseks ja pleegitamiseks.', atoms:['H','O','O','H'], bonds:[[0,1,1],[1,2,1],[2,3,1]], fact:'See on tugev oksüdeerija ja laguneb kiiresti.', guide:'Molekulis on O-O keskne ühend ja mõlemad otsad on H-ga seotud.', difficulty:2, intermolecularForces:['hydrogen-bonding','dipole-dipole','london-dispersion'], primaryForce:'hydrogen-bonding', forceAnalysis:'Vesinikperoksiid on polaarne molekul vesiniksidemetega. Kuid need on nõrgamad kui vees, mistõttu H₂O₂ on ebastabiilne.' },
-  { id:'carbon-monoxide', name:'Süsinikmonooksiid', formula:'CO', hint:'Mürgine gaas, mis tekib mittetäielikul põlemisel.', atoms:['C','O'], bonds:[[0,1,3]], fact:'CO on väga mürgine, sest see seob hemoglobiini.', guide:'Süsinik ja hapnik on seotud kolmekordse sidemega.', difficulty:2, intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'CO on väga polaarne molekul tugevate dipool-dipool jõududega. See on gaas toatemperatuuril, kuid lahustub vees.' },
+  { id:'carbon-monoxide', name:'Süsinikmonooksiid', formula:'CO', hint:'Mürgine gaas, mis tekib mittetäielikul põlemisel.', atoms:['C','O'], charges:[2,-2], bonds:[[0,1,3]], fact:'CO on väga mürgine, sest see seob hemoglobiini.', guide:'Süsinik ja hapnik on seotud kolmekordse sidemega.', difficulty:2, intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'CO on väga polaarne molekul tugevate dipool-dipool jõududega. See on gaas toatemperatuuril, kuid lahustub vees.' },
   { id:'sulfur-dioxide', name:'Sulfadioksiid', formula:'SO₂', hint:'Aine, mida moodustub koldes ja tööstuses.', atoms:['S','O','O'], charges:[4,-2,-2], bonds:[[0,1,2],[0,2,2]], fact:'Dioksiid on tugev reostaja ja tekitab kuivest lõhna.', guide:'Väävlil on oksüdatsiooniaste +4 ja kummalgi hapnikul −2; mõlemad hapnikud on väävliga kahekordse sidemega ühendatud.', difficulty:2, intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'SO₂ on polaarne bent molekul dipool-dipool jõududega. See on gaas toatemperatuuril, kuid kondenseerub kergesti.' },
   { id:'carbon-tetrachloride', name:'Süsiniktetrakloriid', formula:'CCl₄', hint:'Märkimisväärselt raske ja kloriga seotud ühend.', atoms:['C','Cl','Cl','Cl','Cl'], charges:[4,-1,-1,-1,-1], bonds:[[0,1,1],[0,2,1],[0,3,1],[0,4,1]], bondTypes:['covalent','covalent','covalent','covalent'], fact:'CCl₄ on üldiselt ebapüsiv ja läheb kasutuselt välja.', guide:'Süsinikul on oksüdatsiooniaste +4 ja igal klooril −1; kõik neli sidet on kovalentsed.', difficulty:3, intermolecularForces:['london-dispersion'], primaryForce:'london-dispersion', forceAnalysis:'CCl₄ on mittepolaarne tetraeedriline molekul. Londoni dispersioonijõud on mõõdukad massi tõttu, mistõttu CCl₄ on vedelik toatemperatuuril.' },
   { id:'ozone', name:'Osoon', formula:'O₃', hint:'Kaitseb Maad UV-kiirguse eest.', atoms:['O','O','O'], bonds:[[0,1,1],[1,2,2]], fact:'Osoon on stratosfääris ülioluline.', guide:'Osoonis on üks O aatom keskel ja üks side on lihtne, teine kahekordne.', difficulty:3, intermolecularForces:['dipole-dipole','london-dispersion'], primaryForce:'dipole-dipole', forceAnalysis:'Osoon on polaarne bent molekul dipool-dipool jõududega. See on gaas toatemperatuuril, kuid on reaktiivsem kui hapnik.' },
@@ -217,7 +217,8 @@ const reactions = [
     stoichiometry:{ hydrogen:2, oxygen:1, water:2 },
     energyChange:-286,
     activationEnergy:242,
-    conditions:{ minTemp:500, catalyst:'platinum' },
+    entropyChange:-163,
+    conditions:{ catalyst:'platinum' },
     hint:'Vesinik ja hapnik reageerivad, moodustades vett.',
     fact:'See on eksotermiline reaktsioon, eraldab soojust.',
     difficulty:1
@@ -231,25 +232,13 @@ const reactions = [
     stoichiometry:{ methane:1, oxygen:2, 'carbon-dioxide':1, water:2 },
     energyChange:-890,
     activationEnergy:630,
-    conditions:{ minTemp:600 },
+    entropyChange:-242,
+    conditions:{ catalyst:'spark' },
     hint:'Metaan põleb hapnikus, moodustades süsinikdioksiidi ja vett.',
     fact:'See on loodusliku gaasi põlemisreaktsioon.',
     difficulty:1
   },
-  {
-    id:'ammonia-synthesis',
-    name:'Ammoniaagi süntees',
-    equation:'N₂ + 3H₂ → 2NH₃',
-    reactants:['nitrogen','hydrogen'],
-    products:['ammonia'],
-    stoichiometry:{ nitrogen:1, hydrogen:3, ammonia:2 },
-    energyChange:-92,
-    activationEnergy:335,
-    conditions:{ minTemp:400, pressure:200, catalyst:'iron' },
-    hint:'Lämmastik ja vesinik moodustavad ammoniaaki.',
-    fact:'Haberi protsess on oluline väetiste tootmisel.',
-    difficulty:2
-  },
+
   {
     id:'neutralization',
     name:'Neutralisatsioon',
@@ -259,7 +248,7 @@ const reactions = [
     stoichiometry:{ 'hydrogen-chloride':1, 'sodium-hydroxide':1, 'sodium-chloride':1, water:1 },
     energyChange:-57,
     activationEnergy:20,
-    conditions:{ minTemp:25 },
+    entropyChange:48,
     hint:'Hape ja alus reageerivad, moodustades soola ja vett.',
     fact:'See on klassikaline happe-aluse reaktsioon.',
     difficulty:2
@@ -271,11 +260,12 @@ const reactions = [
     reactants:['adp','phosphate'],
     products:['atp'],
     stoichiometry:{ adp:1, phosphate:1, atp:1 },
-    energyChange:+30,
+    energyChange:+30.5,
     activationEnergy:50,
-    conditions:{ ph:7.5, catalyst:'atp-synthase' },
+    entropyChange:-90,
+    conditions:{ ph:7.8, minTemp:35, maxTemp:40, catalyst:'atp-synthase', protonGradient:true },
     hint:'ADP ja fosfaat moodustavad ATP energiamolekuli.',
-    fact:'ATP on rakkude peamine energiatransportija.',
+    fact:'ATP süntees toimub mitokondri maatriksis (pH 7.7-8.0), kasutades prootonite gradienti (pH 7.0-7.2 vs 7.7-8.0). Optimaalne temperatuur on 37°C.',
     difficulty:3,
     isBiochemical:true
   },
@@ -288,6 +278,7 @@ const reactions = [
     stoichiometry:{ glucose:1, oxygen:6, 'carbon-dioxide':6, water:6 },
     energyChange:-2800,
     activationEnergy:1200,
+    entropyChange:259,
     conditions:{ ph:7.2, catalyst:'enzymes' },
     hint:'Glükoos laguneb rakulise hingamise käigus.',
     fact:'See on peamine energiaallikas rakkudele.',
@@ -301,10 +292,10 @@ const reactions = [
     reactants:['iron(iii)-ion','thiocyanate-ion'],
     products:['iron-thiocyanate-complex'],
     stoichiometry:{ 'iron(iii)-ion':1, 'thiocyanate-ion':1, 'iron-thiocyanate-complex':1 },
-    energy:'exo',
     energyChange:-12,
     activationEnergy:45,
-    conditions:{ ph:2, pressure:1 },
+    entropyChange:15,
+    conditions:{ ph:2 },
     hint:'Verepunane FeSCN²⁺ kompleks moodustub pöörduvas ioonreaktsioonis.',
     fact:'FeSCN²⁺ värvuse tugevus näitab tasakaalu nihkumist kompleksi suunas.',
     difficulty:3
@@ -316,10 +307,10 @@ const reactions = [
     reactants:['nitrogen','hydrogen'],
     products:['ammonia'],
     stoichiometry:{ nitrogen:1, hydrogen:3, ammonia:2 },
-    energy:'exo',
     energyChange:-92,
     activationEnergy:335,
-    conditions:{ minTemp:400, pressure:200, catalyst:'iron' },
+    entropyChange:-100,
+    conditions:{ maxTemp:450, pressure:200, catalyst:'iron' },
     hint:'Kõrge rõhk ja sobiv temperatuur nihutavad tasakaalu ammoniaagi suunas.',
     fact:'Raua katalüsaator kiirendab tasakaalu saavutamist, kuid ei muuda tasakaaluasendit.',
     difficulty:3
@@ -331,13 +322,29 @@ const reactions = [
     reactants:['hydrogen-peroxide'],
     products:['water','oxygen'],
     stoichiometry:{ 'hydrogen-peroxide':2, water:2, oxygen:1 },
-    energy:'exo',
     energyChange:-98,
     activationEnergy:75,
-    conditions:{ minTemp:25, catalyst:'manganese-dioxide' },
+    entropyChange:125,
+    conditions:{ catalyst:'manganese-dioxide' },
     hint:'MnO₂ vähendab aktiveerumisenergiat ja kiirendab peroksiidi lagunemist.',
     fact:'Katalüsaator ei kulu reaktsioonis ära, kuid muudab reaktsiooni palju kiiremaks.',
     difficulty:3
+  },
+  {
+    id:'photosynthesis',
+    name:'Fotosüntees',
+    equation:'6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂',
+    reactants:['carbon-dioxide','water'],
+    products:['glucose','oxygen'],
+    stoichiometry:{ 'carbon-dioxide':6, water:6, glucose:1, oxygen:6 },
+    energyChange:+2800,
+    activationEnergy:1200,
+    entropyChange:-259,
+    conditions:{ catalyst:'chlorophyll', requiresLight:true },
+    hint:'CO₂ ja H₂O moodustavad glükoosi, vajades päikeseenergiat.',
+    fact:'Fotosüntees on endotermiline reaktsioon, mis muudab päikeseenergiat keemiliseks energiks.',
+    difficulty:3,
+    isBiochemical:true
   }
 ];
 
@@ -689,6 +696,131 @@ function calculateMolarMass(atomSymbols) {
   });
   
   return totalMass.toFixed(2);
+}
+
+function calculateGibbsEnergy(deltaH, temperature, deltaS) {
+  // ΔG = ΔH - TΔS
+  // Convert temperature from Celsius to Kelvin
+  const T = temperature + 273.15;
+  // Convert deltaS from J/(mol·K) to kJ/(mol·K)
+  const deltaS_kJ = deltaS / 1000;
+  const deltaG = deltaH - (T * deltaS_kJ);
+  return deltaG;
+}
+
+function updateGibbsEnergyDisplay() {
+  const selectedReaction = document.querySelector('.reaction-card.active');
+  if (!selectedReaction) return;
+  
+  const reactionId = selectedReaction.dataset.reactionId;
+  const reaction = reactions.find(r => r.id === reactionId);
+  
+  if (!reaction) return;
+  if (!reaction.entropyChange) {
+    // If no entropy data, just show ΔH and note that ΔS is unknown
+    document.getElementById('delta-h-display').textContent = `${reaction.energyChange || 0} kJ/mol`;
+    document.getElementById('delta-s-display').textContent = 'Teadmata';
+    document.getElementById('delta-g-display').textContent = 'Teadmata';
+    
+    const statusDiv = document.getElementById('gibbs-status');
+    const statusText = document.getElementById('gibbs-status-text');
+    statusDiv.className = 'gibbs-status';
+    statusText.textContent = '⚠ ΔS andmed puuduvad';
+    return;
+  }
+  
+  const temperature = parseInt(document.getElementById('temperature-slider').value);
+  const pressure = parseInt(document.getElementById('pressure-slider').value);
+  const ph = parseFloat(document.getElementById('ph-slider').value);
+  
+  const deltaH = reaction.energyChange;
+  const deltaS = reaction.entropyChange;
+  const deltaG = calculateGibbsEnergy(deltaH, temperature, deltaS);
+  
+  // Check conditions
+  const conditions = reaction.conditions || {};
+  let conditionsMet = true;
+  let conditionMessage = '';
+  
+  if (conditions.minTemp && temperature < conditions.minTemp) {
+    conditionsMet = false;
+    conditionMessage = `Temperatuur peab olema vähemalt ${conditions.minTemp}°C`;
+  }
+  if (conditions.maxTemp && temperature > conditions.maxTemp) {
+    conditionsMet = false;
+    conditionMessage = `Temperatuur peab olema kuni ${conditions.maxTemp}°C`;
+  }
+  if (conditions.minPressure && pressure < conditions.minPressure) {
+    conditionsMet = false;
+    conditionMessage = `Rõhk peab olema vähemalt ${conditions.minPressure} atm`;
+  }
+  if (conditions.maxPressure && pressure > conditions.maxPressure) {
+    conditionsMet = false;
+    conditionMessage = `Rõhk peab olema kuni ${conditions.maxPressure} atm`;
+  }
+  // Only use exact pressure check if no min/max pressure is specified
+  if (conditions.pressure && !conditions.minPressure && !conditions.maxPressure && Math.abs(pressure - conditions.pressure) > 50) {
+    conditionsMet = false;
+    conditionMessage = `Rõhk peaks olema umbes ${conditions.pressure} atm`;
+  }
+  if (conditions.ph && Math.abs(ph - conditions.ph) > 1) {
+    conditionsMet = false;
+    conditionMessage = `pH peaks olema umbes ${conditions.ph}`;
+  }
+  if (conditions.catalyst) {
+    // Catalyst presence check - for educational purposes, we assume catalyst is present if conditions are generally met
+    // In a more advanced version, this could be a separate toggle
+    if (conditions.catalyst === 'atp-synthase' && Math.abs(ph - 7.5) > 1) {
+      conditionsMet = false;
+      conditionMessage = `Katalüsaator ${conditions.catalyst} töötab ainult pH 7.5 juures`;
+    }
+  }
+  
+  // Biochemical energy requirement (like ATP synthesis)
+  if (conditions.protonGradient) {
+    // In real cells, ATP synthesis requires proton gradient across mitochondrial membrane
+    // pH 7.0-7.2 (intermembrane space) vs pH 7.7-8.0 (matrix) creates proton-motive force
+    // For educational purposes, we check if pH is in optimal range (7.7-8.0 for matrix)
+    if (ph < 7.5 || ph > 8.2) {
+      conditionsMet = false;
+      conditionMessage = 'Prootonite gradient puudub (maatriks pH peaks olema 7.7-8.0)';
+    }
+  }
+  
+  // Light energy requirement (like photosynthesis)
+  if (conditions.requiresLight) {
+    // Photosynthesis requires light energy (sunlight)
+    // For educational purposes, we assume light is available if temperature is reasonable (daytime condition)
+    if (temperature < 15 || temperature > 40) {
+      conditionsMet = false;
+      conditionMessage = 'Päikeseenergia puudub (temperatuur peaks olema 15-40°C)';
+    }
+  }
+  
+  // Update display
+  document.getElementById('delta-h-display').textContent = `${deltaH} kJ/mol`;
+  document.getElementById('delta-s-display').textContent = `${deltaS} J/(mol·K)`;
+  document.getElementById('delta-g-display').textContent = `${deltaG.toFixed(2)} kJ/mol`;
+  
+  // Update status
+  const statusDiv = document.getElementById('gibbs-status');
+  const statusText = document.getElementById('gibbs-status-text');
+  
+  statusDiv.className = 'gibbs-status';
+  
+  if (!conditionsMet) {
+    statusDiv.classList.add('non-spontaneous');
+    statusText.textContent = `✗ ${conditionMessage}`;
+  } else if (deltaG < 0) {
+    statusDiv.classList.add('spontaneous');
+    statusText.textContent = '✓ Reaktsioon toimub iseenesest';
+  } else if (deltaG > 0) {
+    statusDiv.classList.add('non-spontaneous');
+    statusText.textContent = '✗ Reaktsioon ei toimu';
+  } else {
+    statusDiv.classList.add('equilibrium');
+    statusText.textContent = '⚖ Tasakaal';
+  }
 }
 
 function showMolarMass() {
@@ -1548,18 +1680,34 @@ function getReactionCopy(reaction) {
     photosynthesis: ['Photosynthesis', 'The plant stores light energy as chemical energy in glucose.']
   };
   const english = englishNames[reaction.id] || [reaction.name || reaction.id, reaction.fact || reaction.hint || ''];
+  const isExothermic = reaction.energyChange < 0;
   return currentLang === 'en'
-    ? { ...reaction, name: english[0], detail: english[1], tag: reaction.energy === 'exo' ? localized.exoTag : localized.endoTag }
-    : { ...reaction, tag: reaction.energy === 'exo' ? localized.exoTag : localized.endoTag };
+    ? { ...reaction, name: english[0], detail: english[1], tag: isExothermic ? localized.exoTag : localized.endoTag }
+    : { ...reaction, tag: isExothermic ? localized.exoTag : localized.endoTag };
 }
 
 function renderReactionLab() {
-  $('reaction-grid').innerHTML = reactions.map((reaction, index) => { const localized = getReactionCopy(reaction); return `<button class="reaction-card ${reaction.energy === 'endo' ? 'endothermic' : ''} ${reaction.id === selectedReaction.id ? 'active' : ''}" data-reaction-index="${index}" type="button"><strong>${localized.name}</strong><small>${localized.equation}</small><span class="reaction-tag">${localized.tag}</span></button>`; }).join('');
+  $('reaction-grid').innerHTML = reactions.map((reaction, index) => { const localized = getReactionCopy(reaction); return `<button class="reaction-card ${reaction.energyChange > 0 ? 'endothermic' : ''} ${reaction.id === selectedReaction.id ? 'active' : ''}" data-reaction-index="${index}" data-reaction-id="${reaction.id}" type="button"><strong>${localized.name}</strong><small>${localized.equation}</small><span class="reaction-tag">${localized.tag}</span></button>`; }).join('');
+  
+  // Remove old event listeners by cloning
+  const oldButtons = document.querySelectorAll('.reaction-card');
+  oldButtons.forEach(button => {
+    const newButton = button.cloneNode(true);
+    button.parentNode.replaceChild(newButton, button);
+  });
+  
+  // Add new event listeners
   document.querySelectorAll('.reaction-card').forEach(button => button.addEventListener('click', () => {
-    selectedReaction = reactions[Number(button.dataset.reactionIndex)];
+    document.querySelectorAll('.reaction-card').forEach(card => card.classList.remove('active'));
+    button.classList.add('active');
+    selectedReaction = reactions.find(r => r.id === button.dataset.reactionId);
+    console.log('Selected reaction:', selectedReaction);
+    updateGibbsEnergyDisplay();
     updateReactionUI();
   }));
+  
   updateReactionUI();
+  updateGibbsEnergyDisplay();
 }
 
 function renderElementReactionCards() {
@@ -1673,10 +1821,11 @@ function updateMoleculeForcesInfo() {
 function updateReactionUI() {
   const section = document.querySelector('.reaction-section');
   section.classList.remove('exothermic', 'endothermic');
-  section.classList.add(selectedReaction.energy === 'exo' ? 'exothermic' : 'endothermic');
+  const isExothermic = selectedReaction.energyChange < 0;
+  section.classList.add(isExothermic ? 'exothermic' : 'endothermic');
   document.querySelectorAll('.reaction-card').forEach(button => button.classList.toggle('active', Number(button.dataset.reactionIndex) === reactions.indexOf(selectedReaction)));
   const localized = getReactionCopy(selectedReaction);
-  $('reaction-state').textContent = selectedReaction.energy === 'exo' ? reactionCopy[currentLang].heatReleased : reactionCopy[currentLang].energyAbsorbed;
+  $('reaction-state').textContent = isExothermic ? reactionCopy[currentLang].heatReleased : reactionCopy[currentLang].energyAbsorbed;
   $('reaction-equation').textContent = selectedReaction.equation;
   $('reaction-detail').textContent = localized.detail;
   drawEnergyDiagram();
@@ -1970,15 +2119,19 @@ function init() {
     renderElementReactionCards();
   });
   $('temperature-slider').addEventListener('input', () => {
-    $('temperature-value').textContent = `${$('temperature-slider').value}°C`;
+    const temp = $('temperature-slider').value;
+    $('temperature-value').textContent = temp + '°C';
+    updateGibbsEnergyDisplay();
   });
   $('pressure-slider').addEventListener('input', () => {
     $('pressure-value').textContent = `${$('pressure-slider').value} atm`;
+    updateGibbsEnergyDisplay();
   });
   $('ph-slider').addEventListener('input', () => {
     const ph = $('ph-slider').value;
     $('ph-value').textContent = ph;
     $('ph-value').style.color = ph < 7 ? '#ef8354' : ph > 7 ? '#8dc5e8' : '#102a43';
+    updateGibbsEnergyDisplay();
   });
   $('quantum-toggle').addEventListener('click', toggleQuantumView);
   renderReactionLab();
@@ -2078,6 +2231,7 @@ function advanceLevel() {
   }
   saveCompletedLevels();
   saveCompletedLevelTasks();
+  renderLevelProgress();
 
   if (replayingCompletedLevel) {
     const levelMolecules = getLevelMolecules(level);

@@ -214,6 +214,16 @@ h1,h2,h3,p { margin:0; } h1,h2,h3 { font-family:'Space Grotesk',sans-serif; } h1
 .reaction-result { margin-top:12px; padding:12px; border:1px solid var(--line); border-radius:12px; background:#ffffffb8; }
 .reaction-state { font-size:12px; font-weight:700; color:var(--coral); }
 .reaction-state.running { animation:pulse 1s infinite; }
+.gibbs-energy-section { margin-top:12px; padding:12px; border:1px solid #d8e4df; border-radius:10px; background:#f8f9f6; }
+.gibbs-energy-row { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:12px; }
+.gibbs-energy-value { text-align:center; }
+.gibbs-energy-value label { display:block; font-size:10px; color:var(--muted); margin-bottom:4px; }
+.gibbs-energy-value span { font-weight:700; font-size:14px; }
+.gibbs-equation { text-align:center; font-weight:600; font-size:16px; color:var(--ink); margin-bottom:8px; }
+.gibbs-status { text-align:center; padding:8px; border-radius:8px; font-weight:600; font-size:14px; }
+.gibbs-status.spontaneous { background:#e7f3ed; color:#0a5f3e; }
+.gibbs-status.non-spontaneous { background:#f8f1d9; color:#5f3e0a; }
+.gibbs-status.equilibrium { background:#f8f1d9; color:#8f6a12; }
 .energy-diagram { margin:16px 0; padding:12px; border:1px solid var(--line); border-radius:12px; background:#ffffffb8; }
 .energy-diagram svg { display:block; }
 .reaction-section.exothermic .energy-diagram { border-color:#ef835440; background:#fff5f0b8; }
