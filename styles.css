@@ -69,6 +69,7 @@ h1,h2,h3,p { margin:0; } h1,h2,h3 { font-family:'Space Grotesk',sans-serif; } h1
 .atom-i { background:#1abc9c; border:2px dashed #e74c3c; animation:radioactivePulse 0.8s ease-in-out infinite; }
 @keyframes radioactivePulse { 0%,100% { box-shadow:0 0 0 0 rgba(231,76,60,0.4); } 50% { box-shadow:0 0 0 10px rgba(231,76,60,0); } }
 .workspace-actions { margin-top:13px; }
+.molar-mass-display { margin-top:12px; padding:10px 14px; border:1px solid #c8ded6; border-radius:10px; background:#e7f3ed; font-size:13px; color:#0a5f3e; }
 .text-button { border:0; background:transparent; color:var(--muted); font-size:13px; padding:10px 0; }
 .primary-button { border:0; border-radius:12px; background:var(--coral); color:white; font-weight:700; padding:13px 16px; box-shadow:0 5px 0 #c96540; }
 .primary-button:active { transform:translateY(2px); box-shadow:0 3px 0 #c96540; }
@@ -135,6 +136,23 @@ h1,h2,h3,p { margin:0; } h1,h2,h3 { font-family:'Space Grotesk',sans-serif; } h1
 .balancing-result { min-height:44px; padding:12px; border:1px solid var(--line); border-radius:10px; background:#fff; font-size:13px; color:var(--muted); }
 .balancing-result.success { border-color:#c8ded6; background:#e7f3ed; color:#0a5f3e; }
 .balancing-result.error { border-color:#ead7a6; background:#f8f1d9; color:#5f3e0a; }
+.molar-mass-section { margin-top:32px; padding-top:20px; border-top:1px solid #d8e4df; }
+.molar-mass-progress { color:var(--muted); font-size:12px; }
+.molar-mass-problem { padding:16px; border:1px solid var(--line); border-radius:16px; background:#fff; }
+.problem-description { margin-bottom:16px; padding:12px; border-left:4px solid var(--coral); border-radius:0 10px 10px 0; background:#fff0e9; font-size:14px; line-height:1.4; }
+.molar-mass-workspace { margin-bottom:12px; }
+.molecule-calculation { padding:12px; margin-bottom:12px; border:1px solid #d8e4df; border-radius:10px; background:#f8f9f6; font-family:'Space Grotesk',sans-serif; font-size:14px; }
+.atom-mass-line { display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid #e5ece8; }
+.atom-mass-line:last-child { border-bottom:none; }
+.user-input-section { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+#molar-mass-input { flex:1; padding:8px 12px; border:1px solid var(--line); border-radius:8px; font-size:14px; }
+#molar-mass-input:focus { outline:none; border-color:var(--coral); }
+.unit-label { color:var(--muted); font-size:12px; font-weight:500; }
+.molar-mass-controls { display:flex; gap:8px; margin-bottom:12px; }
+.molar-mass-result { min-height:44px; padding:12px; border:1px solid var(--line); border-radius:10px; background:#fff; font-size:13px; color:var(--muted); }
+.molar-mass-result.success { border-color:#c8ded6; background:#e7f3ed; color:#0a5f3e; }
+.molar-mass-result.error { border-color:#ead7a6; background:#f8f1d9; color:#5f3e0a; }
+.avogadro-animation { min-height:60px; padding:12px; border:1px solid #d8e4df; border-radius:10px; background:#f8f9f6; display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--muted); }
 .forces-section { margin-top:32px; padding-top:20px; border-top:1px solid #d8e4df; }
 .forces-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:12px; }
 .force-card { border:1px solid var(--line); border-radius:14px; background:#fff; color:var(--ink); padding:14px; text-align:left; transition:border-color .16s,background .16s; cursor:pointer; }

@@ -34,8 +34,9 @@ const levelConfigs = [
   { id:2, name:'Ioonid ja lihtsamad ühendid', nameEn:'Ions and simple compounds', description:'Tasakaalusta laengud ja ehita järjest keerukamaid ühendeid.', descriptionEn:'Balance charges and build increasingly complex compounds.', requiredMolecules:['hydrogen-chloride','carbon-monoxide','sodium-chloride','sodium-fluoride','hydrogen-peroxide','sulfur-dioxide','magnesium-chloride','calcium-sulfate','sodium-nitrate'], focusConcepts:['laengutasakaal','kovalentne side'], focusConceptsEn:['charge balance','covalent bonding'] },
   { id:3, name:'Keerukamad molekulid', nameEn:'More complex molecules', description:'Uuri molekuli kuju, sidemete järku ja intermolekulaarseid jõude.', descriptionEn:'Explore molecular shape, bond order and intermolecular forces.', requiredMolecules:['carbon-tetrachloride','ozone','sodium-hydroxide','potassium-hydroxide','sulfuric-acid','hydrogen-sulfide','nitrous-oxide'], focusConcepts:['molekuli kuju','vesiniksidemed','Londoni jõud'], focusConceptsEn:['molecular shape','hydrogen bonding','London forces'] },
   { id:4, name:'Koordineeritud ühendid', nameEn:'Coordination compounds', description:'Uuri keerukamaid anorgaanilisi ühendeid ja side tüüpe.', descriptionEn:'Explore more complex inorganic compounds and bond types.', requiredMolecules:['chlorine','fluorine','calcium-carbonate','iron-oxide','aluminum-oxide','zinc-oxide'], focusConcepts:['anorgaanilised ühendid','metallid'], focusConceptsEn:['inorganic compounds','metals'] },
-  { id:5, name:'Radioaktiivsed elemendid', nameEn:'Radioactive elements', description:'Õpi radioaktiivsusest ja lagunemisest.', descriptionEn:'Learn about radioactivity and decay.', requiredMolecules:['uranium-dioxide','cesium-iodide','radium-chloride','plutonium-dioxide'], focusConcepts:['radioaktiivsus','lagunemine'], focusConceptsEn:['radioactivity','decay'] },
-  { id:6, name:'Eksperttase', nameEn:'Expert level', description:'Võrrandite tasakaalustamine ja kompleksed sünteesid.', descriptionEn:'Equation balancing and complex syntheses.', requiredMolecules:['copper-sulfate'], focusConcepts:['võrrandite tasakaalustamine','süntees'], focusConceptsEn:['equation balancing','synthesis'] }
+  { id:5, name:'Radioaktiivsed elemendid', nameEn:'Radioactive elements', description:'Õpi radioaktiivsusest ja lagunemisest.', descriptionEn:'Learn about radioactivity and decay.', requiredMolecules:['uranium-dioxide','cesium-iodide','radium-chloride','plutoonium-dioxide'], focusConcepts:['radioaktiivsus','lagunemine'], focusConceptsEn:['radioactivity','decay'] },
+  { id:6, name:'Molaarmass ja Avogadro arv', nameEn:'Molar mass and Avogadro number', description:'Õpi molaarmassi arvutamist ja Avogadro arvu kasutamist.', descriptionEn:'Learn molar mass calculations and Avogadro number applications.', requiredMolecules:['water','carbon-dioxide','methane'], focusConcepts:['molaarmass','Avogadro arv','mool'], focusConceptsEn:['molar mass','Avogadro number','mole'] },
+  { id:7, name:'Eksperttase', nameEn:'Expert level', description:'Võrrandite tasakaalustamine ja kompleksed sünteesid.', descriptionEn:'Equation balancing and complex syntheses.', requiredMolecules:['copper-sulfate'], focusConcepts:['võrrandite tasakaalustamine','süntees'], focusConceptsEn:['equation balancing','synthesis'] }
 ];
 levelConfigs.forEach(level => {
   level.avatudKui = level.id === 1 ? [] : [`level:${level.id - 1}`];
@@ -43,102 +44,102 @@ levelConfigs.forEach(level => {
   level.fookusKontseptsioonid = level.focusConcepts;
 });
 const elements = [
-  {symbol:'H',name:'vesinik',className:'h',atomicNumber:1,group:1,period:1},
-  {symbol:'He',name:'heelium',className:'he',atomicNumber:2,group:18,period:1},
-  {symbol:'Li',name:'liitium',className:'li',atomicNumber:3,group:1,period:2},
-  {symbol:'Be',name:'berüllium',className:'be',atomicNumber:4,group:2,period:2},
-  {symbol:'B',name:'boor',className:'b',atomicNumber:5,group:13,period:2},
-  {symbol:'C',name:'süsinik',className:'c',atomicNumber:6,group:14,period:2},
-  {symbol:'N',name:'lämmastik',className:'n',atomicNumber:7,group:15,period:2},
-  {symbol:'O',name:'hapnik',className:'o',atomicNumber:8,group:16,period:2},
-  {symbol:'F',name:'fluor',className:'f',atomicNumber:9,group:17,period:2},
-  {symbol:'Ne',name:'neoon',className:'ne',atomicNumber:10,group:18,period:2},
-  {symbol:'Na',name:'naatrium',className:'na',atomicNumber:11,group:1,period:3},
-  {symbol:'Mg',name:'magneesium',className:'mg',atomicNumber:12,group:2,period:3},
-  {symbol:'Al',name:'alumiinium',className:'al',atomicNumber:13,group:13,period:3},
-  {symbol:'Si',name:'ränik',className:'si',atomicNumber:14,group:14,period:3},
-  {symbol:'P',name:'fosfor',className:'p',atomicNumber:15,group:15,period:3},
-  {symbol:'S',name:'väävel',className:'s',atomicNumber:16,group:16,period:3},
-  {symbol:'Cl',name:'kloor',className:'cl',atomicNumber:17,group:17,period:3},
-  {symbol:'Ar',name:'argoon',className:'ar',atomicNumber:18,group:18,period:3},
-  {symbol:'K',name:'kaalium',className:'k',atomicNumber:19,group:1,period:4},
-  {symbol:'Ca',name:'kaltsium',className:'ca',atomicNumber:20,group:2,period:4},
-  {symbol:'Sc',name:'skandium',className:'sc',atomicNumber:21,group:3,period:4},
-  {symbol:'Ti',name:'titaan',className:'ti',atomicNumber:22,group:4,period:4},
-  {symbol:'V',name:'vaanaadium',className:'v',atomicNumber:23,group:5,period:4},
-  {symbol:'Cr',name:'kroom',className:'cr',atomicNumber:24,group:6,period:4},
-  {symbol:'Mn',name:'mangaan',className:'mn',atomicNumber:25,group:7,period:4},
-  {symbol:'Fe',name:'raud',className:'fe',atomicNumber:26,group:8,period:4},
-  {symbol:'Co',name:'koobalt',className:'co',atomicNumber:27,group:9,period:4},
-  {symbol:'Ni',name:'nikkel',className:'ni',atomicNumber:28,group:10,period:4},
-  {symbol:'Cu',name:'vas',className:'cu',atomicNumber:29,group:11,period:4},
-  {symbol:'Zn',name:'tsink',className:'zn',atomicNumber:30,group:12,period:4},
-  {symbol:'Ga',name:'gallium',className:'ga',atomicNumber:31,group:13,period:4},
-  {symbol:'Ge',name:'germaanium',className:'ge',atomicNumber:32,group:14,period:4},
-  {symbol:'As',name:'arseen',className:'as',atomicNumber:33,group:15,period:4},
-  {symbol:'Se',name:'selen',className:'se',atomicNumber:34,group:16,period:4},
-  {symbol:'Br',name:'broom',className:'br',atomicNumber:35,group:17,period:4},
-  {symbol:'Kr',name:'kripton',className:'kr',atomicNumber:36,group:18,period:4},
-  {symbol:'Rb',name:'rubiidium',className:'rb',atomicNumber:37,group:1,period:5},
-  {symbol:'Sr',name:'stroontium',className:'sr',atomicNumber:38,group:2,period:5},
-  {symbol:'Y',name:'ütrium',className:'y',atomicNumber:39,group:3,period:5},
-  {symbol:'Zr',name:'tsirkoonium',className:'zr',atomicNumber:40,group:4,period:5},
-  {symbol:'Nb',name:'nioobium',className:'nb',atomicNumber:41,group:5,period:5},
-  {symbol:'Mo',name:'molübdeen',className:'mo',atomicNumber:42,group:6,period:5},
-  {symbol:'Tc',name:'tehneesium',className:'tc',atomicNumber:43,group:7,period:5,radioactive:true,halflife:5},
-  {symbol:'Ru',name:'ruuteenium',className:'ru',atomicNumber:44,group:8,period:5},
-  {symbol:'Rh',name:'roodium',className:'rh',atomicNumber:45,group:9,period:5},
-  {symbol:'Pd',name:'pallaadium',className:'pd',atomicNumber:46,group:10,period:5},
-  {symbol:'Ag',name:'hõbe',className:'ag',atomicNumber:47,group:11,period:5},
-  {symbol:'Cd',name:'kadmium',className:'cd',atomicNumber:48,group:12,period:5},
-  {symbol:'In',name:'indium',className:'in',atomicNumber:49,group:13,period:5},
-  {symbol:'Sn',name:'tin',className:'sn',atomicNumber:50,group:14,period:5},
-  {symbol:'Sb',name:'antimon',className:'sb',atomicNumber:51,group:15,period:5},
-  {symbol:'Te',name:'telluur',className:'te',atomicNumber:52,group:16,period:5},
-  {symbol:'I',name:'jood',className:'i',atomicNumber:53,group:17,period:5,radioactive:true,halflife:8},
-  {symbol:'Xe',name:'ksenon',className:'xe',atomicNumber:54,group:18,period:5},
-  {symbol:'Cs',name:'tseesium',className:'cs',atomicNumber:55,group:1,period:6,radioactive:true,halflife:15},
-  {symbol:'Ba',name:'baarium',className:'ba',atomicNumber:56,group:2,period:6},
-  {symbol:'La',name:'lantaan',className:'la',atomicNumber:57,group:3,period:6},
-  {symbol:'Ce',name:'tseerium',className:'ce',atomicNumber:58,group:3,period:6},
-  {symbol:'Pr',name:'praseodüüm',className:'pr',atomicNumber:59,group:3,period:6},
-  {symbol:'Nd',name:'neodüüm',className:'nd',atomicNumber:60,group:3,period:6},
-  {symbol:'Pm',name:'promeetium',className:'pm',atomicNumber:61,group:3,period:6,radioactive:true,halflife:3},
-  {symbol:'Sm',name:'samaarium',className:'sm',atomicNumber:62,group:3,period:6},
-  {symbol:'Eu',name:'europium',className:'eu',atomicNumber:63,group:3,period:6},
-  {symbol:'Gd',name:'gadoliinium',className:'gd',atomicNumber:64,group:3,period:6},
-  {symbol:'Tb',name:'terbium',className:'tb',atomicNumber:65,group:3,period:6},
-  {symbol:'Dy',name:'düsproosium',className:'dy',atomicNumber:66,group:3,period:6},
-  {symbol:'Ho',name:'holmium',className:'ho',atomicNumber:67,group:3,period:6},
-  {symbol:'Er',name:'erbuim',className:'er',atomicNumber:68,group:3,period:6},
-  {symbol:'Tm',name:'tuulium',className:'tm',atomicNumber:69,group:3,period:6},
-  {symbol:'Yb',name:'üterbium',className:'yb',atomicNumber:70,group:3,period:6},
-  {symbol:'Lu',name:'luteetsium',className:'lu',atomicNumber:71,group:3,period:6},
-  {symbol:'Hf',name:'hafnium',className:'hf',atomicNumber:72,group:4,period:6},
-  {symbol:'Ta',name:'tantaal',className:'ta',atomicNumber:73,group:5,period:6},
-  {symbol:'W',name:'volfram',className:'w',atomicNumber:74,group:6,period:6},
-  {symbol:'Re',name:'reenium',className:'re',atomicNumber:75,group:7,period:6},
-  {symbol:'Os',name:'osmium',className:'os',atomicNumber:76,group:8,period:6},
-  {symbol:'Ir',name:'iridium',className:'ir',atomicNumber:77,group:9,period:6},
-  {symbol:'Pt',name:'plaatina',className:'pt',atomicNumber:78,group:10,period:6},
-  {symbol:'Au',name:'kuld',className:'au',atomicNumber:79,group:11,period:6},
-  {symbol:'Hg',name:'elavhõbe',className:'hg',atomicNumber:80,group:12,period:6},
-  {symbol:'Tl',name:'taallium',className:'tl',atomicNumber:81,group:13,period:6},
-  {symbol:'Pb',name:'pli',className:'pb',atomicNumber:82,group:14,period:6},
-  {symbol:'Bi',name:'vismut',className:'bi',atomicNumber:83,group:15,period:6},
-  {symbol:'Po',name:'poloonium',className:'po',atomicNumber:84,group:16,period:6,radioactive:true,halflife:4},
-  {symbol:'At',name:'astaat',className:'at',atomicNumber:85,group:17,period:6,radioactive:true,halflife:2},
-  {symbol:'Rn',name:'radon',className:'rn',atomicNumber:86,group:18,period:6,radioactive:true,halflife:6},
-  {symbol:'Fr',name:'frantsium',className:'fr',atomicNumber:87,group:1,period:7,radioactive:true,halflife:3},
-  {symbol:'Ra',name:'raadium',className:'ra',atomicNumber:88,group:2,period:7,radioactive:true,halflife:20},
-  {symbol:'Ac',name:'aktiinium',className:'ac',atomicNumber:89,group:3,period:7,radioactive:true,halflife:12},
-  {symbol:'Th',name:'toorium',className:'th',atomicNumber:90,group:3,period:7,radioactive:true,halflife:25},
-  {symbol:'Pa',name:'protaktiinium',className:'pa',atomicNumber:91,group:3,period:7,radioactive:true,halflife:18},
-  {symbol:'U',name:'uraan',className:'u',atomicNumber:92,group:3,period:7,radioactive:true,halflife:30},
-  {symbol:'Np',name:'neptuunium',className:'np',atomicNumber:93,group:3,period:7,radioactive:true,halflife:7},
-  {symbol:'Pu',name:'plutoonium',className:'pu',atomicNumber:94,group:3,period:7,radioactive:true,halflife:10},
-  {symbol:'Am',name:'ameeritsium',className:'am',atomicNumber:95,group:3,period:7,radioactive:true,halflife:5},
-  {symbol:'Cm',name:'kuurium',className:'cm',atomicNumber:96,group:3,period:7,radioactive:true,halflife:8},
+  {symbol:'H',name:'vesinik',className:'h',atomicNumber:1,group:1,period:1,atomicMass:1.008},
+  {symbol:'He',name:'heelium',className:'he',atomicNumber:2,group:18,period:1,atomicMass:4.003},
+  {symbol:'Li',name:'liitium',className:'li',atomicNumber:3,group:1,period:2,atomicMass:6.941},
+  {symbol:'Be',name:'berüllium',className:'be',atomicNumber:4,group:2,period:2,atomicMass:9.012},
+  {symbol:'B',name:'boor',className:'b',atomicNumber:5,group:13,period:2,atomicMass:10.81},
+  {symbol:'C',name:'süsinik',className:'c',atomicNumber:6,group:14,period:2,atomicMass:12.01},
+  {symbol:'N',name:'lämmastik',className:'n',atomicNumber:7,group:15,period:2,atomicMass:14.01},
+  {symbol:'O',name:'hapnik',className:'o',atomicNumber:8,group:16,period:2,atomicMass:16.00},
+  {symbol:'F',name:'fluor',className:'f',atomicNumber:9,group:17,period:2,atomicMass:19.00},
+  {symbol:'Ne',name:'neoon',className:'ne',atomicNumber:10,group:18,period:2,atomicMass:20.18},
+  {symbol:'Na',name:'naatrium',className:'na',atomicNumber:11,group:1,period:3,atomicMass:22.99},
+  {symbol:'Mg',name:'magneesium',className:'mg',atomicNumber:12,group:2,period:3,atomicMass:24.31},
+  {symbol:'Al',name:'alumiinium',className:'al',atomicNumber:13,group:13,period:3,atomicMass:26.98},
+  {symbol:'Si',name:'ränik',className:'si',atomicNumber:14,group:14,period:3,atomicMass:28.09},
+  {symbol:'P',name:'fosfor',className:'p',atomicNumber:15,group:15,period:3,atomicMass:30.97},
+  {symbol:'S',name:'väävel',className:'s',atomicNumber:16,group:16,period:3,atomicMass:32.07},
+  {symbol:'Cl',name:'kloor',className:'cl',atomicNumber:17,group:17,period:3,atomicMass:35.45},
+  {symbol:'Ar',name:'argoon',className:'ar',atomicNumber:18,group:18,period:3,atomicMass:39.95},
+  {symbol:'K',name:'kaalium',className:'k',atomicNumber:19,group:1,period:4,atomicMass:39.10},
+  {symbol:'Ca',name:'kaltsium',className:'ca',atomicNumber:20,group:2,period:4,atomicMass:40.08},
+  {symbol:'Sc',name:'skandium',className:'sc',atomicNumber:21,group:3,period:4,atomicMass:44.96},
+  {symbol:'Ti',name:'titaan',className:'ti',atomicNumber:22,group:4,period:4,atomicMass:47.87},
+  {symbol:'V',name:'vaanaadium',className:'v',atomicNumber:23,group:5,period:4,atomicMass:50.94},
+  {symbol:'Cr',name:'kroom',className:'cr',atomicNumber:24,group:6,period:4,atomicMass:52.00},
+  {symbol:'Mn',name:'mangaan',className:'mn',atomicNumber:25,group:7,period:4,atomicMass:54.94},
+  {symbol:'Fe',name:'raud',className:'fe',atomicNumber:26,group:8,period:4,atomicMass:55.85},
+  {symbol:'Co',name:'koobalt',className:'co',atomicNumber:27,group:9,period:4,atomicMass:58.93},
+  {symbol:'Ni',name:'nikkel',className:'ni',atomicNumber:28,group:10,period:4,atomicMass:58.69},
+  {symbol:'Cu',name:'vas',className:'cu',atomicNumber:29,group:11,period:4,atomicMass:63.55},
+  {symbol:'Zn',name:'tsink',className:'zn',atomicNumber:30,group:12,period:4,atomicMass:65.38},
+  {symbol:'Ga',name:'gallium',className:'ga',atomicNumber:31,group:13,period:4,atomicMass:69.72},
+  {symbol:'Ge',name:'germaanium',className:'ge',atomicNumber:32,group:14,period:4,atomicMass:72.63},
+  {symbol:'As',name:'arseen',className:'as',atomicNumber:33,group:15,period:4,atomicMass:74.92},
+  {symbol:'Se',name:'selen',className:'se',atomicNumber:34,group:16,period:4,atomicMass:78.97},
+  {symbol:'Br',name:'broom',className:'br',atomicNumber:35,group:17,period:4,atomicMass:79.90},
+  {symbol:'Kr',name:'kripton',className:'kr',atomicNumber:36,group:18,period:4,atomicMass:83.80},
+  {symbol:'Rb',name:'rubiidium',className:'rb',atomicNumber:37,group:1,period:5,atomicMass:85.47},
+  {symbol:'Sr',name:'stroontium',className:'sr',atomicNumber:38,group:2,period:5,atomicMass:87.62},
+  {symbol:'Y',name:'ütrium',className:'y',atomicNumber:39,group:3,period:5,atomicMass:88.91},
+  {symbol:'Zr',name:'tsirkoonium',className:'zr',atomicNumber:40,group:4,period:5,atomicMass:91.22},
+  {symbol:'Nb',name:'nioobium',className:'nb',atomicNumber:41,group:5,period:5,atomicMass:92.91},
+  {symbol:'Mo',name:'molübdeen',className:'mo',atomicNumber:42,group:6,period:5,atomicMass:95.95},
+  {symbol:'Tc',name:'tehneesium',className:'tc',atomicNumber:43,group:7,period:5,atomicMass:98.0,radioactive:true,halflife:5},
+  {symbol:'Ru',name:'ruuteenium',className:'ru',atomicNumber:44,group:8,period:5,atomicMass:101.07},
+  {symbol:'Rh',name:'roodium',className:'rh',atomicNumber:45,group:9,period:5,atomicMass:102.91},
+  {symbol:'Pd',name:'pallaadium',className:'pd',atomicNumber:46,group:10,period:5,atomicMass:106.42},
+  {symbol:'Ag',name:'hõbe',className:'ag',atomicNumber:47,group:11,period:5,atomicMass:107.87},
+  {symbol:'Cd',name:'kadmium',className:'cd',atomicNumber:48,group:12,period:5,atomicMass:112.41},
+  {symbol:'In',name:'indium',className:'in',atomicNumber:49,group:13,period:5,atomicMass:114.82},
+  {symbol:'Sn',name:'tin',className:'sn',atomicNumber:50,group:14,period:5,atomicMass:118.71},
+  {symbol:'Sb',name:'antimon',className:'sb',atomicNumber:51,group:15,period:5,atomicMass:121.76},
+  {symbol:'Te',name:'telluur',className:'te',atomicNumber:52,group:16,period:5,atomicMass:127.60},
+  {symbol:'I',name:'jood',className:'i',atomicNumber:53,group:17,period:5,atomicMass:126.90,radioactive:true,halflife:8},
+  {symbol:'Xe',name:'ksenon',className:'xe',atomicNumber:54,group:18,period:5,atomicMass:131.29},
+  {symbol:'Cs',name:'tseesium',className:'cs',atomicNumber:55,group:1,period:6,atomicMass:132.91,radioactive:true,halflife:15},
+  {symbol:'Ba',name:'baarium',className:'ba',atomicNumber:56,group:2,period:6,atomicMass:137.33},
+  {symbol:'La',name:'lantaan',className:'la',atomicNumber:57,group:3,period:6,atomicMass:138.91},
+  {symbol:'Ce',name:'tseerium',className:'ce',atomicNumber:58,group:3,period:6,atomicMass:140.12},
+  {symbol:'Pr',name:'praseodüüm',className:'pr',atomicNumber:59,group:3,period:6,atomicMass:140.91},
+  {symbol:'Nd',name:'neodüüm',className:'nd',atomicNumber:60,group:3,period:6,atomicMass:144.24},
+  {symbol:'Pm',name:'promeetium',className:'pm',atomicNumber:61,group:3,period:6,atomicMass:145.0,radioactive:true,halflife:3},
+  {symbol:'Sm',name:'samaarium',className:'sm',atomicNumber:62,group:3,period:6,atomicMass:150.36},
+  {symbol:'Eu',name:'europium',className:'eu',atomicNumber:63,group:3,period:6,atomicMass:151.96},
+  {symbol:'Gd',name:'gadoliinium',className:'gd',atomicNumber:64,group:3,period:6,atomicMass:157.25},
+  {symbol:'Tb',name:'terbium',className:'tb',atomicNumber:65,group:3,period:6,atomicMass:158.93},
+  {symbol:'Dy',name:'düsproosium',className:'dy',atomicNumber:66,group:3,period:6,atomicMass:162.50},
+  {symbol:'Ho',name:'holmium',className:'ho',atomicNumber:67,group:3,period:6,atomicMass:164.93},
+  {symbol:'Er',name:'erbuim',className:'er',atomicNumber:68,group:3,period:6,atomicMass:167.26},
+  {symbol:'Tm',name:'tuulium',className:'tm',atomicNumber:69,group:3,period:6,atomicMass:168.93},
+  {symbol:'Yb',name:'üterbium',className:'yb',atomicNumber:70,group:3,period:6,atomicMass:173.05},
+  {symbol:'Lu',name:'luteetsium',className:'lu',atomicNumber:71,group:3,period:6,atomicMass:174.97},
+  {symbol:'Hf',name:'hafnium',className:'hf',atomicNumber:72,group:4,period:6,atomicMass:178.49},
+  {symbol:'Ta',name:'tantaal',className:'ta',atomicNumber:73,group:5,period:6,atomicMass:180.95},
+  {symbol:'W',name:'volfram',className:'w',atomicNumber:74,group:6,period:6,atomicMass:183.84},
+  {symbol:'Re',name:'reenium',className:'re',atomicNumber:75,group:7,period:6,atomicMass:186.21},
+  {symbol:'Os',name:'osmium',className:'os',atomicNumber:76,group:8,period:6,atomicMass:190.23},
+  {symbol:'Ir',name:'iridium',className:'ir',atomicNumber:77,group:9,period:6,atomicMass:192.22},
+  {symbol:'Pt',name:'plaatina',className:'pt',atomicNumber:78,group:10,period:6,atomicMass:195.08},
+  {symbol:'Au',name:'kuld',className:'au',atomicNumber:79,group:11,period:6,atomicMass:196.97},
+  {symbol:'Hg',name:'elavhõbe',className:'hg',atomicNumber:80,group:12,period:6,atomicMass:200.59},
+  {symbol:'Tl',name:'taallium',className:'tl',atomicNumber:81,group:13,period:6,atomicMass:204.38},
+  {symbol:'Pb',name:'pli',className:'pb',atomicNumber:82,group:14,period:6,atomicMass:207.2},
+  {symbol:'Bi',name:'vismut',className:'bi',atomicNumber:83,group:15,period:6,atomicMass:208.98},
+  {symbol:'Po',name:'poloonium',className:'po',atomicNumber:84,group:16,period:6,atomicMass:209.0,radioactive:true,halflife:4},
+  {symbol:'At',name:'astaat',className:'at',atomicNumber:85,group:17,period:6,atomicMass:210.0,radioactive:true,halflife:2},
+  {symbol:'Rn',name:'radon',className:'rn',atomicNumber:86,group:18,period:6,atomicMass:222.0,radioactive:true,halflife:6},
+  {symbol:'Fr',name:'frantsium',className:'fr',atomicNumber:87,group:1,period:7,atomicMass:223.0,radioactive:true,halflife:3},
+  {symbol:'Ra',name:'raadium',className:'ra',atomicNumber:88,group:2,period:7,atomicMass:226.0,radioactive:true,halflife:20},
+  {symbol:'Ac',name:'aktiinium',className:'ac',atomicNumber:89,group:3,period:7,atomicMass:227.0,radioactive:true,halflife:12},
+  {symbol:'Th',name:'toorium',className:'th',atomicNumber:90,group:3,period:7,atomicMass:232.04,radioactive:true,halflife:25},
+  {symbol:'Pa',name:'protaktiinium',className:'pa',atomicNumber:91,group:3,period:7,atomicMass:231.04,radioactive:true,halflife:18},
+  {symbol:'U',name:'uraan',className:'u',atomicNumber:92,group:3,period:7,atomicMass:238.03,radioactive:true,halflife:30},
+  {symbol:'Np',name:'neptuunium',className:'np',atomicNumber:93,group:3,period:7,atomicMass:237.0,radioactive:true,halflife:7},
+  {symbol:'Pu',name:'plutoonium',className:'pu',atomicNumber:94,group:3,period:7,atomicMass:244.0,radioactive:true,halflife:10},
+  {symbol:'Am',name:'ameeritsium',className:'am',atomicNumber:95,group:3,period:7,atomicMass:243.0,radioactive:true,halflife:5},
+  {symbol:'Cm',name:'kuurium',className:'cm',atomicNumber:96,group:3,period:7,atomicMass:247.0,radioactive:true,halflife:8},
   {symbol:'Bk',name:'berkeelium',className:'bk',atomicNumber:97,group:3,period:7,radioactive:true,halflife:6},
   {symbol:'Cf',name:'kalifornium',className:'cf',atomicNumber:98,group:3,period:7,radioactive:true,halflife:5},
   {symbol:'Es',name:'einsteinium',className:'es',atomicNumber:99,group:3,period:7,radioactive:true,halflife:4},
@@ -417,6 +418,186 @@ const balancingProblems = [
 let currentBalancingProblem = 0;
 let balancingScore = 0;
 
+// Molar mass and Avogadro number problems
+const AVOGADRO_NUMBER = 6.022e23;
+
+const molarMassProblems = [
+  {
+    id:'molar-mass-co2',
+    type:'molar-mass',
+    description:'Ehita CO₂ molekul ja arvuta selle molaarmass.',
+    moleculeId:'carbon-dioxide',
+    expectedAnswer:44.01,
+    tolerance:0.1,
+    hint:'Liida süsiniku mass (12.01) kahe hapniku massiga (2×16.00).',
+    explanation:'CO₂ = 12.01 + 2×16.00 = 44.01 g/mol'
+  },
+  {
+    id:'molecules-in-moles',
+    type:'molecules-in-moles',
+    description:'Kui palju molekule on 2 moolis CO₂?',
+    moleculeId:'carbon-dioxide',
+    moles:2,
+    expectedAnswer:1.2044e24,
+    tolerance:0.01e24,
+    hint:'Korruta moolide arv Avogadro arvuga: 2 × 6.022×10²³.',
+    explanation:'2 mol × 6.022×10²³ = 1.2044×10²⁴ molekuli'
+  },
+  {
+    id:'mass-in-moles',
+    type:'mass-in-moles',
+    description:'Kui palju massi on 3 moolil H₂O?',
+    moleculeId:'water',
+    moles:3,
+    expectedAnswer:54.05,
+    tolerance:0.1,
+    hint:'Korruta moolide arv molaarmassiga: 3 × 18.015 g/mol.',
+    explanation:'3 mol × 18.015 g/mol = 54.05 g'
+  },
+  {
+    id:'molecules-in-mass',
+    type:'molecules-in-mass',
+    description:'Kui palju H₂O molekule on 10 grammis vees?',
+    moleculeId:'water',
+    mass:10,
+    expectedAnswer:3.34e23,
+    tolerance:0.01e23,
+    hint:'Arvuta moolid: 10g ÷ 18.015g/mol = 0.555 mol. Korruta Avogadro arvuga.',
+    explanation:'10g ÷ 18.015g/mol = 0.555 mol × 6.022×10²³ = 3.34×10²³ molekuli'
+  }
+];
+
+let currentMolarMassProblem = 0;
+let molarMassScore = 0;
+
+function loadMolarMassProblem() {
+  const problem = molarMassProblems[currentMolarMassProblem];
+  if (!problem) {
+    document.getElementById('molar-mass-result').innerHTML = '<strong>🎉 Kõik ülesanded on lahendatud!</strong><span>Tubli töö! Oled edukalt lahendanud kõik molaarmassi ja Avogadro arvu ülesanded.</span>';
+    document.getElementById('next-molar-mass-button').disabled = true;
+    document.getElementById('check-molar-mass-button').disabled = true;
+    return;
+  }
+
+  // Set description
+  document.getElementById('molar-mass-description').textContent = problem.description;
+  
+  // Set up calculation display based on problem type - show only necessary data
+  const calculationDiv = document.getElementById('molecule-calculation');
+  const molecule = molecules.find(m => m.id === problem.moleculeId);
+  
+  if (problem.type === 'molar-mass') {
+    let calculationHTML = '<div class="atom-mass-line"><strong>Aatomite massid:</strong></div>';
+    molecule.atoms.forEach(atomSymbol => {
+      const element = elements.find(e => e.symbol === atomSymbol);
+      const count = molecule.atoms.filter(a => a === atomSymbol).length;
+      calculationHTML += `<div class="atom-mass-line">${atomSymbol}: ${element.atomicMass} g/mol (${count}×)</div>`;
+    });
+    calculationDiv.innerHTML = calculationHTML;
+    document.getElementById('unit-label').textContent = 'g/mol';
+  } else if (problem.type === 'molecules-in-moles') {
+    calculationDiv.innerHTML = `<div class="atom-mass-line"><strong>Andmed:</strong></div><div class="atom-mass-line">Moolide arv: ${problem.moles} mol</div><div class="atom-mass-line">Avogadro arv: ${AVOGADRO_NUMBER.toExponential(3)} molekuli/mol</div>`;
+    document.getElementById('unit-label').textContent = 'molekuli';
+  } else if (problem.type === 'mass-in-moles') {
+    const molarMass = calculateMolarMass(molecule.atoms);
+    calculationDiv.innerHTML = `<div class="atom-mass-line"><strong>Andmed:</strong></div><div class="atom-mass-line">Moolide arv: ${problem.moles} mol</div><div class="atom-mass-line">Molaarmass: ${molarMass} g/mol</div>`;
+    document.getElementById('unit-label').textContent = 'g';
+  } else if (problem.type === 'molecules-in-mass') {
+    const molarMass = calculateMolarMass(molecule.atoms);
+    calculationDiv.innerHTML = `<div class="atom-mass-line"><strong>Andmed:</strong></div><div class="atom-mass-line">Mass: ${problem.mass} g</div><div class="atom-mass-line">Molaarmass: ${molarMass} g/mol</div><div class="atom-mass-line">Avogadro arv: ${AVOGADRO_NUMBER.toExponential(3)} molekuli/mol</div>`;
+    document.getElementById('unit-label').textContent = 'molekuli';
+  }
+
+  // Reset input and result
+  document.getElementById('molar-mass-input').value = '';
+  document.getElementById('molar-mass-result').innerHTML = '';
+  document.getElementById('avogadro-animation').innerHTML = '';
+  document.getElementById('next-molar-mass-button').disabled = true;
+  document.getElementById('check-molar-mass-button').disabled = false;
+  
+  // Update progress
+  document.getElementById('molar-mass-progress').textContent = `${molarMassScore} / ${molarMassProblems.length}`;
+}
+
+function checkMolarMass() {
+  const problem = molarMassProblems[currentMolarMassProblem];
+  if (!problem) return;
+
+  const userAnswer = parseFloat(document.getElementById('molar-mass-input').value);
+  
+  if (isNaN(userAnswer)) {
+    document.getElementById('molar-mass-result').innerHTML = '<strong>✗ Vale</strong><span>Sisesta number.</span>';
+    document.getElementById('molar-mass-result').className = 'molar-mass-result error';
+    return;
+  }
+
+  const isCorrect = Math.abs(userAnswer - problem.expectedAnswer) <= problem.tolerance;
+
+  const resultDiv = document.getElementById('molar-mass-result');
+  
+  if (isCorrect) {
+    resultDiv.innerHTML = `<strong>✓ Õige!</strong><span>${problem.explanation}</span>`;
+    resultDiv.className = 'molar-mass-result success';
+    molarMassScore++;
+    document.getElementById('next-molar-mass-button').disabled = false;
+    document.getElementById('check-molar-mass-button').disabled = true;
+    
+    // Show animation for avogadro problems
+    if (problem.type.includes('molecules')) {
+      showAvogadroAnimation(problem);
+    }
+    
+    showNotification('Vastus õige!', 'success');
+  } else {
+    resultDiv.innerHTML = '<strong>✗ Vale</strong><span>Proovi uuesti. Kasuta vihjet abiks.</span>';
+    resultDiv.className = 'molar-mass-result error';
+    showNotification('Vale vastus, proovi uuesti!', 'error');
+  }
+  
+  document.getElementById('molar-mass-progress').textContent = `${molarMassScore} / ${molarMassProblems.length}`;
+}
+
+function nextMolarMassProblem() {
+  currentMolarMassProblem++;
+  loadMolarMassProblem();
+}
+
+function showMolarMassHint() {
+  const problem = molarMassProblems[currentMolarMassProblem];
+  if (!problem) return;
+  
+  const resultDiv = document.getElementById('molar-mass-result');
+  resultDiv.innerHTML = `<strong>💡 Vihje</strong><span>${problem.hint}</span>`;
+  resultDiv.className = 'molar-mass-result';
+}
+
+function showAvogadroAnimation(problem) {
+  const animationDiv = document.getElementById('avogadro-animation');
+  let animationHTML = '';
+  
+  if (problem.type === 'molecules-in-moles') {
+    animationHTML = `
+      <div style="display:flex; gap:20px; align-items:center;">
+        <div>1 mol = <span style="font-size:24px;">⚛️</span></div>
+        <div>→</div>
+        <div>${problem.moles} mol = <span style="font-size:24px;">${'⚛️'.repeat(Math.min(problem.moles, 5))}</span></div>
+      </div>
+    `;
+  } else if (problem.type === 'molecules-in-mass') {
+    animationHTML = `
+      <div style="display:flex; gap:20px; align-items:center;">
+        <div>${problem.mass}g = 💧</div>
+        <div>→</div>
+        <div>${(problem.mass / 18.015).toFixed(2)} mol = ⚛️</div>
+        <div>→</div>
+        <div>${problem.expectedAnswer.toExponential(2)} molekuli = 🧬</div>
+      </div>
+    `;
+  }
+  
+  animationDiv.innerHTML = animationHTML;
+}
+
 function loadBalancingProblem() {
   const problem = balancingProblems[currentBalancingProblem];
   if (!problem) {
@@ -494,6 +675,45 @@ function checkBalancing() {
 function nextBalancingProblem() {
   currentBalancingProblem++;
   loadBalancingProblem();
+}
+
+function calculateMolarMass(atomSymbols) {
+  const elementMasses = {};
+  elements.forEach(element => {
+    elementMasses[element.symbol] = element.atomicMass;
+  });
+  
+  let totalMass = 0;
+  atomSymbols.forEach(symbol => {
+    totalMass += elementMasses[symbol] || 0;
+  });
+  
+  return totalMass.toFixed(2);
+}
+
+function showMolarMass() {
+  if (atoms.length === 0) {
+    showNotification('Lisa esmalt aatomeid!', 'error');
+    return;
+  }
+  
+  const atomSymbols = atoms.map(atom => atom.symbol);
+  const molarMass = calculateMolarMass(atomSymbols);
+  const lang = translations[currentLang];
+  
+  const massDisplay = document.createElement('div');
+  massDisplay.className = 'molar-mass-display';
+  massDisplay.innerHTML = `<strong>${lang.molarMassLabel}:</strong> ${molarMass} g/mol`;
+  
+  const existingDisplay = document.querySelector('.molar-mass-display');
+  if (existingDisplay) {
+    existingDisplay.remove();
+  }
+  
+  document.querySelector('.workspace-section').appendChild(massDisplay);
+  
+  // Auto-update flag
+  window.molarMassVisible = true;
 }
 
 function showBalancingHint() {
@@ -624,6 +844,8 @@ const translations = {
     timer: 'Ajapiirang',
     stopTimer: 'Peata taimer',
     toggle3D: '🎨 3D',
+    molarMass: '⚖️ Molaarmass',
+    molarMassLabel: 'Molaarmass',
     checkMolecule: 'Kontrolli molekuli',
     atoms: 'AATOMID',
     selectBlock: 'Vali ehitusklots',
@@ -708,6 +930,18 @@ const translations = {
     acidModeButton: 'Ehita hape',
     acidModeDescription: 'Koosta hape õigetest aatomitest, laengutest ja sidemetest.',
     acidModePrompt: 'Vali näidatud laengud ja ühenda aatomid õigete sidemetega.',
+    balancingLabel: 'VÕRRANDITE TASAKAALUSTAMINE',
+    balancingTitle: 'Tasakaalusta keemilised võrrandid',
+    checkEquation: 'Kontrolli võrrandit',
+    nextEquation: 'Järgmine võrrand',
+    hintEquation: '💡 Vihje',
+    molarMassLabel: 'Molaarmass ja Avogadro arv',
+    molarMassTitle: 'Molaarmassi arvutamine ja moolid',
+    molarMassInput: 'Sisesta vastus',
+    checkMolarMass: 'Kontrolli vastust',
+    nextMolarMass: 'Järgmine ülesanne',
+    hintMolarMass: '💡 Vihje',
+    avogadroExplanation: 'Avogadro arv: 6.022×10²³ molekuli moolis',
     tutorial: [
       'Tere tulemast Molekulimeistri!',
       'Vali alt aatomid, et neid lisada.',
@@ -735,6 +969,8 @@ const translations = {
     timer: 'Timer',
     stopTimer: 'Stop timer',
     toggle3D: '🎨 3D',
+    molarMass: '⚖️ Molar mass',
+    molarMassLabel: 'Molar mass',
     checkMolecule: 'Check molecule',
     atoms: 'ATOMS',
     selectBlock: 'Select building block',
@@ -819,6 +1055,18 @@ const translations = {
     acidModeButton: 'Build acid',
     acidModeDescription: 'Assemble an acid from the correct atoms, charges, and bonds.',
     acidModePrompt: 'Choose the shown charges and connect the atoms with the correct bonds.',
+    balancingLabel: 'EQUATION BALANCING',
+    balancingTitle: 'Balance chemical equations',
+    checkEquation: 'Check equation',
+    nextEquation: 'Next equation',
+    hintEquation: '💡 Hint',
+    molarMassLabel: 'Molar mass and Avogadro number',
+    molarMassTitle: 'Molar mass calculations and moles',
+    molarMassInput: 'Enter answer',
+    checkMolarMass: 'Check answer',
+    nextMolarMass: 'Next problem',
+    hintMolarMass: '💡 Hint',
+    avogadroExplanation: 'Avogadro number: 6.022×10²³ molecules per mole',
     tutorial: [
       'Welcome to Molecule Master!',
       'Select atoms below to add them.',
@@ -1536,6 +1784,7 @@ function updateLanguageUI() {
   $('undo-button').textContent = `↶ ${lang.undo}`;
   $('timer-toggle').textContent = timerEnabled ? `⏱️ ${lang.stopTimer}` : `⏱️ ${lang.timer}`;
   $('3d-toggle').textContent = `${lang.toggle3D} ${is3DView ? '2D' : '3D'}`;
+  $('molar-mass-button').textContent = lang.molarMass;
   $('check-button').innerHTML = `${lang.checkMolecule} <span>→</span>`;
   document.querySelector('.elements-section h3').textContent = lang.selectBlock;
   document.querySelector('.molecules-section .section-kicker').textContent = lang.collection;
@@ -1559,6 +1808,14 @@ function updateLanguageUI() {
   $('salt-mode-description').textContent = lang[`${buildMode}ModeDescription`] || lang.saltModeDescription;
   document.querySelectorAll('.build-mode-choice').forEach(button => button.classList.toggle('active', button.dataset.buildMode === buildMode));
   document.querySelector('#target-hint').textContent = moleculeDisplay[1];
+  
+  // Update molar mass section
+  document.querySelector('.molar-mass-section .section-kicker').textContent = lang.molarMassLabel;
+  document.querySelector('.molar-mass-section h3').textContent = lang.molarMassTitle;
+  document.getElementById('molar-mass-input-label').textContent = lang.molarMassInput;
+  document.getElementById('check-molar-mass-button').textContent = lang.checkMolarMass;
+  document.getElementById('next-molar-mass-button').textContent = lang.nextMolarMass;
+  document.getElementById('hint-molar-mass-button').textContent = lang.hintMolarMass;
 
   const quantumInfo = document.querySelector('#quantum-info p');
   if (quantumInfo) {
@@ -1684,6 +1941,7 @@ function init() {
   $('element-grid').innerHTML = elements.map(element => `<button class="element-choice" data-symbol="${element.symbol}" type="button"><strong>${element.symbol}</strong><small>${element.name}</small></button>`).join('');
   renderMoleculeList();
   loadBalancingProblem();
+  loadMolarMassProblem();
   document.querySelectorAll('.element-choice').forEach(button => button.addEventListener('click', () => addAtom(button.dataset.symbol)));
   document.querySelectorAll('.charge-choice').forEach(button => button.addEventListener('click', () => {
     selectedCharge = Number(button.dataset.charge);
@@ -1696,6 +1954,7 @@ function init() {
   $('show-structure-button').addEventListener('click', showStructure);
   $('timer-toggle').addEventListener('click', toggleTimer);
   $('3d-toggle').addEventListener('click', toggle3DView);
+  $('molar-mass-button').addEventListener('click', showMolarMass);
   $('lang-toggle').addEventListener('click', toggleLanguage);
   $('check-button').addEventListener('click', checkMolecule);
   $('restart-button').addEventListener('click', restartGame);
@@ -1703,6 +1962,9 @@ function init() {
   $('check-equation-button').addEventListener('click', checkBalancing);
   $('next-equation-button').addEventListener('click', nextBalancingProblem);
   $('hint-equation-button').addEventListener('click', showBalancingHint);
+  $('check-molar-mass-button').addEventListener('click', checkMolarMass);
+  $('next-molar-mass-button').addEventListener('click', nextMolarMassProblem);
+  $('hint-molar-mass-button').addEventListener('click', showMolarMassHint);
   $('element-reaction-search').addEventListener('input', event => {
     elementReactionFilter = event.target.value;
     renderElementReactionCards();
@@ -1883,6 +2145,24 @@ function render() {
   $('atom-count').textContent = atoms.length;
   $('empty-state').style.display = atoms.length ? 'none' : 'flex';
   $('status').textContent = selected === null ? (atoms.length ? t('statusNext') : t('statusSelect')) : t('statusNext');
+  
+  // Auto-update molar mass if visible
+  if (window.molarMassVisible && atoms.length > 0) {
+    const existingDisplay = document.querySelector('.molar-mass-display');
+    if (existingDisplay) {
+      const atomSymbols = atoms.map(atom => atom.symbol);
+      const molarMass = calculateMolarMass(atomSymbols);
+      const lang = translations[currentLang];
+      existingDisplay.innerHTML = `<strong>${lang.molarMassLabel}:</strong> ${molarMass} g/mol`;
+    }
+  } else if (window.molarMassVisible && atoms.length === 0) {
+    const existingDisplay = document.querySelector('.molar-mass-display');
+    if (existingDisplay) {
+      existingDisplay.remove();
+      window.molarMassVisible = false;
+    }
+  }
+  
   $('atom-layer').innerHTML = atoms.map((atom, index) => `<button class="atom atom-${atom.symbol.toLowerCase()} ${selected === index ? 'selected' : ''} ${dragState && dragState.index === index ? 'dragging' : ''}" data-index="${index}" style="left:${atom.x}%;top:${atom.y}%" type="button">${atom.symbol}<span class="atom-charge">${atom.charge > 0 ? '+' + atom.charge : atom.charge < 0 ? '−' + Math.abs(atom.charge) : '0'}</span></button>`).join('');
   document.querySelectorAll('.atom').forEach(atom => {
     const index = Number(atom.dataset.index);
