@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ChemistryGame")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+95c3626b2701fcf09eef7c9d98fa44d246762347")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+497394058f43bb5aa9a9367f50f873407497c6cd")]
 [assembly: System.Reflection.AssemblyProductAttribute("ChemistryGame")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ChemistryGame")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
