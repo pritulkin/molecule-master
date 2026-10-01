@@ -1,35 +1,62 @@
 <!doctype html>
-<html lang="et">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#102a43">
+  <meta name="description" content="Molecule Master is an interactive chemistry learning game: build molecules, explore bonds and reactions, and practice core chemistry concepts.">
   <meta name="msvalidate.01" content="9F4FF154645B58B9E593B70C00ECF635" />
-  <title>Molekulimeister</title>
+  <link rel="canonical" href="https://moleculemaster.eu/">
+  <title>Molecule Master – interactive chemistry learning game</title>
   <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Molecule Master",
+    "url": "https://moleculemaster.eu/",
+    "description": "An interactive chemistry learning game about molecular structure, chemical bonds, reactions, and the periodic table.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "JavaScript enabled",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "about": [
+      { "@type": "Thing", "name": "Chemistry" },
+      { "@type": "Thing", "name": "Molecules" },
+      { "@type": "Thing", "name": "Chemical bonds" },
+      { "@type": "Thing", "name": "Chemical reactions" }
+    ],
+    "maintainer": {
+      "@type": "Person",
+      "name": "Priit Linnakivi",
+      "email": "priit.linnakivi@gmail.com",
+      "url": "https://moleculemaster.eu/#contact"
+    }
+  }
+  </script>
 </head>
 <body>
   <main class="app-shell">
     <header class="topbar">
       <div class="brand-block">
-        <img class="game-logo" src="img/moleculemaster.png" alt="Molekulimeister logo">
+        <img class="game-logo" src="img/moleculemaster.png" alt="Molecule Master logo">
         <div>
           <p class="eyebrow">KEEMIA PUZZLE</p>
-          <h1>Molekulimeister</h1>
+          <h1>Molecule Master</h1>
         </div>
       </div>
       <div class="header-actions">
-        <button class="text-button" id="lang-toggle" type="button">🌐 EN</button>
         <div class="score-block">
-          <div class="score-chip"><span id="score">0</span><small>punkti</small></div>
-          <div class="score-chip secondary"><span id="best-score">0</span><small>parim</small></div>
+          <div class="score-chip"><span id="score">0</span><small>points</small></div>
+          <div class="score-chip secondary"><span id="best-score">0</span><small>best</small></div>
         </div>
       </div>
     </header>
     
     <section class="levels-section" aria-labelledby="levels-title">
-      <div class="section-heading compact"><div><span class="section-kicker">ÕPPETEE</span><h3 id="levels-title">Seitse keemiataset</h3></div><span class="level-progress" id="level-focus"></span></div>
-      <p class="level-description" id="level-description">Õpi valentsi, sidemete arvu ja molekuli ehitust.</p>
+      <div class="section-heading compact"><div><span class="section-kicker">LEARNING PATH</span><h3 id="levels-title">Seven chemistry levels</h3></div><span class="level-progress" id="level-focus"></span></div>
+      <p class="level-description" id="level-description">Learn about valence, bond order, and molecular structure.</p>
       <div class="level-grid" id="level-grid"></div>
     </section>
 
@@ -37,36 +64,36 @@
       <div class="mission-copy">
         <span class="level-badge">TASE <span id="level">01</span></span>
         <h2>Ehita <strong id="target-name">Vesi</strong></h2>
-        <p id="target-hint">Igapäevane aine, mida vajame eluks.</p>
+        <p id="target-hint">An everyday substance essential for life.</p>
       </div>
-      <div class="formula-card" aria-label="Sihtmolekuli valem"><span id="target-formula">H₂O</span></div>
+      <div class="formula-card" aria-label="Target molecule formula"><span id="target-formula">H₂O</span></div>
     </section>
 
     <section class="workspace-section">
       <div class="section-heading">
-        <div><span class="section-kicker">LABOR</span><h3>Sinu molekul</h3></div>
-        <span class="status" id="status">Vali aatom</span>
+        <div><span class="section-kicker">LAB</span><h3>Your molecule</h3></div>
+        <span class="status" id="status">Select an atom</span>
       </div>
-      <div class="workspace" id="workspace" aria-label="Molekuli ehitamise ala">
-        <div class="empty-state" id="empty-state"><span class="plus-mark">+</span><strong>Alusta siit</strong><small>Vali alt aatom, et see lisada</small></div>
+      <div class="workspace" id="workspace" aria-label="Molecule building area">
+        <div class="empty-state" id="empty-state"><span class="plus-mark">+</span><strong>Start here</strong><small>Select an atom below to add it</small></div>
         <svg class="bond-layer" id="bond-layer" aria-hidden="true"></svg>
         <div class="atom-layer" id="atom-layer"></div>
       </div>
       <div class="workspace-actions">
-        <button class="text-button" id="hint-button" type="button">💡 Vihje</button>
-        <button class="text-button" id="show-structure-button" type="button">🔍 Näita struktuuri</button>
-        <button class="text-button" id="undo-button" type="button">↶ Võta tagasi</button>
-        <button class="text-button" id="timer-toggle" type="button">⏱️ Ajapiirang</button>
+        <button class="text-button" id="hint-button" type="button">💡 Hint</button>
+        <button class="text-button" id="show-structure-button" type="button">🔍 Show structure</button>
+        <button class="text-button" id="undo-button" type="button">↶ Undo</button>
+        <button class="text-button" id="timer-toggle" type="button">⏱️ Timer</button>
         <button class="text-button" id="3d-toggle" type="button">🎨 3D</button>
-        <button class="text-button" id="molar-mass-button" type="button">⚖️ Molaarmass</button>
-        <button class="primary-button" id="check-button" type="button">Kontrolli molekuli <span>→</span></button>
+        <button class="text-button" id="molar-mass-button" type="button">⚖️ Molar mass</button>
+        <button class="primary-button" id="check-button" type="button">Check molecule <span>→</span></button>
       </div>
     </section>
 
     <section class="elements-section">
-      <div class="section-heading compact"><div><span class="section-kicker">AATOMID</span><h3>Vali ehitusklots</h3></div><span class="atom-count"><span id="atom-count">0</span> / 8</span></div>
-      <div class="charge-picker" aria-label="Vali lisatava aatomi laeng või oksüdatsiooniaste">
-        <span class="charge-label" id="charge-label">Laeng / oksüdatsiooniaste</span>
+      <div class="section-heading compact"><div><span class="section-kicker">ATOMS</span><h3>Choose a building block</h3></div><span class="atom-count"><span id="atom-count">0</span> / 8</span></div>
+      <div class="charge-picker" aria-label="Choose the charge or oxidation state of the atom to add">
+        <span class="charge-label" id="charge-label">Charge / oxidation state</span>
         <button class="charge-choice active" data-charge="0" type="button">0</button>
         <button class="charge-choice" data-charge="1" type="button">+1</button>
         <button class="charge-choice" data-charge="2" type="button">+2</button>
@@ -86,17 +113,17 @@
         <button class="charge-choice negative" data-charge="-8" type="button">−8</button>
       </div>
       <div class="element-grid" id="element-grid"></div>
-      <p class="connection-tip" id="connection-tip">Ühendamiseks puuduta järjest kahte aatomit. Vastasmärgiga ioonid ühenduvad automaatselt.</p>
+      <p class="connection-tip" id="connection-tip">Select two atoms in sequence to connect them. Ions with opposite charges connect automatically.</p>
     </section>
 
     <section class="salt-section">
-      <div class="section-heading compact"><div><span class="section-kicker">REŽIIM</span><h3>Ehita sool</h3></div><button class="text-button" id="salt-mode-toggle" type="button">Alusta</button></div>
-      <div class="build-mode-selector" aria-label="Vali ehitamise režiim">
-        <button class="build-mode-choice active" data-build-mode="salt" type="button">Ehita sool</button>
-        <button class="build-mode-choice" data-build-mode="base" type="button">Ehita alus</button>
-        <button class="build-mode-choice" data-build-mode="acid" type="button">Ehita hape</button>
+      <div class="section-heading compact"><div><span class="section-kicker">MODE</span><h3>Build a salt</h3></div><button class="text-button" id="salt-mode-toggle" type="button">Start</button></div>
+      <div class="build-mode-selector" aria-label="Choose a building mode">
+        <button class="build-mode-choice active" data-build-mode="salt" type="button">Build a salt</button>
+        <button class="build-mode-choice" data-build-mode="base" type="button">Build a base</button>
+        <button class="build-mode-choice" data-build-mode="acid" type="button">Build an acid</button>
       </div>
-      <p class="mode-description" id="salt-mode-description">Tasakaalusta ioonid ja ehita neutraalne ühend.</p>
+      <p class="mode-description" id="salt-mode-description">Balance the ions and build a neutral compound.</p>
       <div class="salt-challenges" id="salt-challenges" hidden></div>
     </section>
 
@@ -104,22 +131,22 @@
       <div class="section-heading compact"><div><span class="section-kicker" id="reaction-lab-label">REAKTSIOONILABOR</span><h3 id="reaction-lab-title">Happed, alused ja energia</h3></div><span class="reaction-state" id="reaction-state">Valmis</span></div>
       <div class="reaction-grid" id="reaction-grid"></div>
       <div class="reaction-controls">
-        <label for="catalyst-select" id="catalyst-label">Katalüsaator</label>
+        <label for="catalyst-select" id="catalyst-label">Catalyst</label>
         <select id="catalyst-select">
-          <option value="none" id="catalyst-none">Ilma katalüsaatorita</option>
+          <option value="none" id="catalyst-none">Without a catalyst</option>
           <option value="manganese-dioxide" id="catalyst-manganese">MnO₂ · mangaan(IV)oksiid</option>
           <option value="platinum" id="catalyst-platinum">Pt · plaatina</option>
         </select>
-        <label for="temperature-slider" id="temperature-label">Temperatuur</label>
+        <label for="temperature-slider" id="temperature-label">Temperature</label>
         <input type="range" id="temperature-slider" min="25" max="1000" value="25" step="10">
         <span id="temperature-value">25°C</span>
-        <label for="pressure-slider" id="pressure-label">Rõhk</label>
+        <label for="pressure-slider" id="pressure-label">Pressure</label>
         <input type="range" id="pressure-slider" min="1" max="500" value="1" step="1">
         <span id="pressure-value">1 atm</span>
         <label for="ph-slider" id="ph-label">pH</label>
         <input type="range" id="ph-slider" min="0" max="14" value="7" step="0.5">
         <span id="ph-value">7</span>
-        <button class="primary-button" id="run-reaction-button" type="button">Käivita reaktsioon <span>→</span></button>
+        <button class="primary-button" id="run-reaction-button" type="button">Run reaction <span>→</span></button>
       </div>
       <div class="gibbs-energy-section">
         <div class="gibbs-energy-row">
@@ -140,33 +167,33 @@
           <span>ΔG = ΔH - TΔS</span>
         </div>
         <div class="gibbs-status" id="gibbs-status">
-          <span id="gibbs-status-text">Vali reaktsioon</span>
+          <span id="gibbs-status-text">Select a reaction</span>
         </div>
       </div>
       <div class="energy-diagram" id="energy-diagram" aria-label="Energia diagramm">
         <svg width="100%" height="120" viewBox="0 0 400 120">
           <line x1="40" y1="100" x2="360" y2="100" stroke="#d9e2ec" stroke-width="2"/>
-          <text x="20" y="105" font-size="10" fill="#627d98">Reaktsioonikoordinaat</text>
-          <text x="20" y="20" font-size="10" fill="#627d98">Energia</text>
+          <text x="20" y="105" font-size="10" fill="#627d98">Reaction coordinate</text>
+          <text x="20" y="20" font-size="10" fill="#627d98">Energy</text>
           <line x1="40" y1="20" x2="40" y2="100" stroke="#d9e2ec" stroke-width="2"/>
           <g id="energy-curve"></g>
         </svg>
       </div>
       <div class="reaction-result" id="reaction-result" aria-live="polite">
-        <strong id="reaction-equation">Vali reaktsioon</strong>
-        <span id="reaction-detail">Energia ja katalüsaatori mõju ilmuvad siia.</span>
+        <strong id="reaction-equation">Select a reaction</strong>
+        <span id="reaction-detail">Reaction energy and catalyst effects will appear here.</span>
       </div>
     </section>
 
     <section class="element-reactions-section">
-      <div class="section-heading compact"><div><span class="section-kicker" id="element-reaction-label">ELEMENTIDE REAKTSIOONID</span><h3 id="element-reaction-title">Õpi iga elemendi reaktsioonivõimet</h3></div><span class="element-reaction-count">118 elementi</span></div>
-      <input class="element-reaction-search" id="element-reaction-search" type="search" placeholder="Otsi sümboli, nime või aatomnumbri järgi" aria-label="Otsi elementi">
+      <div class="section-heading compact"><div><span class="section-kicker" id="element-reaction-label">ELEMENT REACTIONS</span><h3 id="element-reaction-title">Explore the reactivity of every element</h3></div><span class="element-reaction-count">118 elements</span></div>
+      <input class="element-reaction-search" id="element-reaction-search" type="search" placeholder="Search by symbol, name, or atomic number" aria-label="Search elements">
       <div class="element-reaction-grid" id="element-reaction-grid"></div>
       <div class="element-reaction-detail" aria-live="polite"><strong id="element-reaction-equation"></strong><span id="element-reaction-detail"></span></div>
     </section>
 
     <section class="balancing-section">
-      <div class="section-heading compact"><div><span class="section-kicker" id="balancing-label">VÕRRANDITE TASAKAALUSTAMINE</span><h3 id="balancing-title">Tasakaalusta keemilised võrrandid</h3></div><span class="balancing-progress" id="balancing-progress">0 / 10</span></div>
+      <div class="section-heading compact"><div><span class="section-kicker" id="balancing-label">EQUATION BALANCING</span><h3 id="balancing-title">Balance chemical equations</h3></div><span class="balancing-progress" id="balancing-progress">0 / 10</span></div>
       <div class="balancing-problem" id="balancing-problem">
         <div class="equation-display" id="equation-display">
           <span class="equation-coefficient" id="reactant1-coeff" contenteditable="true">? </span>
@@ -179,9 +206,9 @@
           <span class="equation-formula" id="product1-formula">H₂O</span>
         </div>
         <div class="balancing-controls">
-          <button class="text-button" id="check-equation-button" type="button">Kontrolli võrrandit</button>
-          <button class="text-button" id="next-equation-button" type="button" disabled>Järgmine võrrand</button>
-          <button class="text-button" id="hint-equation-button" type="button">💡 Vihje</button>
+          <button class="text-button" id="check-equation-button" type="button">Check equation</button>
+          <button class="text-button" id="next-equation-button" type="button" disabled>Next equation</button>
+          <button class="text-button" id="hint-equation-button" type="button">💡 Hint</button>
         </div>
         <div class="balancing-result" id="balancing-result" aria-live="polite"></div>
       </div>
@@ -194,15 +221,15 @@
         <div class="molar-mass-workspace" id="molar-mass-workspace">
           <div class="molecule-calculation" id="molecule-calculation"></div>
           <div class="user-input-section">
-            <label for="molar-mass-input" id="molar-mass-input-label">Sisesta vastus:</label>
-            <input type="number" id="molar-mass-input" step="0.01" placeholder="Sisesta vastus" aria-label="Molaarmassi vastus">
+            <label for="molar-mass-input" id="molar-mass-input-label">Enter your answer:</label>
+            <input type="number" id="molar-mass-input" step="0.01" placeholder="Enter your answer" aria-label="Molar mass answer">
             <span class="unit-label" id="unit-label">g/mol</span>
           </div>
         </div>
         <div class="molar-mass-controls">
-          <button class="text-button" id="check-molar-mass-button" type="button">Kontrolli vastust</button>
-          <button class="text-button" id="next-molar-mass-button" type="button" disabled>Järgmine ülesanne</button>
-          <button class="text-button" id="hint-molar-mass-button" type="button">💡 Vihje</button>
+          <button class="text-button" id="check-molar-mass-button" type="button">Check answer</button>
+          <button class="text-button" id="next-molar-mass-button" type="button" disabled>Next problem</button>
+          <button class="text-button" id="hint-molar-mass-button" type="button">💡 Hint</button>
         </div>
         <div class="molar-mass-result" id="molar-mass-result" aria-live="polite"></div>
         <div class="avogadro-animation" id="avogadro-animation"></div>
@@ -210,40 +237,40 @@
     </section>
 
     <section class="forces-section">
-      <div class="section-heading compact"><div><span class="section-kicker" id="forces-label">INTERMOLEKULAARSED JÕUD</span><h3 id="forces-title">Molekulidevahelised jõud</h3></div></div>
+      <div class="section-heading compact"><div><span class="section-kicker" id="forces-label">INTERMOLECULAR FORCES</span><h3 id="forces-title">Intermolecular forces</h3></div></div>
       <div class="forces-grid" id="forces-grid"></div>
       <div class="forces-detail" id="forces-detail" aria-live="polite">
-        <strong id="forces-name">Vali jõud</strong>
-        <p id="forces-description">Vali intermolekulaarne jõud, et näha üksikasju.</p>
+        <strong id="forces-name">Select a force</strong>
+        <p id="forces-description">Select an intermolecular force to see its details.</p>
       </div>
     </section>
 
     <section class="molecules-section">
-      <div class="section-heading compact"><div><span class="section-kicker">KOGUMIK</span><h3>Õpitavad molekulid</h3></div></div>
+      <div class="section-heading compact"><div><span class="section-kicker">COLLECTION</span><h3>Molecules to learn</h3></div></div>
       <div class="molecule-list" id="molecule-list"></div>
       <div class="molecule-forces-detail" id="molecule-forces-detail">
-        <strong id="molecule-forces-title">Molekuli jõud</strong>
+        <strong id="molecule-forces-title">Molecule forces</strong>
         <div id="molecule-forces-content"></div>
       </div>
     </section>
 
     <section class="quantum-section">
-      <div class="section-heading compact"><div><span class="section-kicker">KVANTTASE</span><h3>Elektronorbitaalid</h3></div><button class="text-button" id="quantum-toggle" type="button">Näita</button></div>
+      <div class="section-heading compact"><div><span class="section-kicker">QUANTUM LEVEL</span><h3>Electron orbitals</h3></div><button class="text-button" id="quantum-toggle" type="button">Show</button></div>
       <div class="quantum-view" id="quantum-view" hidden>
         <div class="quantum-educational" id="quantum-educational">
           <div class="orbital-explanation">
-            <h4 id="s-orbital-title">s-Orbitaal</h4>
-            <p id="s-orbital-desc">Kera, elektronid on võrdselt tõenäoliselt kõikides suundades. Igal energiatasemel on üks s-orbitaal (maks 2 elektroni).</p>
+            <h4 id="s-orbital-title">s-Orbital</h4>
+            <p id="s-orbital-desc">A sphere with electrons equally likely to be found in every direction. Each energy level has one s-orbital (maximum 2 electrons).</p>
             <div class="orbital-visual s-orbital"></div>
           </div>
           <div class="orbital-explanation">
-            <h4 id="p-orbital-title">p-Orbitaal</h4>
-            <p id="p-orbital-desc">Kellukujuline, 3 orientatsiooni (px, py, pz). Igal p-orbitaalil on 2 elektroni, kokku 6 elektroni p-alamkihis.</p>
+            <h4 id="p-orbital-title">p-Orbital</h4>
+            <p id="p-orbital-desc">Dumbbell-shaped, with 3 orientations (px, py, pz). Each p-orbital holds 2 electrons, for a total of 6 in the p-subshell.</p>
             <div class="orbital-visual p-orbital"></div>
           </div>
           <div class="orbital-explanation">
-            <h4 id="electron-filling-title">Elektronide täitmine</h4>
-            <p id="electron-filling-desc">Elektronid täidavad orbitaale vastavalt <strong>Aufbau printsiibile</strong>: alates madalaimast energiatasemest, kuni jõuab kõrgematele. Iga orbitaal saab maksimaalselt 2 elektroni vastassuunaliste spinidega.</p>
+            <h4 id="electron-filling-title">Electron filling</h4>
+            <p id="electron-filling-desc">Electrons fill orbitals according to the <strong>Aufbau principle</strong>, starting at the lowest energy level and moving upward. Each orbital can hold up to 2 electrons with opposite spins.</p>
           </div>
         </div>
         <svg width="100%" height="250" viewBox="0 0 400 250">
@@ -260,24 +287,47 @@
           <g id="orbitals"></g>
         </svg>
         <div class="quantum-info" id="quantum-info">
-          <p>Vali aatom, et näha selle orbitaale.</p>
+          <p>Select an atom to view its orbitals.</p>
         </div>
       </div>
     </section>
-    <div class="support-banner" role="note" aria-label="Toetamise info">
-      <span class="support-lead">Kui soovid mind toetada, siis saab seda teha arveldusarvega:</span> <strong>Swedbank</strong> EE642200221003116770.<br>
-      <span class="support-contact">Kontakt:</span> <strong>Priit Linnakivi</strong>, priit.linnakivi@gmail.com, +372 54540911
+    <section class="about-section" aria-labelledby="about-title">
+      <div class="section-heading compact">
+        <div><span class="section-kicker" id="about-kicker">CHEMISTRY LEARNING</span><h2 id="about-title">About the game and chemistry concepts</h2></div>
+      </div>
+      <p class="about-intro" id="about-intro">Molecule Master is an interactive chemistry learning game. Build molecules from atoms and explore bonds, ions, reactions, and material properties. The game is a learning aid, not a laboratory procedure or a substitute for authoritative chemical data.</p>
+      <dl class="chemistry-definitions">
+        <div><dt id="definition-molecule-term">Molecule</dt><dd id="definition-molecule">A molecule is an electrically neutral particle made up of two or more atoms joined by chemical bonds.</dd></div>
+        <div><dt id="definition-bond-term">Covalent bond</dt><dd id="definition-bond">A covalent bond is a chemical bond in which atoms share one or more pairs of electrons.</dd></div>
+        <div><dt id="definition-ion-term">Ion</dt><dd id="definition-ion">An ion is an atom or group of atoms with an electric charge, formed by gaining or losing electrons.</dd></div>
+        <div><dt id="definition-molar-mass-term">Molar mass</dt><dd id="definition-molar-mass">Molar mass is the mass of one mole of a substance; a common unit is grams per mole (g/mol).</dd></div>
+        <div><dt id="definition-reaction-term">Chemical reaction</dt><dd id="definition-reaction">In a chemical reaction, bonds between reactant atoms change and products form; the number of atoms of each element is conserved.</dd></div>
+      </dl>
+      <div class="about-sources">
+        <h3 id="sources-title">Sources and contact</h3>
+        <p id="sources-intro">For authoritative chemistry definitions and substance data, consult these specialist sources:</p>
+        <ul>
+          <li><a href="https://goldbook.iupac.org/" target="_blank" rel="noopener noreferrer">IUPAC Gold Book</a> <span id="source-iupac-detail">– chemistry terminology and definitions.</span></li>
+          <li><a href="https://pubchem.ncbi.nlm.nih.gov/" target="_blank" rel="noopener noreferrer">PubChem</a> <span id="source-pubchem-detail">– a database of substances, molecules, and chemical properties.</span></li>
+          <li><a href="https://webbook.nist.gov/chemistry/" target="_blank" rel="noopener noreferrer">NIST Chemistry WebBook</a> <span id="source-nist-detail">– thermochemical and spectral data for selected substances.</span></li>
+        </ul>
+        <p id="contact" class="about-contact"><span id="maintainer-label">Game contact:</span> <strong>Priit Linnakivi</strong> · <a href="mailto:priit.linnakivi@gmail.com">priit.linnakivi@gmail.com</a></p>
+      </div>
+    </section>
+    <div class="support-banner" role="note" aria-label="Support information">
+      <span class="support-lead">To support the project, you can make a bank transfer to:</span> <strong>Swedbank</strong> EE642200221003116770.<br>
+      <span class="support-contact">Contact:</span> <strong>Priit Linnakivi</strong>, priit.linnakivi@gmail.com, +372 54540911
     </div>
   </main>
     <section class="completion-overlay" id="completion-overlay" hidden aria-labelledby="completion-title">
     <div class="completion-card">
       <span class="completion-mark">✓</span>
-      <p class="eyebrow">KÕIK TASEMED LAHENDATUD</p>
-      <h2 id="completion-title">Molekulimeister valmis!</h2>
-      <p>Sa ehitasid läbi kogu molekulikogu.</p>
-      <strong class="completion-score"><span id="final-score">0</span> punkti</strong>
-      <p class="completion-count"><span id="completed-count">0</span> molekuli lahendatud</p>
-      <button class="primary-button" id="restart-button" type="button">Alusta uuesti <span>↻</span></button>
+      <p class="eyebrow">ALL LEVELS COMPLETED</p>
+      <h2 id="completion-title">Molecule Master complete!</h2>
+      <p>You have built the entire molecule collection.</p>
+      <strong class="completion-score"><span id="final-score">0</span> points</strong>
+      <p class="completion-count"><span id="completed-count">0</span> molecules solved</p>
+      <button class="primary-button" id="restart-button" type="button">Start over <span>↻</span></button>
     </div>
   </section>
   <div class="toast" id="toast" role="status"></div>

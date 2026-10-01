@@ -1,28 +1,17 @@
-# Molekulimeister
+# Molecule Master
 
-> Molekulimeister helps you explore and understand chemical structures and reactions interactively.
+> Molecule Master is a free, browser-based chemistry learning game in English. Players build molecules and explore chemical bonds, ions, reactions, intermolecular forces, molar mass, orbitals, and all 118 elements.
 
-## Core Features / Products
-- [Molekulimeister Valmis](https://moleculemaster.eu/): Start using the Molekulimeister platform to educate yourself on molecular structures.
-- [Õppeteed](https://moleculemaster.eu/): Learn about valence, bond counts, and molecular construction with six chemistry levels.
-- [Labor](https://moleculemaster.eu/labor): Build your own molecules by selecting atoms and combining them.
-- [Reaktsioonilabor](https://moleculemaster.eu/reaktsioonilabor): Conduct reaction experiments involving acids, bases, and catalysts.
-- [Elementide Reaktsioonid](https://moleculemaster.eu/elementide-reaktsioonid): Learn about the reactivity of all 118 elements.
-- [Intermolekulaarsed Jõud](https://moleculemaster.eu/intermolekulaarsed-joud): Explore various intermolecular forces in detail.
-- [Kogumik](https://moleculemaster.eu/kogumik): Review and learn about different molecules and their properties.
-- [Kvanttase](https://moleculemaster.eu/kvanttase): Understand electronic orbitals and electron configurations.
+## Application
+- Canonical URL: https://moleculemaster.eu/
+- Type: interactive educational web application; the learning modules are sections on the homepage, not separate URL routes.
+- Audience: learners exploring introductory chemistry concepts.
+- The game is a learning aid, not a laboratory procedure or a substitute for authoritative chemical data.
 
-## Support and Documentation
-- [Kontakt](mailto:priit.linnakivi@gmail.com): Reach out for support and inquiries to Priit Linnakivi.
+## Chemistry References
+- IUPAC Gold Book: https://goldbook.iupac.org/ (chemistry terminology and definitions)
+- PubChem: https://pubchem.ncbi.nlm.nih.gov/ (substance and molecular data)
+- NIST Chemistry WebBook: https://webbook.nist.gov/chemistry/ (thermochemical and spectral data for selected substances)
 
-## Company Information
-- [Molekulimeister](https://moleculemaster.eu/): Discover the purpose and features of Molekulimeister.
-
-## Legal and Compliance
-- [Privacy Policy](https://moleculemaster.eu/privacy): Review our privacy practices regarding user data.
-
-## Resources and Insights
-- [Molekulimeister Blog](https://moleculemaster.eu/blog): Get updates and insights on chemistry education and tools.
-
-## Contact and Support
-- [Toetamine](https://moleculemaster.eu/toetamine): Support the platform via bank details provided.
+## Contact
+- Game contact: Priit Linnakivi (mailto:priit.linnakivi@gmail.com)

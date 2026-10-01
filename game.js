@@ -480,21 +480,22 @@ let molarMassScore = 0;
 function loadMolarMassProblem() {
   const problem = molarMassProblems[currentMolarMassProblem];
   if (!problem) {
-    document.getElementById('molar-mass-result').innerHTML = '<strong>🎉 Kõik ülesanded on lahendatud!</strong><span>Tubli töö! Oled edukalt lahendanud kõik molaarmassi ja Avogadro arvu ülesanded.</span>';
+    document.getElementById('molar-mass-result').innerHTML = '<strong>🎉 All problems completed!</strong><span>Well done! You have solved all molar-mass and Avogadro number problems.</span>';
     document.getElementById('next-molar-mass-button').disabled = true;
     document.getElementById('check-molar-mass-button').disabled = true;
     return;
   }
 
   // Set description
-  document.getElementById('molar-mass-description').textContent = problem.description;
+  const problemCopy = currentLang === 'en' ? molarMassCopyEn[problem.id] : problem;
+  document.getElementById('molar-mass-description').textContent = problemCopy.description;
   
   // Set up calculation display based on problem type - show only necessary data
   const calculationDiv = document.getElementById('molecule-calculation');
   const molecule = molecules.find(m => m.id === problem.moleculeId);
   
   if (problem.type === 'molar-mass') {
-    let calculationHTML = '<div class="atom-mass-line"><strong>Aatomite massid:</strong></div>';
+    let calculationHTML = '<div class="atom-mass-line"><strong>Atomic masses:</strong></div>';
     molecule.atoms.forEach(atomSymbol => {
       const element = elements.find(e => e.symbol === atomSymbol);
       const count = molecule.atoms.filter(a => a === atomSymbol).length;
@@ -503,16 +504,16 @@ function loadMolarMassProblem() {
     calculationDiv.innerHTML = calculationHTML;
     document.getElementById('unit-label').textContent = 'g/mol';
   } else if (problem.type === 'molecules-in-moles') {
-    calculationDiv.innerHTML = `<div class="atom-mass-line"><strong>Andmed:</strong></div><div class="atom-mass-line">Moolide arv: ${problem.moles} mol</div><div class="atom-mass-line">Avogadro arv: ${AVOGADRO_NUMBER.toExponential(3)} molekuli/mol</div>`;
-    document.getElementById('unit-label').textContent = 'molekuli';
+    calculationDiv.innerHTML = `<div class="atom-mass-line"><strong>Given:</strong></div><div class="atom-mass-line">Amount: ${problem.moles} mol</div><div class="atom-mass-line">Avogadro number: ${AVOGADRO_NUMBER.toExponential(3)} molecules/mol</div>`;
+    document.getElementById('unit-label').textContent = 'molecules';
   } else if (problem.type === 'mass-in-moles') {
     const molarMass = calculateMolarMass(molecule.atoms);
-    calculationDiv.innerHTML = `<div class="atom-mass-line"><strong>Andmed:</strong></div><div class="atom-mass-line">Moolide arv: ${problem.moles} mol</div><div class="atom-mass-line">Molaarmass: ${molarMass} g/mol</div>`;
+    calculationDiv.innerHTML = `<div class="atom-mass-line"><strong>Given:</strong></div><div class="atom-mass-line">Amount: ${problem.moles} mol</div><div class="atom-mass-line">Molar mass: ${molarMass} g/mol</div>`;
     document.getElementById('unit-label').textContent = 'g';
   } else if (problem.type === 'molecules-in-mass') {
     const molarMass = calculateMolarMass(molecule.atoms);
-    calculationDiv.innerHTML = `<div class="atom-mass-line"><strong>Andmed:</strong></div><div class="atom-mass-line">Mass: ${problem.mass} g</div><div class="atom-mass-line">Molaarmass: ${molarMass} g/mol</div><div class="atom-mass-line">Avogadro arv: ${AVOGADRO_NUMBER.toExponential(3)} molekuli/mol</div>`;
-    document.getElementById('unit-label').textContent = 'molekuli';
+    calculationDiv.innerHTML = `<div class="atom-mass-line"><strong>Given:</strong></div><div class="atom-mass-line">Mass: ${problem.mass} g</div><div class="atom-mass-line">Molar mass: ${molarMass} g/mol</div><div class="atom-mass-line">Avogadro number: ${AVOGADRO_NUMBER.toExponential(3)} molecules/mol</div>`;
+    document.getElementById('unit-label').textContent = 'molecules';
   }
 
   // Reset input and result
@@ -533,7 +534,7 @@ function checkMolarMass() {
   const userAnswer = parseFloat(document.getElementById('molar-mass-input').value);
   
   if (isNaN(userAnswer)) {
-    document.getElementById('molar-mass-result').innerHTML = '<strong>✗ Vale</strong><span>Sisesta number.</span>';
+    document.getElementById('molar-mass-result').innerHTML = '<strong>✗ Incorrect</strong><span>Enter a number.</span>';
     document.getElementById('molar-mass-result').className = 'molar-mass-result error';
     return;
   }
@@ -543,7 +544,7 @@ function checkMolarMass() {
   const resultDiv = document.getElementById('molar-mass-result');
   
   if (isCorrect) {
-    resultDiv.innerHTML = `<strong>✓ Õige!</strong><span>${problem.explanation}</span>`;
+    resultDiv.innerHTML = `<strong>✓ Correct!</strong><span>${currentLang === 'en' ? molarMassCopyEn[problem.id].explanation : problem.explanation}</span>`;
     resultDiv.className = 'molar-mass-result success';
     molarMassScore++;
     document.getElementById('next-molar-mass-button').disabled = false;
@@ -554,11 +555,11 @@ function checkMolarMass() {
       showAvogadroAnimation(problem);
     }
     
-    showNotification('Vastus õige!', 'success');
+    showNotification('Correct answer!', 'success');
   } else {
-    resultDiv.innerHTML = '<strong>✗ Vale</strong><span>Proovi uuesti. Kasuta vihjet abiks.</span>';
+    resultDiv.innerHTML = '<strong>✗ Incorrect</strong><span>Try again. Use the hint to help.</span>';
     resultDiv.className = 'molar-mass-result error';
-    showNotification('Vale vastus, proovi uuesti!', 'error');
+    showNotification('Incorrect answer. Try again!', 'error');
   }
   
   document.getElementById('molar-mass-progress').textContent = `${molarMassScore} / ${molarMassProblems.length}`;
@@ -574,7 +575,7 @@ function showMolarMassHint() {
   if (!problem) return;
   
   const resultDiv = document.getElementById('molar-mass-result');
-  resultDiv.innerHTML = `<strong>💡 Vihje</strong><span>${problem.hint}</span>`;
+  resultDiv.innerHTML = `<strong>💡 ${t('hint')}</strong><span>${currentLang === 'en' ? molarMassCopyEn[problem.id].hint : problem.hint}</span>`;
   resultDiv.className = 'molar-mass-result';
 }
 
@@ -597,7 +598,7 @@ function showAvogadroAnimation(problem) {
         <div>→</div>
         <div>${(problem.mass / 18.015).toFixed(2)} mol = ⚛️</div>
         <div>→</div>
-        <div>${problem.expectedAnswer.toExponential(2)} molekuli = 🧬</div>
+        <div>${problem.expectedAnswer.toExponential(2)} molecules = 🧬</div>
       </div>
     `;
   }
@@ -608,7 +609,7 @@ function showAvogadroAnimation(problem) {
 function loadBalancingProblem() {
   const problem = balancingProblems[currentBalancingProblem];
   if (!problem) {
-    document.getElementById('balancing-result').innerHTML = '<strong>🎉 Kõik võrrandid on tasakaalustatud!</strong><span>Tubli töö! Oled edukalt tasakaalustanud kõik võrrandid.</span>';
+    document.getElementById('balancing-result').innerHTML = '<strong>🎉 All equations are balanced!</strong><span>Well done! You have balanced every equation.</span>';
     document.getElementById('next-equation-button').disabled = true;
     document.getElementById('check-equation-button').disabled = true;
     return;
@@ -664,16 +665,16 @@ function checkBalancing() {
   const resultDiv = document.getElementById('balancing-result');
   
   if (isCorrect) {
-    resultDiv.innerHTML = '<strong>✓ Õige!</strong><span>Võrrand on tasakaalustatud korrektselt.</span>';
+    resultDiv.innerHTML = '<strong>✓ Correct!</strong><span>The equation is balanced correctly.</span>';
     resultDiv.className = 'balancing-result success';
     balancingScore++;
     document.getElementById('next-equation-button').disabled = false;
     document.getElementById('check-equation-button').disabled = true;
-    showNotification('Võrrand tasakaalustatud!', 'success');
+    showNotification('Equation balanced!', 'success');
   } else {
-    resultDiv.innerHTML = '<strong>✗ Vale</strong><span>Proovi uuesti. Kordade arv peab olema õige.</span>';
+    resultDiv.innerHTML = '<strong>✗ Incorrect</strong><span>Try again. The coefficients must be correct.</span>';
     resultDiv.className = 'balancing-result error';
-    showNotification('Vale vastus, proovi uuesti!', 'error');
+    showNotification('Incorrect answer. Try again!', 'error');
   }
   
   document.getElementById('balancing-progress').textContent = `${balancingScore} / ${balancingProblems.length}`;
@@ -719,13 +720,13 @@ function updateGibbsEnergyDisplay() {
   if (!reaction.entropyChange) {
     // If no entropy data, just show ΔH and note that ΔS is unknown
     document.getElementById('delta-h-display').textContent = `${reaction.energyChange || 0} kJ/mol`;
-    document.getElementById('delta-s-display').textContent = 'Teadmata';
-    document.getElementById('delta-g-display').textContent = 'Teadmata';
+    document.getElementById('delta-s-display').textContent = 'Unknown';
+    document.getElementById('delta-g-display').textContent = 'Unknown';
     
     const statusDiv = document.getElementById('gibbs-status');
     const statusText = document.getElementById('gibbs-status-text');
     statusDiv.className = 'gibbs-status';
-    statusText.textContent = '⚠ ΔS andmed puuduvad';
+    statusText.textContent = '⚠ ΔS data unavailable';
     return;
   }
   
@@ -744,35 +745,35 @@ function updateGibbsEnergyDisplay() {
   
   if (conditions.minTemp && temperature < conditions.minTemp) {
     conditionsMet = false;
-    conditionMessage = `Temperatuur peab olema vähemalt ${conditions.minTemp}°C`;
+    conditionMessage = `Temperature must be at least ${conditions.minTemp}°C`;
   }
   if (conditions.maxTemp && temperature > conditions.maxTemp) {
     conditionsMet = false;
-    conditionMessage = `Temperatuur peab olema kuni ${conditions.maxTemp}°C`;
+    conditionMessage = `Temperature must be no higher than ${conditions.maxTemp}°C`;
   }
   if (conditions.minPressure && pressure < conditions.minPressure) {
     conditionsMet = false;
-    conditionMessage = `Rõhk peab olema vähemalt ${conditions.minPressure} atm`;
+    conditionMessage = `Pressure must be at least ${conditions.minPressure} atm`;
   }
   if (conditions.maxPressure && pressure > conditions.maxPressure) {
     conditionsMet = false;
-    conditionMessage = `Rõhk peab olema kuni ${conditions.maxPressure} atm`;
+    conditionMessage = `Pressure must be no higher than ${conditions.maxPressure} atm`;
   }
   // Only use exact pressure check if no min/max pressure is specified
   if (conditions.pressure && !conditions.minPressure && !conditions.maxPressure && Math.abs(pressure - conditions.pressure) > 50) {
     conditionsMet = false;
-    conditionMessage = `Rõhk peaks olema umbes ${conditions.pressure} atm`;
+    conditionMessage = `Pressure should be about ${conditions.pressure} atm`;
   }
   if (conditions.ph && Math.abs(ph - conditions.ph) > 1) {
     conditionsMet = false;
-    conditionMessage = `pH peaks olema umbes ${conditions.ph}`;
+    conditionMessage = `pH should be about ${conditions.ph}`;
   }
   if (conditions.catalyst) {
     // Catalyst presence check - for educational purposes, we assume catalyst is present if conditions are generally met
     // In a more advanced version, this could be a separate toggle
     if (conditions.catalyst === 'atp-synthase' && Math.abs(ph - 7.5) > 1) {
       conditionsMet = false;
-      conditionMessage = `Katalüsaator ${conditions.catalyst} töötab ainult pH 7.5 juures`;
+      conditionMessage = `The ${conditions.catalyst} catalyst works only at pH 7.5`;
     }
   }
   
@@ -783,7 +784,7 @@ function updateGibbsEnergyDisplay() {
     // For educational purposes, we check if pH is in optimal range (7.7-8.0 for matrix)
     if (ph < 7.5 || ph > 8.2) {
       conditionsMet = false;
-      conditionMessage = 'Prootonite gradient puudub (maatriks pH peaks olema 7.7-8.0)';
+      conditionMessage = 'The proton gradient is missing (matrix pH should be 7.7–8.0)';
     }
   }
   
@@ -793,7 +794,7 @@ function updateGibbsEnergyDisplay() {
     // For educational purposes, we assume light is available if temperature is reasonable (daytime condition)
     if (temperature < 15 || temperature > 40) {
       conditionsMet = false;
-      conditionMessage = 'Päikeseenergia puudub (temperatuur peaks olema 15-40°C)';
+      conditionMessage = 'Light energy is unavailable (temperature should be 15–40°C)';
     }
   }
   
@@ -813,13 +814,13 @@ function updateGibbsEnergyDisplay() {
     statusText.textContent = `✗ ${conditionMessage}`;
   } else if (deltaG < 0) {
     statusDiv.classList.add('spontaneous');
-    statusText.textContent = '✓ Reaktsioon toimub iseenesest';
+    statusText.textContent = '✓ The reaction is spontaneous';
   } else if (deltaG > 0) {
     statusDiv.classList.add('non-spontaneous');
-    statusText.textContent = '✗ Reaktsioon ei toimu';
+    statusText.textContent = '✗ The reaction is not spontaneous';
   } else {
     statusDiv.classList.add('equilibrium');
-    statusText.textContent = '⚖ Tasakaal';
+    statusText.textContent = '⚖ At equilibrium';
   }
 }
 
@@ -853,7 +854,7 @@ function showBalancingHint() {
   if (!problem) return;
   
   const resultDiv = document.getElementById('balancing-result');
-  resultDiv.innerHTML = `<strong>💡 Vihje</strong><span>${problem.hint}</span>`;
+  resultDiv.innerHTML = `<strong>💡 ${t('hint')}</strong><span>${currentLang === 'en' ? balancingHintsEn[problem.id] : problem.hint}</span>`;
   resultDiv.className = 'balancing-result';
 }
 
@@ -917,7 +918,7 @@ let timerInterval = null;
 let timeRemaining = 60;
 let tutorialShown = false;
 let actionHistory = [];
-let currentLang = 'et';
+let currentLang = 'en';
 let audioContext = null;
 let selectedReaction = reactions[0];
 let selectedForce = intermolecularForces[0];
@@ -959,6 +960,7 @@ const LEVEL_TASKS_KEY = 'chemistry-game-level-tasks';
 const translations = {
   et: {
     title: 'Molekulimeister',
+    pageTitle: 'Molecule Master – interactive chemistry learning game',
     formulaLabel: 'Sihtmolekuli valem',
     eyebrow: 'KEEMIA PUZZLE',
     points: 'punkti',
@@ -1021,6 +1023,25 @@ const translations = {
     supportLabel: 'Toetamise info',
     supportText: 'Kui soovid mind toetada, siis saab seda teha arveldusarvega:',
     contact: 'Kontakt:',
+    aboutKicker: 'KEEMIAÕPE',
+    aboutTitle: 'Mängust ja keemia põhimõistetest',
+    aboutIntro: 'Molekulimeister on interaktiivne keemiaõppe mäng. Mängija koostab aatomitest molekule ning uurib sidemeid, ioone, reaktsioone ja aine omadusi. Mäng on õppimise abivahend, mitte laboratoorse töö juhend ega keemiliste andmete asendusallikas.',
+    definitionMoleculeTerm: 'Molekul',
+    definitionMolecule: 'Molekul on elektriliselt neutraalne osake, mis koosneb kahest või enamast keemilise sidemega seotud aatomist.',
+    definitionBondTerm: 'Kovalentne side',
+    definitionBond: 'Kovalentne side on keemiline side, milles aatomid jagavad üht või mitut elektronpaari.',
+    definitionIonTerm: 'Ioon',
+    definitionIon: 'Ioon on elektrilaenguga aatom või aatomite rühm, mis on elektrone loovutanud või liitnud.',
+    definitionMolarMassTerm: 'Molaarmass',
+    definitionMolarMass: 'Molaarmass on aine mass ühe mooli kohta; tavapärane ühik on gramm mooli kohta (g/mol).',
+    definitionReactionTerm: 'Keemiline reaktsioon',
+    definitionReaction: 'Keemilises reaktsioonis muutuvad lähteainete aatomitevahelised sidemed ja tekivad saadused; aatomite arv igast elemendist säilib.',
+    sourcesTitle: 'Allikad ja kontakt',
+    sourcesIntro: 'Keemia mõistete ja aineandmete kontrollimiseks kasuta erialaseid algallikaid:',
+    sourceIupacDetail: '– keemia terminoloogia ja definitsioonid.',
+    sourcePubchemDetail: '– ainete, molekulide ja keemiliste omaduste andmebaas.',
+    sourceNistDetail: '– valitud ainete termokeemilised ja spektraalandmed.',
+    maintainerLabel: 'Mängu kontaktisik:',
     quantumSectionLabel: 'KVANTTASE',
     quantumSectionTitle: 'Elektronorbitaalid',
     quantumPrompt: 'Vali aatom, et näha selle orbitaale.',
@@ -1084,6 +1105,7 @@ const translations = {
   },
   en: {
     title: 'Molecule Master',
+    pageTitle: 'Molecule Master – interactive chemistry learning game',
     formulaLabel: 'Target molecule formula',
     eyebrow: 'CHEMISTRY PUZZLE',
     points: 'points',
@@ -1146,6 +1168,25 @@ const translations = {
     supportLabel: 'Support information',
     supportText: 'If you would like to support me, you can do so by bank transfer:',
     contact: 'Contact:',
+    aboutKicker: 'CHEMISTRY LEARNING',
+    aboutTitle: 'About the game and chemistry concepts',
+    aboutIntro: 'Molecule Master is an interactive chemistry learning game. Players build molecules from atoms and explore bonds, ions, reactions, and material properties. The game is a learning aid, not a laboratory procedure or a substitute for authoritative chemical data.',
+    definitionMoleculeTerm: 'Molecule',
+    definitionMolecule: 'A molecule is an electrically neutral entity made up of two or more atoms connected by chemical bonds.',
+    definitionBondTerm: 'Covalent bond',
+    definitionBond: 'A covalent bond is a chemical bond in which atoms share one or more pairs of electrons.',
+    definitionIonTerm: 'Ion',
+    definitionIon: 'An ion is an atom or group of atoms with a net electric charge, formed by losing or gaining electrons.',
+    definitionMolarMassTerm: 'Molar mass',
+    definitionMolarMass: 'Molar mass is the mass of one mole of a substance; a common unit is grams per mole (g/mol).',
+    definitionReactionTerm: 'Chemical reaction',
+    definitionReaction: 'In a chemical reaction, bonds between atoms in the reactants change and products form; the number of atoms of each element is conserved.',
+    sourcesTitle: 'Sources and contact',
+    sourcesIntro: 'For authoritative chemistry definitions and substance data, consult these specialist sources:',
+    sourceIupacDetail: '– chemistry terminology and definitions.',
+    sourcePubchemDetail: '– database of substances, molecules, and chemical properties.',
+    sourceNistDetail: '– thermochemical and spectral data for selected substances.',
+    maintainerLabel: 'Game contact:',
     quantumSectionLabel: 'QUANTUM LEVEL',
     quantumSectionTitle: 'Electron orbitals',
     quantumPrompt: 'Select an atom to view its orbitals.',
@@ -1202,7 +1243,7 @@ const translations = {
     tutorial: [
       'Welcome to Molecule Master!',
       'Select atoms below to add them.',
-      'Click two atoms to connecting them.',
+      'Click two atoms to connect them.',
       'Clicking the same pair again changes bond order.',
       'When ready, click "Check molecule".'
     ]
@@ -1210,7 +1251,20 @@ const translations = {
 };
 const elementNames = {
   et: { H:'vesinik', O:'hapnik', C:'süsinik', N:'lämmastik', Cl:'kloor', Na:'naatrium', S:'väävel', Mg:'magneesium', Ca:'kaltsium', Al:'alumiinium', F:'fluor', U:'uraan', Cs:'tseesium', Ra:'raadium', Pu:'plutoonium', I:'jood' },
-  en: { H:'hydrogen', O:'oxygen', C:'carbon', N:'nitrogen', Cl:'chlorine', Na:'sodium', S:'sulfur', Mg:'magnesium', Ca:'calcium', Al:'aluminium', F:'fluorine', U:'uranium', Cs:'cesium', Ra:'radium', Pu:'plutonium', I:'iodine' }
+  en: {
+    H:'hydrogen', He:'helium', Li:'lithium', Be:'beryllium', B:'boron', C:'carbon', N:'nitrogen', O:'oxygen', F:'fluorine', Ne:'neon',
+    Na:'sodium', Mg:'magnesium', Al:'aluminum', Si:'silicon', P:'phosphorus', S:'sulfur', Cl:'chlorine', Ar:'argon', K:'potassium', Ca:'calcium',
+    Sc:'scandium', Ti:'titanium', V:'vanadium', Cr:'chromium', Mn:'manganese', Fe:'iron', Co:'cobalt', Ni:'nickel', Cu:'copper', Zn:'zinc',
+    Ga:'gallium', Ge:'germanium', As:'arsenic', Se:'selenium', Br:'bromine', Kr:'krypton', Rb:'rubidium', Sr:'strontium', Y:'yttrium', Zr:'zirconium',
+    Nb:'niobium', Mo:'molybdenum', Tc:'technetium', Ru:'ruthenium', Rh:'rhodium', Pd:'palladium', Ag:'silver', Cd:'cadmium', In:'indium', Sn:'tin',
+    Sb:'antimony', Te:'tellurium', I:'iodine', Xe:'xenon', Cs:'cesium', Ba:'barium', La:'lanthanum', Ce:'cerium', Pr:'praseodymium', Nd:'neodymium',
+    Pm:'promethium', Sm:'samarium', Eu:'europium', Gd:'gadolinium', Tb:'terbium', Dy:'dysprosium', Ho:'holmium', Er:'erbium', Tm:'thulium', Yb:'ytterbium',
+    Lu:'lutetium', Hf:'hafnium', Ta:'tantalum', W:'tungsten', Re:'rhenium', Os:'osmium', Ir:'iridium', Pt:'platinum', Au:'gold', Hg:'mercury',
+    Tl:'thallium', Pb:'lead', Bi:'bismuth', Po:'polonium', At:'astatine', Rn:'radon', Fr:'francium', Ra:'radium', Ac:'actinium', Th:'thorium',
+    Pa:'protactinium', U:'uranium', Np:'neptunium', Pu:'plutonium', Am:'americium', Cm:'curium', Bk:'berkelium', Cf:'californium', Es:'einsteinium', Fm:'fermium',
+    Md:'mendelevium', No:'nobelium', Lr:'lawrencium', Rf:'rutherfordium', Db:'dubnium', Sg:'seaborgium', Bh:'bohrium', Hs:'hassium', Mt:'meitnerium', Ds:'darmstadtium',
+    Rg:'roentgenium', Cn:'copernicium', Nh:'nihonium', Fl:'flerovium', Mc:'moscovium', Lv:'livermorium', Ts:'tennessine', Og:'oganesson'
+  }
 };
 const moleculeText = {
   en: {
@@ -1234,7 +1288,11 @@ const moleculeText = {
     'uranium-dioxide': ['Uranium dioxide', 'A uranium compound used in nuclear fuel.'],
     'cesium-iodide': ['Cesium iodide', 'An ionic compound used in radioactive cesium studies.'],
     'radium-chloride': ['Radium chloride', 'An ionic compound of radium and chlorine.'],
-    'plutonium-dioxide': ['Plutonium dioxide', 'A well-known plutonium compound in nuclear technology.']
+    'plutonium-dioxide': ['Plutonium dioxide', 'A well-known plutonium compound in nuclear technology.'],
+    'magnesium-chloride': ['Magnesium chloride', 'An ionic salt of magnesium and chlorine.'],
+    'calcium-sulfate': ['Calcium sulfate', 'The main component of gypsum.'],
+    'sodium-nitrate': ['Sodium nitrate', 'An ionic salt containing nitrogen.'],
+    'sulfuric-acid': ['Sulfuric acid', 'A strong acid widely used in industry.']
   }
 };
 const moleculeFacts = {
@@ -1259,7 +1317,126 @@ const moleculeFacts = {
     'uranium-dioxide': 'Uranium dioxide is a common nuclear fuel compound.',
     'cesium-iodide': 'Cesium iodide forms an ionic crystal lattice.',
     'radium-chloride': 'Radium chloride is a historically known radium compound.',
-    'plutonium-dioxide': 'Plutonium dioxide is a stable ceramic compound.'
+    'plutonium-dioxide': 'Plutonium dioxide is a stable ceramic compound.',
+    'magnesium-chloride': 'Magnesium chloride is an ionic compound.',
+    'calcium-sulfate': 'Calcium sulfate occurs naturally as gypsum, among other forms.',
+    'sodium-nitrate': 'Sodium nitrate is used in fertilizers, among other applications.',
+    'sulfuric-acid': 'Sulfuric acid is one of the most important industrial chemicals.'
+  }
+};
+const moleculeGuidesEn = {
+  water: 'Oxygen has a −2 oxidation state and each hydrogen has +1; two covalent bonds form neutral water.',
+  'carbon-dioxide': 'Carbon is in the center, bonded to each oxygen by a double bond.',
+  methane: 'Carbon has a −4 charge in this model and each of the four hydrogen atoms has +1; the total charge is zero.',
+  ammonia: 'Nitrogen has an oxidation state of −3 and each hydrogen has +1; three single bonds form ammonia.',
+  hydrogen: 'The two hydrogen atoms share one bond.', oxygen: 'The two oxygen atoms are connected by a double bond.',
+  'hydrogen-chloride': 'Hydrogen has an oxidation state of +1 and chlorine −1; the H–Cl bond is covalent.',
+  'sodium-chloride': 'Sodium and chlorine form an ionic compound.',
+  'hydrogen-peroxide': 'The molecule has a central O–O bond, with a hydrogen attached at each end.',
+  'carbon-monoxide': 'Carbon and oxygen are connected by a triple bond.',
+  'sulfur-dioxide': 'Sulfur has an oxidation state of +4 and each oxygen −2; both oxygens are double-bonded to sulfur.',
+  'carbon-tetrachloride': 'Carbon has an oxidation state of +4 and each chlorine −1; all four bonds are covalent.',
+  ozone: 'One oxygen atom is in the center; one bond is single and the other is double in this model.',
+  'sodium-hydroxide': 'Sodium has an oxidation state of +1, oxygen −2, and hydrogen +1; Na–O is ionic and O–H is covalent.',
+  'magnesium-chloride': 'Mg²⁺ requires two Cl⁻ ions to balance its charge.',
+  'calcium-sulfate': 'The calcium ion balances the overall charge of the sulfate ion.',
+  'sodium-nitrate': 'The sodium ion balances the overall charge of the nitrate ion.',
+  'sulfuric-acid': 'The molecule contains two acidic hydrogen atoms and a sulfate center.',
+  'hydrogen-sulfide': 'Sulfur is in the center, with a single bond to each hydrogen atom.',
+  nitrogen: 'The two nitrogen atoms are connected by a triple bond.',
+  chlorine: 'The two chlorine atoms are connected by a single bond.',
+  'uranium-dioxide': 'Uranium is in the center, with a double bond to each oxygen in this model.',
+  'cesium-iodide': 'Cesium and iodine form a compound with oppositely charged ions.',
+  'radium-chloride': 'One radium ion bonds with two chloride ions.',
+  'plutonium-dioxide': 'Plutonium is in the center, with a double bond to each oxygen in this model.'
+};
+const moleculeForceAnalysisEn = {
+  water: 'Water is a polar molecule with strong hydrogen bonds between oxygen and hydrogen atoms. These bonds contribute to water’s high boiling point and surface tension.',
+  'carbon-dioxide': 'CO₂ is a nonpolar linear molecule. Its only intermolecular forces are weak London dispersion forces.',
+  methane: 'Methane is a nonpolar tetrahedral molecule. Its only intermolecular forces are London dispersion forces, so it is a gas at room temperature.',
+  ammonia: 'Ammonia is a polar trigonal pyramidal molecule with strong hydrogen bonding, which contributes to its relatively high boiling point.',
+  hydrogen: 'Hydrogen is a nonpolar diatomic molecule. Its only intermolecular forces are very weak London dispersion forces.',
+  oxygen: 'Oxygen is a nonpolar diatomic molecule. Its weak London dispersion forces keep it gaseous at room temperature.',
+  'hydrogen-chloride': 'HCl is a polar molecule with dipole–dipole forces. It is a gas at room temperature and condenses at low temperatures.',
+  'sodium-chloride': 'NaCl is an ionic compound with strong electrostatic attractions, so it is a solid at room temperature.',
+  'hydrogen-peroxide': 'Hydrogen peroxide is a polar molecule that forms hydrogen bonds. It is less stable than water and decomposes over time.',
+  'carbon-monoxide': 'CO is a polar molecule with dipole–dipole forces. It is a gas at room temperature and dissolves in water.',
+  'sulfur-dioxide': 'SO₂ is a bent polar molecule with dipole–dipole forces. It is a gas at room temperature and condenses readily.',
+  'carbon-tetrachloride': 'CCl₄ is a nonpolar tetrahedral molecule. Its London dispersion forces are strong enough for it to be a liquid at room temperature.',
+  ozone: 'Ozone is a bent polar molecule with dipole–dipole forces. It is a gas at room temperature and is more reactive than oxygen.',
+  'sodium-hydroxide': 'Sodium hydroxide is an ionic compound with strong attractions between Na⁺ and OH⁻ ions, so it is a solid.',
+  'magnesium-chloride': 'In magnesium chloride, one Mg²⁺ ion balances the charge of two Cl⁻ ions.',
+  'calcium-sulfate': 'Calcium sulfate is an ionic salt in which Ca²⁺ balances the charge of SO₄²⁻.',
+  'sodium-nitrate': 'Sodium nitrate consists of Na⁺ ions and NO₃⁻ nitrate ions.',
+  'sulfuric-acid': 'Sulfuric acid is a strong polar acid that releases H⁺ ions in solution.',
+  'hydrogen-sulfide': 'H₂S is a bent polar molecule with dipole–dipole forces. These are weaker than water’s hydrogen bonds, so H₂S is a gas at room temperature.',
+  nitrogen: 'Nitrogen is a nonpolar diatomic molecule with very weak London dispersion forces. It remains gaseous at low temperatures.',
+  chlorine: 'Chlorine is a nonpolar diatomic molecule. Its London dispersion forces are strong enough for chlorine to liquefy near room temperature.',
+  'uranium-dioxide': 'Uranium dioxide is a solid compound with significant ionic character; radioactive uranium isotopes can decay over time.',
+  'cesium-iodide': 'Cesium iodide is an ionic crystal. Radioactive cesium isotopes can undergo beta decay.',
+  'radium-chloride': 'Radium chloride is an ionic compound. Radium nuclei undergo alpha decay.',
+  'plutonium-dioxide': 'Plutonium dioxide is a strongly bound solid; plutonium isotopes undergo alpha decay.'
+};
+const challengeNamesEn = {
+  'salt-nacl': 'Sodium chloride', 'salt-mgcl2': 'Magnesium chloride', 'salt-alf3': 'Aluminum fluoride', 'salt-cao': 'Calcium oxide',
+  'base-naoh': 'Sodium hydroxide', 'base-caoh2': 'Calcium hydroxide',
+  'acid-hcl': 'Hydrochloric acid', 'acid-h2s': 'Hydrosulfuric acid', 'acid-hno3': 'Nitric acid'
+};
+const balancingHintsEn = {
+  'water-formation': 'Hydrogen and oxygen form water.',
+  'carbon-dioxide-formation': 'Carbon burns in oxygen to form CO₂.',
+  'methane-formation': 'Carbon and hydrogen form methane.',
+  'ammonia-formation': 'Nitrogen and hydrogen form ammonia.',
+  'sulfur-dioxide-formation': 'Sulfur burns in oxygen to form SO₂.',
+  'hydrogen-peroxide-formation': 'Hydrogen and oxygen form hydrogen peroxide.',
+  'iron-oxide-formation': 'Iron reacts with oxygen to form Fe₂O₃.',
+  'calcium-carbonate-formation': 'Calcium oxide and CO₂ form CaCO₃.',
+  'sulfuric-acid-formation': 'Sulfur trioxide and water form sulfuric acid.',
+  'combustion-methane': 'Methane burns completely to form CO₂ and H₂O.'
+};
+const molarMassCopyEn = {
+  'molar-mass-co2': {
+    description: 'Build a CO₂ molecule and calculate its molar mass.',
+    hint: 'Add the mass of carbon (12.01) to the masses of two oxygen atoms (2 × 16.00).',
+    explanation: 'CO₂ = 12.01 + 2 × 16.00 = 44.01 g/mol'
+  },
+  'molecules-in-moles': {
+    description: 'How many molecules are in 2 moles of CO₂?',
+    hint: 'Multiply the number of moles by Avogadro’s number: 2 × 6.022 × 10²³.',
+    explanation: '2 mol × 6.022 × 10²³ = 1.2044 × 10²⁴ molecules'
+  },
+  'mass-in-moles': {
+    description: 'What is the mass of 3 moles of H₂O?',
+    hint: 'Multiply the number of moles by the molar mass: 3 × 18.015 g/mol.',
+    explanation: '3 mol × 18.015 g/mol = 54.05 g'
+  },
+  'molecules-in-mass': {
+    description: 'How many H₂O molecules are in 10 grams of water?',
+    hint: 'Calculate the moles: 10 g ÷ 18.015 g/mol = 0.555 mol. Then multiply by Avogadro’s number.',
+    explanation: '10 g ÷ 18.015 g/mol = 0.555 mol × 6.022 × 10²³ = 3.34 × 10²³ molecules'
+  }
+};
+const intermolecularForceCopyEn = {
+  'dipole-dipole': {
+    name: 'Dipole–dipole forces',
+    description: 'Attractions between polar molecules. The positive end of one molecule attracts the negative end of another.',
+    example: 'In water (H₂O), oxygen is partially negative and hydrogen atoms are partially positive, so neighboring molecules orient their opposite ends toward each other.',
+    factors: 'Polarity, molecular shape, temperature',
+    comparison: 'Stronger than London dispersion forces, but weaker than hydrogen bonds'
+  },
+  'hydrogen-bonding': {
+    name: 'Hydrogen bonding',
+    description: 'A particularly strong dipole–dipole attraction when hydrogen is bonded to a highly electronegative atom (N, O, or F).',
+    example: 'In water, hydrogen atoms form attractions with oxygen atoms in neighboring molecules, contributing to water’s high boiling point.',
+    factors: 'Electronegativity, orientation, distance between molecules',
+    comparison: 'Stronger than ordinary dipole–dipole forces'
+  },
+  'london-dispersion': {
+    name: 'London dispersion forces',
+    description: 'Weak attractions caused by temporary dipoles arising from fluctuations in electron distribution. They occur in all molecules.',
+    example: 'In carbon dioxide (CO₂) and chlorine (Cl₂), these are the only intermolecular forces.',
+    factors: 'Molecular mass, shape, polarizability',
+    comparison: 'The weakest intermolecular forces, but present in all molecules'
   }
 };
 const $ = id => document.getElementById(id);
@@ -1270,6 +1447,39 @@ function getMoleculeText(molecule) {
 
 function getMoleculeFact(molecule) {
   return moleculeFacts[currentLang]?.[molecule.id] || molecule.fact || molecule.hint || '';
+}
+
+function getMoleculeGuide(molecule) {
+  return currentLang === 'en' ? moleculeGuidesEn[molecule.id] || getMoleculeFact(molecule) : molecule.guide || getMoleculeFact(molecule);
+}
+
+function getElementReactionCopy(element) {
+  if (element.group === 18) {
+    return { equation: 'No common reaction under standard conditions', detail: 'Noble gases have stable outer electron shells and are generally very unreactive.' };
+  }
+  if (element.symbol === 'H') {
+    return { equation: '2H₂ + O₂ → 2H₂O', detail: 'Hydrogen burns in oxygen to form water.' };
+  }
+  if (element.symbol === 'O' || element.symbol === 'C') {
+    return { equation: 'C + O₂ → CO₂', detail: element.symbol === 'O' ? 'Oxygen supports combustion; in this example, carbon is oxidized to carbon dioxide.' : 'Carbon burns in oxygen to form carbon dioxide.' };
+  }
+  if (element.group === 1) {
+    return { equation: `4${element.symbol} + O₂ → 2${element.symbol}₂O`, detail: 'A typical reaction of an alkali metal with oxygen; the product depends on the conditions.' };
+  }
+  if (element.group === 2) {
+    return { equation: `2${element.symbol} + O₂ → 2${element.symbol}O`, detail: 'An alkaline earth metal forms a typical metal oxide with oxygen.' };
+  }
+  if (element.group === 17) {
+    return { equation: `2Na + ${element.symbol}₂ → 2Na${element.symbol}`, detail: 'A halogen reacts with sodium to form an ionic halide.' };
+  }
+  if (element.radioactive) {
+    return { equation: `${element.symbol} → decay products`, detail: 'This element has no stable isotopes; this example highlights radioactive decay rather than a typical laboratory reaction.' };
+  }
+  return { equation: `${element.symbol} + O₂ → ${element.symbol}Oₙ`, detail: 'This generalized example shows oxide formation; the exact formula depends on the element’s oxidation state.' };
+}
+
+function getIntermolecularForceCopy(force) {
+  return currentLang === 'en' ? { ...force, ...intermolecularForceCopyEn[force.id] } : force;
 }
 
 function initAudio() {
@@ -1642,14 +1852,7 @@ function selectLevel(levelId) {
 }
 
 function loadLanguage() {
-  try {
-    const storedLang = localStorage.getItem(LANG_KEY);
-    if (storedLang && (storedLang === 'et' || storedLang === 'en')) {
-      currentLang = storedLang;
-    }
-  } catch (error) {
-    currentLang = 'et';
-  }
+  currentLang = 'en';
 }
 
 function saveLanguage() {
@@ -1713,13 +1916,13 @@ function renderReactionLab() {
 function renderElementReactionCards() {
   const query = elementReactionFilter.trim().toLocaleLowerCase();
   const visibleCards = elementReactionCards.filter(element =>
-    !query || `${element.symbol} ${element.name} ${element.atomicNumber}`.toLocaleLowerCase().includes(query)
+    !query || `${element.symbol} ${elementNames[currentLang][element.symbol] || element.name} ${element.atomicNumber}`.toLocaleLowerCase().includes(query)
   );
   $('element-reaction-grid').innerHTML = visibleCards.map(element => `
     <button class="element-reaction-card ${element.symbol === selectedElementReaction.symbol ? 'active' : ''}" data-symbol="${element.symbol}" type="button">
       <span class="element-reaction-number">${element.atomicNumber}</span>
       <strong>${element.symbol}</strong>
-      <small>${element.name}</small>
+      <small>${elementNames[currentLang][element.symbol] || element.name}</small>
     </button>
   `).join('');
   document.querySelectorAll('.element-reaction-card').forEach(button => button.addEventListener('click', () => {
@@ -1732,16 +1935,19 @@ function renderElementReactionCards() {
 
 function updateElementReactionDetail() {
   if (!selectedElementReaction) return;
-  $('element-reaction-equation').textContent = selectedElementReaction.equation;
-  $('element-reaction-detail').textContent = `${selectedElementReaction.name} (${selectedElementReaction.symbol}, Z=${selectedElementReaction.atomicNumber}): ${selectedElementReaction.detail}`;
+  const localized = currentLang === 'en' ? getElementReactionCopy(selectedElementReaction) : selectedElementReaction;
+  const name = elementNames[currentLang][selectedElementReaction.symbol] || selectedElementReaction.name;
+  $('element-reaction-equation').textContent = localized.equation;
+  $('element-reaction-detail').textContent = `${name} (${selectedElementReaction.symbol}, Z=${selectedElementReaction.atomicNumber}): ${localized.detail}`;
 }
 
 function renderForces() {
   $('forces-grid').innerHTML = intermolecularForces.map((force, index) => {
     const strengthClass = force.strength === 'strong' ? 'strong' : force.strength === 'medium' ? 'medium' : 'weak';
     const strengthText = t(force.strength);
+    const localizedForce = getIntermolecularForceCopy(force);
     return `<button class="force-card ${force.id === selectedForce.id ? 'active' : ''}" data-force-index="${index}" type="button">
-      <strong>${force.name}</strong>
+      <strong>${localizedForce.name}</strong>
       <span class="force-strength ${strengthClass}">${strengthText}</span>
     </button>`;
   }).join('');
@@ -1755,6 +1961,7 @@ function renderForces() {
 }
 
 function updateForcesUI() {
+  const localizedForce = getIntermolecularForceCopy(selectedForce);
   document.querySelectorAll('.force-card').forEach(button => {
     button.classList.toggle('active', Number(button.dataset.forceIndex) === intermolecularForces.indexOf(selectedForce));
   });
@@ -1763,18 +1970,18 @@ function updateForcesUI() {
   const strengthText = t(selectedForce.strength);
   
   $('forces-detail').innerHTML = `
-    <strong>${selectedForce.name}</strong>
-    <p>${selectedForce.description}</p>
-    <p><strong>${t('example')}:</strong> ${selectedForce.example}</p>
+    <strong>${localizedForce.name}</strong>
+    <p>${localizedForce.description}</p>
+    <p><strong>${t('example')}:</strong> ${localizedForce.example}</p>
     <div class="force-meta">
       <span><strong>${t('strength')}:</strong> <span class="force-strength ${strengthClass}">${strengthText}</span></span>
       <span><strong>${t('energyRange')}:</strong> ${selectedForce.energyRange}</span>
     </div>
     <div class="force-meta">
-      <span><strong>${t('factors')}:</strong> ${selectedForce.factors}</span>
+      <span><strong>${t('factors')}:</strong> ${localizedForce.factors}</span>
     </div>
     <div class="force-meta">
-      <span><strong>${t('comparison')}:</strong> ${selectedForce.comparison}</span>
+      <span><strong>${t('comparison')}:</strong> ${localizedForce.comparison}</span>
     </div>
   `;
 }
@@ -1789,7 +1996,7 @@ function updateMoleculeForcesInfo() {
 
   forcesDetail.hidden = false;
   const moleculeDisplay = getMoleculeText(target);
-  $('molecule-forces-title').textContent = `${target.name} — ${t('moleculeInfoTitle')}`;
+  $('molecule-forces-title').textContent = `${moleculeDisplay[0]} — ${t('moleculeInfoTitle')}`;
 
   const forceTags = target.intermolecularForces.map(forceId => {
     const force = intermolecularForces.find(f => f.id === forceId);
@@ -1810,7 +2017,7 @@ function updateMoleculeForcesInfo() {
     <p><strong>${target.formula}</strong></p>
     <p><strong>${t('hintLabel')}:</strong> ${moleculeDisplay[1]}</p>
     <p><strong>${t('factLabel')}:</strong> ${moleculeFact}</p>
-    <p>${target.forceAnalysis}</p>
+    <p>${currentLang === 'en' ? moleculeForceAnalysisEn[target.id] : target.forceAnalysis}</p>
     <div class="force-tags">${forceTags}</div>
     <div class="primary-force">
       <strong>${t('primaryForce')}:</strong> ${primaryForceName}
@@ -1914,10 +2121,9 @@ function updateLanguageUI() {
   const lang = translations[currentLang];
   const moleculeDisplay = getMoleculeText(target);
   document.documentElement.lang = currentLang;
-  document.title = lang.title;
+  document.title = lang.pageTitle;
   document.querySelector('.eyebrow').textContent = lang.eyebrow;
   document.querySelector('h1').textContent = lang.title;
-  $('lang-toggle').textContent = currentLang === 'et' ? '🌐 EN' : '🌐 ET';
   document.querySelector('.score-chip small').textContent = lang.points;
   document.querySelector('.score-chip.secondary small').textContent = lang.best;
   document.querySelector('.level-badge').innerHTML = `${lang.level} <span id="level">01</span>`;
@@ -1953,6 +2159,10 @@ function updateLanguageUI() {
   document.querySelector('.formula-card').setAttribute('aria-label', lang.formulaLabel);
   document.querySelector('.support-lead').textContent = lang.supportText;
   document.querySelector('.support-contact').textContent = lang.contact;
+  ['aboutKicker', 'aboutTitle', 'aboutIntro', 'definitionMoleculeTerm', 'definitionMolecule', 'definitionBondTerm', 'definitionBond', 'definitionIonTerm', 'definitionIon', 'definitionMolarMassTerm', 'definitionMolarMass', 'definitionReactionTerm', 'definitionReaction', 'sourcesTitle', 'sourcesIntro', 'sourceIupacDetail', 'sourcePubchemDetail', 'sourceNistDetail', 'maintainerLabel'].forEach(key => {
+    const element = $(`${key.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)}`);
+    if (element) element.textContent = lang[key];
+  });
   $('salt-mode-toggle').textContent = saltMode ? lang.saltModeClose : lang.saltModeStart;
   $('salt-mode-description').textContent = lang[`${buildMode}ModeDescription`] || lang.saltModeDescription;
   document.querySelectorAll('.build-mode-choice').forEach(button => button.classList.toggle('active', button.dataset.buildMode === buildMode));
@@ -2104,7 +2314,6 @@ function init() {
   $('timer-toggle').addEventListener('click', toggleTimer);
   $('3d-toggle').addEventListener('click', toggle3DView);
   $('molar-mass-button').addEventListener('click', showMolarMass);
-  $('lang-toggle').addEventListener('click', toggleLanguage);
   $('check-button').addEventListener('click', checkMolecule);
   $('restart-button').addEventListener('click', restartGame);
   $('run-reaction-button').addEventListener('click', runReaction);
@@ -2160,9 +2369,9 @@ function showTutorial() {
   
   showNextStep();
 }
-function selectTarget(id) { saltMode = false; $('salt-challenges').hidden = true; $('salt-mode-toggle').textContent = currentLang === 'et' ? 'Alusta' : 'Start'; stopDecayTimer(); radioactiveAtoms = []; target = molecules.find(molecule => molecule.id === id); atoms = []; bonds = []; selected = null; actionHistory = []; renderMoleculeList(); const moleculeDisplay = getMoleculeText(target); $('level').textContent = String(currentLevelId).padStart(2,'0'); $('target-name').textContent = moleculeDisplay[0]; $('target-formula').textContent = target.formula; $('target-hint').textContent = moleculeDisplay[1]; updateMoleculeForcesInfo(); render(); }
-function selectBuildMode(mode) { buildMode = mode; saltMode = true; $('salt-challenges').hidden = false; $('salt-mode-toggle').textContent = t('saltModeClose'); const challenges = buildChallenges[buildMode]; $('salt-challenges').innerHTML = challenges.map((challenge, index) => `<button class="salt-challenge ${index === 0 ? 'active' : ''}" data-index="${index}" type="button">${challenge.formula}</button>`).join(''); document.querySelectorAll('.salt-challenge').forEach(button => button.addEventListener('click', () => selectBuildChallenge(Number(button.dataset.index)))); updateLanguageUI(); selectBuildChallenge(0); }
-function selectBuildChallenge(index) { saltMode = true; stopDecayTimer(); radioactiveAtoms = []; target = buildChallenges[buildMode][index]; atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.salt-challenge').forEach((button, buttonIndex) => button.classList.toggle('active', buttonIndex === index)); $('level').textContent = `${buildMode === 'salt' ? 'S' : buildMode === 'base' ? 'B' : 'H'}${index + 1}`; $('target-name').textContent = target.name; $('target-formula').textContent = target.formula; $('target-hint').textContent = t(`${buildMode}ModePrompt`); updateMoleculeForcesInfo(); render(); }
+function selectTarget(id) { saltMode = false; $('salt-challenges').hidden = true; $('salt-mode-toggle').textContent = t('saltModeStart'); stopDecayTimer(); radioactiveAtoms = []; target = molecules.find(molecule => molecule.id === id); atoms = []; bonds = []; selected = null; actionHistory = []; renderMoleculeList(); const moleculeDisplay = getMoleculeText(target); $('level').textContent = String(currentLevelId).padStart(2,'0'); $('target-name').textContent = moleculeDisplay[0]; $('target-formula').textContent = target.formula; $('target-hint').textContent = moleculeDisplay[1]; updateMoleculeForcesInfo(); render(); }
+function selectBuildMode(mode) { buildMode = mode; saltMode = true; $('salt-challenges').hidden = false; $('salt-mode-toggle').textContent = t('saltModeClose'); const challenges = buildChallenges[buildMode]; $('salt-challenges').innerHTML = challenges.map((challenge, index) => `<button class="salt-challenge ${index === 0 ? 'active' : ''}" data-index="${index}" type="button">${challengeNamesEn[challenge.id] || challenge.name}</button>`).join(''); document.querySelectorAll('.salt-challenge').forEach(button => button.addEventListener('click', () => selectBuildChallenge(Number(button.dataset.index)))); updateLanguageUI(); selectBuildChallenge(0); }
+function selectBuildChallenge(index) { saltMode = true; stopDecayTimer(); radioactiveAtoms = []; target = buildChallenges[buildMode][index]; atoms = []; bonds = []; selected = null; actionHistory = []; document.querySelectorAll('.salt-challenge').forEach((button, buttonIndex) => button.classList.toggle('active', buttonIndex === index)); $('level').textContent = `${buildMode === 'salt' ? 'S' : buildMode === 'base' ? 'B' : 'A'}${index + 1}`; $('target-name').textContent = challengeNamesEn[target.id] || target.name; $('target-formula').textContent = target.formula; $('target-hint').textContent = t(`${buildMode}ModePrompt`); updateMoleculeForcesInfo(); render(); }
 function toggleSaltMode() { saltMode = !saltMode; $('salt-challenges').hidden = !saltMode; $('salt-mode-toggle').textContent = saltMode ? t('saltModeClose') : t('saltModeStart'); if (saltMode) selectBuildMode(buildMode); }
 function addAtom(symbol) {
   if (atoms.length >= 8) return toast(t('capacity'));
@@ -2193,7 +2402,7 @@ function addAtom(symbol) {
   }
 }
 function showHint() {
-  const hintText = getMoleculeText(target)[1];
+  const hintText = target.guide ? getMoleculeGuide(target) : t(`${buildMode}ModePrompt`);
   $('target-hint').textContent = `${t('hintPrefix')} ${hintText}`;
   toast(hintText);
 }
@@ -2285,7 +2494,7 @@ function restartGame() {
 function renderMoleculeList() {
   const level = getLevelConfig();
   const levelMolecules = getLevelMolecules(level);
-  $('molecule-list').innerHTML = levelMolecules.map(molecule => `<button class="molecule-item ${target?.id === molecule.id ? 'active' : ''} ${completedLevelTasks.has(getLevelTaskKey(level.id, molecule.id)) ? 'completed' : ''}" data-id="${molecule.id}" data-difficulty="${molecule.difficulty}" type="button"><span class="molecule-symbol">${molecule.formula}</span><span><strong>${molecule.name}</strong><small>${molecule.difficulty === 'easy' ? 'Lihtne' : molecule.difficulty === 'medium' ? 'Keskmine' : 'Raske'}</small></span></button>`).join('');
+  $('molecule-list').innerHTML = levelMolecules.map(molecule => `<button class="molecule-item ${target?.id === molecule.id ? 'active' : ''} ${completedLevelTasks.has(getLevelTaskKey(level.id, molecule.id)) ? 'completed' : ''}" data-id="${molecule.id}" data-difficulty="${molecule.difficulty}" type="button"><span class="molecule-symbol">${molecule.formula}</span><span><strong>${getMoleculeText(molecule)[0]}</strong><small>${molecule.difficulty === 1 ? t('easy') : molecule.difficulty === 2 ? t('medium') : t('hard')}</small></span></button>`).join('');
   document.querySelectorAll('.molecule-item').forEach(button => button.addEventListener('click', () => selectTarget(button.dataset.id)));
 }
 function render() {

@@ -3,20 +3,20 @@
 Console.OutputEncoding = Encoding.UTF8;
 var catalog = MoleculeCatalog.Create();
 
-Console.WriteLine("KEEMIA PUZZLE");
-Console.WriteLine("Koosta aatomitest tuntud molekule.\n");
+Console.WriteLine("CHEMISTRY PUZZLE");
+Console.WriteLine("Build familiar molecules from atoms.\n");
 
 while (true)
 {
-	Console.WriteLine("Vali sihtmolekul:");
+	Console.WriteLine("Choose a target molecule:");
 	for (var index = 0; index < catalog.Count; index++)
 	{
 		var molecule = catalog[index];
-		Console.WriteLine($"{index + 1}. {molecule.Name} ({molecule.Formula}) - raskus {molecule.Difficulty}");
+		Console.WriteLine($"{index + 1}. {molecule.Name} ({molecule.Formula}) - difficulty {molecule.Difficulty}");
 	}
 
-	Console.WriteLine("0. Välju");
-	Console.Write("Valik: ");
+	Console.WriteLine("0. Exit");
+	Console.Write("Choice: ");
 	var choice = Console.ReadLine();
 
 	if (choice == "0")
@@ -24,27 +24,27 @@ while (true)
 
 	if (!int.TryParse(choice, out var moleculeNumber) || moleculeNumber < 1 || moleculeNumber > catalog.Count)
 	{
-		Console.WriteLine("Palun sisesta menüüs olev number.\n");
+		Console.WriteLine("Please enter a number from the menu.\n");
 		continue;
 	}
 
 	PlayRound(catalog[moleculeNumber - 1]);
 }
 
-Console.WriteLine("Nägemist!");
+Console.WriteLine("Goodbye!");
 
 static void PlayRound(Molecule target)
 {
 	Console.Clear();
-	Console.WriteLine($"Koosta molekul: {target.Name}");
-	Console.WriteLine($"Vihje: {target.Hint}");
-	Console.WriteLine("Lubatud aatomid: H, C, O, N, Na, Cl, S");
-	Console.WriteLine("Lisa aatomeid ükshaaval. Tühi sisend lõpetab aatomite lisamise.\n");
+	Console.WriteLine($"Build a molecule: {target.Name}");
+	Console.WriteLine($"Hint: {target.Hint}");
+	Console.WriteLine("Available atoms: H, C, O, N, Na, Cl, S");
+	Console.WriteLine("Add atoms one at a time. Submit an empty line when you are done.\n");
 
 	var atoms = new List<string>();
 	while (true)
 	{
-		Console.Write($"Aatom {atoms.Count + 1}: ");
+		Console.Write($"Atom {atoms.Count + 1}: ");
 		var symbol = Console.ReadLine()?.Trim();
 		if (string.IsNullOrWhiteSpace(symbol))
 			break;
@@ -63,7 +63,7 @@ static void PlayRound(Molecule target)
 
 		if (!Elements.Symbols.Contains(normalizedSymbol))
 		{
-			Console.WriteLine("Seda aatomit selles prototüübis ei ole.");
+			Console.WriteLine("That atom is not available in this prototype.");
 			continue;
 		}
 
@@ -71,9 +71,9 @@ static void PlayRound(Molecule target)
 	}
 
 	var bonds = new List<Bond>();
-	Console.WriteLine("\nLisa sidemed kujul: esimese aatomi number, teise aatomi number, sideme järk.");
-	Console.WriteLine("Näide vee jaoks: 1 2 1 ja 1 3 1. Tühi sisend lõpetab.\n");
-	Console.WriteLine($"Sinu aatomid: {string.Join(", ", atoms.Select((atom, index) => $"{index + 1}:{atom}"))}");
+	Console.WriteLine("\nAdd bonds as: first atom number, second atom number, bond order.");
+	Console.WriteLine("Water example: 1 2 1 and 1 3 1. Submit an empty line when you are done.\n");
+	Console.WriteLine($"Your atoms: {string.Join(", ", atoms.Select((atom, index) => $"{index + 1}:{atom}"))}");
 
 	while (true)
 	{
@@ -90,27 +90,27 @@ static void PlayRound(Molecule target)
 			first < 1 || second < 1 || first > atoms.Count || second > atoms.Count ||
 			first == second || order < 1 || order > 3)
 		{
-			Console.WriteLine("Vigane side. Kasuta näiteks: 1 2 1");
+			Console.WriteLine("Invalid bond. Use a format such as: 1 2 1");
 			continue;
 		}
 
 		bonds.Add(new Bond(first - 1, second - 1, order));
 	}
 
-	var playerMolecule = new Molecule("player", "Sinu molekul", "", 0, atoms, bonds, "", "");
+	var playerMolecule = new Molecule("player", "Your molecule", "", 0, atoms, bonds, "", "");
 	Console.WriteLine();
 	if (MoleculeMatcher.IsMatch(playerMolecule, target))
 	{
-		Console.WriteLine($"Õige! Moodustasid {target.Name} ({target.Formula}).");
+		Console.WriteLine($"Correct! You built {target.Name} ({target.Formula}).");
 		Console.WriteLine(target.Fact);
 	}
 	else
 	{
-		Console.WriteLine("Veel mitte. Kontrolli aatomite arvu ja sidemete tüüpe.");
-		Console.WriteLine($"Oodatud valem: {target.Formula}");
+		Console.WriteLine("Not quite. Check the number of atoms and the bond types.");
+		Console.WriteLine($"Expected formula: {target.Formula}");
 	}
 
-	Console.WriteLine("\nVajuta Enter, et menüüsse tagasi minna.");
+	Console.WriteLine("\nPress Enter to return to the menu.");
 	Console.ReadLine();
 }
 
@@ -147,76 +147,76 @@ static class MoleculeCatalog
 {
 	public static List<Molecule> Create() =>
 	[
-		new("water", "Vesi", "H2O", 1,
+		new("water", "Water", "H2O", 1,
 			["O", "H", "H"],
 			[new(0, 1, 1), new(0, 2, 1)],
-			"Seda leidub joogivees.",
-			"Vee keemiline valem on H2O."),
-		new("carbon-dioxide", "Süsinikdioksiid", "CO2", 2,
+			"It is found in drinking water.",
+			"The chemical formula for water is H2O."),
+		new("carbon-dioxide", "Carbon dioxide", "CO2", 2,
 			["C", "O", "O"],
 			[new(0, 1, 2), new(0, 2, 2)],
-			"Seda eraldub väljahingamisel.",
-			"Süsinikdioksiid on taimede fotosünteesi lähteaine."),
-		new("methane", "Metaan", "CH4", 2,
+			"It is released when we exhale.",
+			"Carbon dioxide is a reactant in photosynthesis."),
+		new("methane", "Methane", "CH4", 2,
 			["C", "H", "H", "H", "H"],
 			[new(0, 1, 1), new(0, 2, 1), new(0, 3, 1), new(0, 4, 1)],
-			"See on maagaasi peamine koostisosa.",
-			"Metaan on kõige lihtsam alkaan."),
-		new("ammonia", "Ammoniaak", "NH3", 2,
+			"It is the main component of natural gas.",
+			"Methane is the simplest alkane."),
+		new("ammonia", "Ammonia", "NH3", 2,
 			["N", "H", "H", "H"],
 			[new(0, 1, 1), new(0, 2, 1), new(0, 3, 1)],
-			"Sellel on terav iseloomulik lõhn.",
-			"Ammoniaaki kasutatakse muu hulgas väetiste tootmisel."),
-		new("hydrogen", "Vesinik", "H2", 1,
+			"It has a sharp, characteristic smell.",
+			"Ammonia is used in the production of fertilizers."),
+		new("hydrogen", "Hydrogen", "H2", 1,
 			["H", "H"],
 			[new(0, 1, 1)],
-			"See on lihtsaim ja kõige levinum element universumis.",
-			"Vesinik on väga kerge gaas ja oluline energiaallikas."),
-		new("oxygen", "Hapnik", "O2", 1,
+			"It is the simplest and most abundant element in the universe.",
+			"Hydrogen is a very light gas and an important energy source."),
+		new("oxygen", "Oxygen", "O2", 1,
 			["O", "O"],
 			[new(0, 1, 2)],
-			"See on elu jaoks üks olulisemaid gaase.",
-			"Hapnik on vajalik hingamiseks ja metaboolses protsessis."),
-		new("hydrogen-chloride", "Vesinikkloriidhape", "HCl", 1,
+			"It is one of the most important gases for life.",
+			"Oxygen is essential for breathing and metabolism."),
+		new("hydrogen-chloride", "Hydrogen chloride", "HCl", 1,
 			["H", "Cl"],
 			[new(0, 1, 1)],
-			"See aine tekib hapniku ja vesiniku vahelisel sidemel.",
-			"HCl on tugev hape, mis lahustub vees soolhappeks."),
-		new("sodium-chloride", "Naatriumkloriid", "NaCl", 1,
+			"Hydrogen chloride dissolves in water to form hydrochloric acid.",
+			"Hydrochloric acid is a strong acid in aqueous solution."),
+		new("sodium-chloride", "Sodium chloride", "NaCl", 1,
 			["Na", "Cl"],
 			[new(0, 1, 1)],
-			"Seda tuntakse lauasoola nime all.",
-			"NaCl on ioniline ühend, millel on kristalliline struktuur."),
-		new("hydrogen-peroxide", "Vesinikperoksiid", "H2O2", 3,
+			"It is commonly known as table salt.",
+			"NaCl is an ionic compound with a crystalline structure."),
+		new("hydrogen-peroxide", "Hydrogen peroxide", "H2O2", 3,
 			["H", "O", "O", "H"],
 			[new(0, 1, 1), new(1, 2, 1), new(2, 3, 1)],
-			"Seda kasutatakse desinfitseerimiseks ja pleegitamiseks.",
-			"Vesinikperoksiid laguneb valges valguse toimel."),
-		new("carbon-monoxide", "Süsinikmonooksiid", "CO", 2,
+			"It is used for disinfection and bleaching.",
+			"Hydrogen peroxide decomposes when exposed to light."),
+		new("carbon-monoxide", "Carbon monoxide", "CO", 2,
 			["C", "O"],
 			[new(0, 1, 3)],
-			"See gaas on mürgine ja värvitu.",
-			"CO tekib mittetäieliku põlemise käigus ja sidemete järk on kolm."),
-		new("sulfur-dioxide", "Sulfadioksiid", "SO2", 3,
+			"This gas is poisonous and colorless.",
+			"CO forms during incomplete combustion and has a triple bond."),
+		new("sulfur-dioxide", "Sulfur dioxide", "SO2", 3,
 			["S", "O", "O"],
 			[new(0, 1, 2), new(0, 2, 2)],
-			"Seda tekib põlemisproduktina ja tööstusprotsessides.",
-			"Süsinik iseloomustab hästi õhusaaste ja happevihma tekke."),
-		new("carbon-tetrachloride", "Süsiniktetrakloriid", "CCl4", 3,
+			"It is produced by combustion and in industrial processes.",
+			"Sulfur dioxide contributes to air pollution and acid rain."),
+		new("carbon-tetrachloride", "Carbon tetrachloride", "CCl4", 3,
 			["C", "Cl", "Cl", "Cl", "Cl"],
 			[new(0, 1, 1), new(0, 2, 1), new(0, 3, 1), new(0, 4, 1)],
-			"See ühend on küllaltki raske ja teatavasti madala reaktiivsusega.",
-			"CCl4 on näiteks halogeenitud alkaan, mille struktuur on tetraeedriline."),
-		new("ozone", "Osoon", "O3", 3,
+			"This compound is relatively heavy and has low reactivity.",
+			"CCl4 is a halogenated compound with a tetrahedral structure."),
+		new("ozone", "Ozone", "O3", 3,
 			["O", "O", "O"],
 			[new(0, 1, 1), new(1, 2, 2)],
-			"Osoon kaitseb Maad UV-kiirguse eest.",
-			"Osoon on troposfääris reostaja, aga stratosfääris väga oluline."),
-		new("sodium-hydroxide", "Naatriumhüdroksiid", "NaOH", 2,
+			"Ozone protects Earth from ultraviolet radiation.",
+			"Ozone is a pollutant in the troposphere but plays an important role in the stratosphere."),
+		new("sodium-hydroxide", "Sodium hydroxide", "NaOH", 2,
 			["Na", "O", "H"],
 			[new(0, 1, 1), new(1, 2, 1)],
-			"Seda kasutatakse seebitootmises ja puhastuses.",
-			"NaOH on tugev alus ja võib hästi lahustuda vees.")
+			"It is used in soapmaking and cleaning products.",
+			"NaOH is a strong base and dissolves readily in water.")
 	];
 }
 

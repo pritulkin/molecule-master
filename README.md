@@ -1,114 +1,77 @@
-# ChemistryGame
+# Chemistry Game
 
-See on väikese keemia-puzzle mängu kogumik, mille eesmärk on aidata mängijal õppida põhimolekulide ehitust, valemeid ja sidemeid. Projekt sisaldab nii terminalipõhist C# versiooni kui ka mobiilset graafilist prototüüpi, mis on mõeldud kiireks ja lihtsaks mänguks internetibrauseris.
+An educational chemistry puzzle game for learning about molecular structures, formulas, and bonds. The project includes a C# console version and a browser-based graphical game.
 
-## Mis selles mängus toimub?
+## Gameplay
 
-Mängija valib sihtmolekuli, lisab selleks vajalikke aatomeid ja koostab neile õiged keemilised sidemed. Kui valem ja sidemed sobivad, näeb mängija õiget lahendust ja mõne põneva faktiga täiendatud vihjet.
+Choose a target molecule, add its atoms, and connect them with the correct chemical bonds. When the formula and bonds match, the game confirms the solution and provides a hint with an additional fact.
 
-## Projektide ülevaade
+## Project overview
 
-- C# versioon: terminalimäng `Program.cs` failis
-- Graafiline versioon: `index.html`, `styles.css`, `game.js`
-- Molekulikataloog: olemas üksikutes mängufailides, kus on erinevad tasemed ja tegelikud aatomistringid
+- C# console game: `Program.cs`
+- Browser game: `index.html`, `styles.css`, and `game.js`
+- Molecule data and learning levels are defined in the game source files.
 
-## Kuidas mängu käivitada
+## Run the game
 
-### C# versioon
+### C# version
 
 ```powershell
 dotnet run
 ```
 
-### Graafiline veebiversioon
+### Browser version
 
-1. ava kaustas olev `index.html` brauseris;
-2. või käivita lokaalne server näiteks järgmiselt:
+1. Open `index.html` in a browser, or start a local server:
 
 ```powershell
 python -m http.server 8000
 ```
 
-3. ava siis veebibrauseris aadress `http://localhost:8000`.
+2. Open `http://localhost:8000` in your browser.
 
-## Mängu reeglid
+## How to play
 
-1. Vali tasemel soovitud molekul.
-2. Lisa vajalikud aatomid.
-3. Ühenda aatomid järjestikuste klikidega.
-4. Vajuta "Kontrolli molekuli".
-5. Kui kõik aatomid ja sidemed on õigesti paika pandud, võidad taseme.
+1. Choose a molecule from the current level.
+2. Add the required atoms.
+3. Click two atoms in sequence to connect them.
+4. Select **Check molecule**.
+5. Complete the level by matching all atoms and bonds.
 
-## Õppetasemed
+## Learning levels
 
-Graafiline mäng kasutab `LevelConfig` konfiguratsiooni, kus iga tase avatakse eelmise taseme läbimisel. Tasemed liiguvad kontseptsioonide kaupa:
+The browser game uses a `LevelConfig` configuration. Each level unlocks after completing all tasks in the previous level. Topics progress through atoms and simple molecules, ions and compounds, molecular shape and intermolecular forces, coordination compounds, radioactive elements, molar mass, and equation balancing.
 
-1. aatomid ja lihtmolekulid;
-2. ioonid ja soolad;
-3. happed ja alused;
-4. polaarsus ja molekulidevahelised jõud;
-5. reaktsioonilabor ehk energia ja kineetika;
-6. kvanttase ehk orbitaalid ja valentselektronid.
+Level progress is saved in the browser's `localStorage` under `chemistry-game-level-tasks`.
 
-Iga taseme ülesannete edenemine salvestatakse brauseri `localStorage`-isse võtmega `chemistry-game-level-tasks`, mistõttu järgmine tase avaneb alles pärast eelneva kõigi ülesannete lahendamist.
+### Ions, bases, and acids
 
-### Ioonide, aluste ja hapete režiimid
+- Choose an atom's charge before adding it: neutral, positive, or negative.
+- Ions with opposite charges connect automatically with an ionic bond.
+- Validation checks atom charges, requires a total charge of zero, and compares the charges with the target compound.
+- The **Build a salt** mode includes NaCl, MgCl₂, AlF₃, and CaO.
+- The **Build a base** mode includes NaOH and Ca(OH)₂.
+- The **Build an acid** mode includes HCl, H₂S, and HNO₃.
 
-- Enne aatomi lisamist vali selle laeng: neutraalne, positiivne või negatiivne.
-- Vastasmärgiga ioonide ühendamisel tekib automaatselt sinine ioonne side.
-- Kontroll arvestab aatomite laenguid, kogulaeng peab olema null ja sihtühendi laengud peavad sobima.
-- Jaotises "Ehita sool" saab harjutada NaCl, MgCl₂, AlF₃ ja CaO tasakaalustamist.
-- Jaotises "Ehita alus" saab harjutada NaOH ja Ca(OH)₂ ehitamist.
-- Jaotises "Ehita hape" saab harjutada HCl, H₂S ja HNO₃ ehitamist.
+## Molecules and elements
 
-## Praegused molekulid
+Examples include water (H₂O), carbon dioxide (CO₂), methane (CH₄), ammonia (NH₃), hydrogen (H₂), oxygen (O₂), hydrogen chloride (HCl), and hydrogen peroxide (H₂O₂).
 
-Mängus on välja pakutud järgmised näited:
+The browser game includes all 118 elements. Search by symbol, name, or atomic number to view a representative reaction or an explanation when no common reaction occurs under standard conditions.
 
-- vesi (H₂O)
-- süsinikdioksiid (CO₂)
-- metaan (CH₄)
-- ammoniaak (NH₃)
-- vesinik (H₂)
-- hapnik (O₂)
-- vesinikkloriidhape (HCl)
-- vesinikperoksiid (H₂O₂)
+## C# console input
 
-Graafilises veebiversioonis on nüüd kõik 118 elementi. Elementide all kuvatakse eraldi
-õppevaade, kus saab otsida sümboli, nime või aatomnumbri järgi ning vaadata iga elemendi
-representatiivset reaktsiooni või selgitust, kui tavatingimustes levinud reaktsiooni ei ole.
+Enter atoms one at a time, then enter bonds in the format `first-atom second-atom bond-order`.
 
-## Sisestusvorm C# versioonis
+- Water: `1 2 1` and `1 3 1`
+- Carbon dioxide: `1 2 2` and `1 3 2`
 
-Terminali versioonis tuleb sisestada:
+Submit an empty line to finish entering atoms or bonds.
 
-1. aatomid ükshaaval;
-2. sidemed kujul `esimene-aatom teine-aatom sideme-järk`;
-3. väärtuslikud näited:
-   - vesi: `1 2 1` ja `1 3 1`;
-   - süsinikdioksiid: `1 2 2` ja `1 3 2`.
+## Learning references
 
-Tühi rida lõpetab aatomite või sidemete lisamise.
+- [IUPAC Gold Book](https://goldbook.iupac.org/)
+- [PubChem](https://pubchem.ncbi.nlm.nih.gov/)
+- [NIST Chemistry WebBook](https://webbook.nist.gov/chemistry/)
 
-## Miks see projekt on kasulik?
-
-Projekt sobib hästi:
-
-- keemia põhimõistete õppimiseks;
-- C# ja JavaScripti harjutamiseks;
-- lihtsa mängu prototüübi arendamiseks;
-- uusi tasemeid ja molekule lisades omandatud oskuste suurendamiseks.
-
-## Tulevased täiustused
-
-Mängu saab veel laiemaks teha:
-
-- rohkem molekule ja tasemeid;
-- punktisüsteem ja rekordihoid;
-- õpetavad vihjed ja raskusastmed;
-- animatsioonid ja puuteefektid;
-- täiustatud arvutused sidemete ja valemite kontrollimiseks.
-
-## Litsents
-
-See projekt on mõeldud õpetuslikuks ja prototüüpsuseks ning saab vabalt edasi arendada.
+This project is an educational prototype, not a laboratory procedure or a substitute for authoritative chemical data.
